@@ -1,0 +1,18 @@
+system_prompt: "./prompts/system.txt"
+
+models:
+  - name: "Gemma 4 E4B (Local)"
+    type: local
+    hf_repo: "unsloth/gemma-4-E4B-it-GGUF:Q4_0"
+    port: 8082
+  - name: "Gemma 4 E2B (Local)"
+    type: local
+    hf_repo: "unsloth/gemma-4-E2B-it-GGUF:Q4_0"
+    port: 8082
+
+judge:
+  name: "Juez"
+  type: local
+  hf_repo: "unsloth/gemma-4-E4B-it-GGUF:Q4_0"
+  port: 8083
+  temperature: 0.1
