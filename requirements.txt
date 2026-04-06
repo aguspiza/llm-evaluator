@@ -1,0 +1,5 @@
+httpx
+pyyaml
+typer
+rich
+python-dotenv

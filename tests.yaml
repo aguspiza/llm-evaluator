@@ -1,0 +1,25 @@
+tests:
+  - id: logic_01
+    category: razonamiento_logico
+    prompt_file: "./prompts/tests/logic_01.txt"
+    evaluation_file: "./prompts/evaluations/logic_01.txt"
+
+  - id: instruction_01
+    category: seguimiento_instrucciones
+    prompt_file: "./prompts/tests/instruction_01.txt"
+    evaluation_file: "./prompts/evaluations/instruction_01.txt"
+
+  - id: comprehension_01
+    category: comprension_y_resumen
+    prompt_file: "./prompts/tests/comprehension_01.txt"
+    evaluation_file: "./prompts/evaluations/comprehension_01.txt"
+
+  - id: code_01
+    category: generacion_codigo
+    prompt_file: "./prompts/tests/code_01.txt"
+    evaluation_file: "./prompts/evaluations/code_01.txt"
+
+  - id: date_01
+    category: conocimiento_temporal
+    prompt_file: "./prompts/tests/date_01.txt"
+    evaluation_file: "./prompts/evaluations/date_01.txt"
