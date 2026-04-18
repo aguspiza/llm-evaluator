@@ -3,3 +3,4 @@ pyyaml
 typer
 rich
 python-dotenv
+anthropic

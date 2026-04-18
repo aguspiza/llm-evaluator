@@ -74,6 +74,9 @@ def start_server(server_mgr, model_config):
 
 def get_judge_client(server_mgr, judge_config, model_clients):
     """Get judge client, reusing an existing server if same hf_repo."""
+    if judge_config.get("provider") == "anthropic":
+        return None
+
     jtype = judge_config.get("type", "openrouter")
 
     if jtype in ("local", "remote"):

@@ -16,7 +16,6 @@ models:
 
 judge:
   name: "Juez"
-  type: local
-  hf_repo: "unsloth/gemma-4-E4B-it-GGUF:Q4_0"
-  port: 8083
+  provider: anthropic
+  model: "claude-sonnet-4-6"
   temperature: 0.1
