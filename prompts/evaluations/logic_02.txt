@@ -1,0 +1,1 @@
+Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.

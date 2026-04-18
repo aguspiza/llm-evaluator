@@ -4,6 +4,16 @@ tests:
     prompt_file: "./prompts/tests/logic_01.txt"
     evaluation_file: "./prompts/evaluations/logic_01.txt"
 
+  - id: logic_02
+    category: razonamiento_logico
+    prompt_file: "./prompts/tests/logic_02.txt"
+    evaluation_file: "./prompts/evaluations/logic_02.txt"
+
+  - id: logic_03
+    category: razonamiento_logico
+    prompt_file: "./prompts/tests/logic_03.txt"
+    evaluation_file: "./prompts/evaluations/logic_03.txt"
+
   - id: instruction_01
     category: seguimiento_instrucciones
     prompt_file: "./prompts/tests/instruction_01.txt"
