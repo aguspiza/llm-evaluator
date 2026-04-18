@@ -9,6 +9,10 @@ models:
     type: local
     hf_repo: "unsloth/gemma-4-E2B-it-GGUF:Q4_0"
     port: 8082
+  - name: "SuperGemma4 E4B Abliterated (Local)"
+    type: local
+    hf_repo: "Abiray/supergemma4-e4b-abliterated-GGUF:Q4_K_M"
+    port: 8082
 
 judge:
   name: "Juez"
