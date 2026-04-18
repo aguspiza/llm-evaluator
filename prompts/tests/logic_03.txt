@@ -1,0 +1,6 @@
+Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:
+- López nunca ha estudiado derecho ni ingeniería.
+- García se graduó en la misma universidad que el médico.
+- Martínez no es abogado.
+
+¿Cuál es la profesión de cada uno? Explica tu razonamiento.

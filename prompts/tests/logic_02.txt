@@ -1,0 +1,6 @@
+En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:
+- Ana llegó antes que Bruno.
+- Carlos llegó después de Diana pero antes de Elena.
+- Bruno llegó antes que Diana.
+
+¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.
