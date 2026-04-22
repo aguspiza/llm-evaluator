@@ -13,6 +13,11 @@ models:
     type: local
     hf_repo: "Abiray/supergemma4-e4b-abliterated-GGUF:Q4_K_M"
     port: 8082
+  - name: "Qwopus-GLM-18B (Local)"
+    type: local
+    hf_repo: "Jackrong/Qwopus-GLM-18B-Merged-GGUF:Q4_K_M"
+    port: 8082
+    temperature: 0.7
 
 judge:
   name: "Juez"
