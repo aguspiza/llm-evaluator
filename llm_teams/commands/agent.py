@@ -2,14 +2,15 @@
 
 The harness calls these commands to:
   - Send a message to the human (notify)
-  - Ask the human a question and wait for their reply (ask-human)
+  - Ask the human a question and block until they reply (ask-human)
+  - Listen for ANY incoming message, yielding JSON events (listen)
   - Export the session for the harness context (session-export)
 
 All commands:
   - Exit 0 on success
   - Exit 1 on error / timeout / cancelled
   - Support --json for machine-readable stdout
-  - Block until the human responds (ask-human, confirm)
+  - Block until the human responds (ask-human, confirm, listen --count 1)
 """
 import json
 import sys
@@ -273,6 +274,181 @@ def session_export(
     else:
         import rich
         rich.print_json(json.dumps(data))
+
+
+# ------------------------------------------------------------------ #
+# listen — subscribe to incoming messages, emit JSON events to stdout
+# ------------------------------------------------------------------ #
+
+@app.command()
+def listen(
+    team_id: Annotated[Optional[str], typer.Option("--team-id")] = None,
+    channel_id: Annotated[Optional[str], typer.Option("--channel-id")] = None,
+    chat_id: Annotated[Optional[str], typer.Option("--chat-id")] = None,
+    poll_interval: Annotated[int, typer.Option("--poll-interval",
+        help="Seconds between delta polls")] = None,
+    count: Annotated[int, typer.Option("--count", "-n",
+        help="Stop after receiving N messages (0 = run forever)")] = 0,
+    skip_self: Annotated[bool, typer.Option("--skip-self / --no-skip-self",
+        help="Ignore messages sent by the authenticated bot user")] = True,
+    push: Annotated[bool, typer.Option("--push",
+        help="Use Graph change notifications (requires ngrok or --notification-url)")] = False,
+    notification_url: Annotated[Optional[str], typer.Option("--notification-url")] = None,
+    timeout: Annotated[int, typer.Option("--timeout", "-t",
+        help="Overall timeout in seconds (0 = no timeout)")] = 0,
+):
+    """Subscribe to a Teams channel/chat and emit one JSON line per incoming message.
+
+    Designed for the agent harness to consume via stdout pipe:
+
+        python teams.py agent listen --count 1 | head -1 | python harness.py
+
+    Modes:
+      Default: delta polling (no infra required, slightly delayed by poll_interval).
+      --push:  Graph change notifications via ngrok (near real-time).
+
+    Output format (one line per message):
+        {"event": "message", "id": "...", "sender": "...", "text": "...",
+         "created": "...", "raw": {...}}
+
+    Exit codes:
+      0 — received `count` messages and stopped cleanly
+      1 — timeout before receiving any message
+    """
+    from llm_teams.graph import delta_event_stream, extract_text
+
+    cfg = cfg_mod.load()
+    t_id = team_id or cfg.get("teams_team_id")
+    c_id = channel_id or cfg.get("teams_channel_id")
+    ch_id = chat_id or cfg.get("teams_chat_id")
+
+    if not ch_id and not (t_id and c_id):
+        console.print(
+            "[red]No destination.[/] Set teams_team_id + teams_channel_id or teams_chat_id "
+            f"in {cfg_mod.config_path()} or via env vars."
+        )
+        raise typer.Exit(1)
+
+    interval = poll_interval or int(cfg.get("poll_interval", 5))
+
+    graph = _graph()
+    skip_id: Optional[str] = None
+    if skip_self:
+        try:
+            skip_id = graph.me().get("id")
+        except Exception:
+            pass
+
+    received = 0
+    import time as _time
+    deadline = _time.time() + timeout if timeout > 0 else None
+
+    console.print(
+        f"[cyan]Listening[/] {'(push)' if push else f'(delta, {interval}s interval)'}  "
+        f"{'count=' + str(count) if count else 'no limit'}  "
+        f"{'timeout=' + str(timeout) + 's' if timeout else 'no timeout'}  "
+        "[dim]— Ctrl+C to stop[/]",
+        file=sys.stderr,
+    )
+
+    def _should_stop() -> bool:
+        if deadline and _time.time() >= deadline:
+            return True
+        return False
+
+    def _emit(msg: dict) -> None:
+        text = extract_text(msg)
+        sender = msg.get("from", {}).get("user", {}).get("displayName", "")
+        event = {
+            "event": "message",
+            "id": msg.get("id"),
+            "sender": sender,
+            "sender_id": msg.get("from", {}).get("user", {}).get("id"),
+            "text": text,
+            "created": msg.get("createdDateTime"),
+            "channel_id": msg.get("channelIdentity", {}).get("channelId"),
+            "team_id": msg.get("channelIdentity", {}).get("teamId"),
+            "chat_id": msg.get("chatId"),
+            "raw": msg,
+        }
+        sys.stdout.write(json.dumps(event) + "\n")
+        sys.stdout.flush()
+
+    try:
+        if push:
+            _listen_push(graph, t_id, c_id, ch_id, notification_url, skip_id,
+                         count, deadline, _emit)
+        else:
+            for msg in delta_event_stream(
+                graph,
+                team_id=t_id, channel_id=c_id, chat_id=ch_id,
+                poll_interval=interval, skip_user_id=skip_id,
+            ):
+                if _should_stop():
+                    console.print("[yellow]Timeout reached.[/]", file=sys.stderr)
+                    raise typer.Exit(1)
+
+                _emit(msg)
+                received += 1
+                if count and received >= count:
+                    raise typer.Exit(0)
+
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Stopped.[/]", file=sys.stderr)
+        raise typer.Exit(0)
+
+
+def _listen_push(graph, t_id, c_id, ch_id, notification_url, skip_id,
+                 count, deadline, emit_fn):
+    from llm_teams.webhook import start_notification_server
+    import time as _time
+
+    server, port, event_queue, pub_url = start_notification_server(notification_url)
+
+    resource = (
+        f"/chats/{ch_id}/messages" if ch_id
+        else f"/teams/{t_id}/channels/{c_id}/messages"
+    )
+    sub = graph.create_subscription(resource, pub_url)
+    sub_id = sub["id"]
+    console.print(f"[green]Subscription:[/] {sub_id}", file=sys.stderr)
+
+    received = 0
+    try:
+        while True:
+            if deadline and _time.time() >= deadline:
+                console.print("[yellow]Timeout.[/]", file=sys.stderr)
+                raise typer.Exit(1)
+            try:
+                notification = event_queue.get(timeout=1)
+            except Exception:
+                continue
+
+            resource_data = notification.get("resourceData", {})
+            msg_id = resource_data.get("id")
+            if not msg_id:
+                continue
+            try:
+                if ch_id:
+                    msg = graph._get(f"/chats/{ch_id}/messages/{msg_id}")
+                else:
+                    msg = graph._get(f"/teams/{t_id}/channels/{c_id}/messages/{msg_id}")
+            except Exception:
+                continue
+
+            if skip_id and msg.get("from", {}).get("user", {}).get("id") == skip_id:
+                continue
+
+            emit_fn(msg)
+            received += 1
+            if count and received >= count:
+                raise typer.Exit(0)
+    finally:
+        try:
+            graph.delete_subscription(sub_id)
+        except Exception:
+            pass
+        server.shutdown()
 
 
 # ------------------------------------------------------------------ #

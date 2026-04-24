@@ -1,16 +1,21 @@
-"""teams commands — browse and message Microsoft Teams teams/channels."""
+"""teams commands — browse, message, and watch Microsoft Teams teams/channels."""
 import json
+import sys
 from typing import Annotated, Optional
 
 import typer
 from rich.console import Console
+from rich.live import Live
 from rich.table import Table
+from rich.text import Text
 
+from llm_teams import config as cfg_mod
 from llm_teams.auth import session as sess_mod
-from llm_teams.graph import GraphClient, extract_text
+from llm_teams.graph import GraphClient, delta_event_stream, extract_text
 
 app = typer.Typer(help="Browse and message Microsoft Teams teams and channels.")
 console = Console()
+err = Console(stderr=True)
 
 
 def _graph() -> GraphClient:
@@ -167,3 +172,156 @@ def messages(
         table.add_row(sender, ts, text)
 
     console.print(table)
+
+
+# ------------------------------------------------------------------ #
+# teams watch  — live streaming view (delta polling)
+# ------------------------------------------------------------------ #
+
+@app.command()
+def watch(
+    team_id: Annotated[Optional[str], typer.Option("--team-id", "-T")] = None,
+    channel_id: Annotated[Optional[str], typer.Option("--channel-id", "-C")] = None,
+    chat_id: Annotated[Optional[str], typer.Option("--chat-id", "-H")] = None,
+    poll_interval: Annotated[int, typer.Option("--poll-interval", "-i",
+        help="Seconds between delta polls")] = None,
+    json_output: Annotated[bool, typer.Option("--json",
+        help="Emit newline-delimited JSON events to stdout (for piping)")] = False,
+    skip_self: Annotated[bool, typer.Option("--skip-self / --no-skip-self",
+        help="Skip messages sent by the authenticated user")] = True,
+    push: Annotated[bool, typer.Option("--push",
+        help="Use Graph change notifications instead of polling (requires ngrok or --notification-url)")] = False,
+    notification_url: Annotated[Optional[str], typer.Option("--notification-url",
+        help="Public HTTPS URL for Graph to POST notifications to (--push mode)")] = None,
+):
+    """Watch a Teams channel or chat for new messages in real time.
+
+    Two modes:
+      Default (--no-push): uses delta queries — polls Graph efficiently every
+      poll_interval seconds, emitting only new messages.
+
+      Push (--push): registers a Graph change notification subscription.
+      Graph POSTs events to a local HTTPS server exposed via ngrok (or a URL
+      you supply with --notification-url). Near-real-time with no polling.
+
+    With --json, each new message is printed as a single JSON line on stdout
+    so the harness can consume it via a pipe. Without --json, messages are
+    printed as a live rich table to the terminal.
+
+    Press Ctrl+C to stop.
+    """
+    cfg = cfg_mod.load()
+    t_id = team_id or cfg.get("teams_team_id")
+    c_id = channel_id or cfg.get("teams_channel_id")
+    ch_id = chat_id or cfg.get("teams_chat_id")
+
+    if not ch_id and not (t_id and c_id):
+        err.print("[red]Specify --team-id + --channel-id or --chat-id.[/]")
+        raise typer.Exit(1)
+
+    interval = poll_interval or int(cfg.get("poll_interval", 5))
+
+    graph = _graph()
+    skip_id: Optional[str] = None
+    if skip_self:
+        try:
+            skip_id = graph.me().get("id")
+        except Exception:
+            pass
+
+    dest = f"chat {ch_id}" if ch_id else f"channel {c_id}"
+
+    if push:
+        _watch_push(graph, t_id, c_id, ch_id, notification_url, json_output, skip_id, dest)
+    else:
+        _watch_delta(graph, t_id, c_id, ch_id, interval, json_output, skip_id, dest)
+
+
+def _watch_delta(graph, t_id, c_id, ch_id, interval, json_output, skip_id, dest):
+    err.print(f"[cyan]Watching[/] {dest}  [dim](delta, every {interval}s — Ctrl+C to stop)[/]")
+
+    try:
+        for msg in delta_event_stream(
+            graph,
+            team_id=t_id, channel_id=c_id, chat_id=ch_id,
+            poll_interval=interval, skip_user_id=skip_id,
+        ):
+            _emit(msg, json_output)
+    except KeyboardInterrupt:
+        err.print("\n[yellow]Stopped.[/]")
+
+
+def _watch_push(graph, t_id, c_id, ch_id, notification_url, json_output, skip_id, dest):
+    from llm_teams.webhook import start_notification_server
+    import signal, time as _time
+
+    err.print(f"[cyan]Starting push listener for[/] {dest}…")
+
+    server, port, event_queue, pub_url = start_notification_server(notification_url)
+    err.print(f"[green]Notification URL:[/] {pub_url}")
+
+    # Register Graph subscription
+    resource = (
+        f"/chats/{ch_id}/messages" if ch_id
+        else f"/teams/{t_id}/channels/{c_id}/messages"
+    )
+    sub = graph.create_subscription(resource, pub_url)
+    sub_id = sub["id"]
+    err.print(f"[green]Subscription registered[/] (id: {sub_id}, expires in 60 min)")
+
+    err.print(f"[dim]Listening for push events — Ctrl+C to stop[/]")
+
+    try:
+        while True:
+            try:
+                notification = event_queue.get(timeout=1)
+            except Exception:
+                continue
+
+            # notification contains resourceData with the message ID;
+            # fetch the full message for consistency with delta mode
+            resource_data = notification.get("resourceData", {})
+            msg_id = resource_data.get("id")
+            if msg_id and not json_output:
+                # Rich display: fetch full message for text
+                try:
+                    if ch_id:
+                        msg = graph._get(f"/chats/{ch_id}/messages/{msg_id}")
+                    else:
+                        msg = graph._get(f"/teams/{t_id}/channels/{c_id}/messages/{msg_id}")
+                    if skip_id and msg.get("from", {}).get("user", {}).get("id") == skip_id:
+                        continue
+                    _emit(msg, json_output)
+                except Exception:
+                    pass
+            else:
+                # JSON mode: emit raw notification
+                if json_output:
+                    _emit_json(notification)
+
+    except KeyboardInterrupt:
+        err.print("\n[yellow]Stopping — deleting subscription…[/]")
+        try:
+            graph.delete_subscription(sub_id)
+        except Exception:
+            pass
+        server.shutdown()
+        err.print("[yellow]Done.[/]")
+
+
+def _emit(msg: dict, json_output: bool) -> None:
+    if json_output:
+        _emit_json(msg)
+    else:
+        sender = msg.get("from", {}).get("user", {}).get("displayName", "?")
+        ts = msg.get("createdDateTime", "")[:16].replace("T", " ")
+        text = extract_text(msg)
+        console.print(
+            f"[dim]{ts}[/]  [bold cyan]{sender}[/]  {text}"
+        )
+
+
+def _emit_json(data: dict) -> None:
+    """Print one JSON line to stdout (for harness pipe consumption)."""
+    sys.stdout.write(json.dumps(data) + "\n")
+    sys.stdout.flush()
