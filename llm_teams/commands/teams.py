@@ -344,9 +344,9 @@ def _watch_push(graph, t_id, c_id, ch_id, notification_url, json_output, skip_id
                 # Rich display: fetch full message for text
                 try:
                     if ch_id:
-                        msg = graph._get(f"/chats/{ch_id}/messages/{msg_id}")
+                        msg = graph.get_chat_message(ch_id, msg_id)
                     else:
-                        msg = graph._get(f"/teams/{t_id}/channels/{c_id}/messages/{msg_id}")
+                        msg = graph.get_channel_message(t_id, c_id, msg_id)
                     if skip_id and msg.get("from", {}).get("user", {}).get("id") == skip_id:
                         continue
                     _emit(msg, json_output)

@@ -212,6 +212,52 @@ class TestPollDelta:
         assert final == page2_url + "fin"
 
 
+class TestGetChannelMessage:
+    def test_calls_correct_endpoint(self, httpx_mock: HTTPXMock, graph):
+        httpx_mock.add_response(json={"id": "msg-1"})
+        graph.get_channel_message("t1", "c1", "msg-1")
+        assert "/teams/t1/channels/c1/messages/msg-1" in str(httpx_mock.get_requests()[0].url)
+
+    def test_returns_message(self, httpx_mock: HTTPXMock, graph):
+        httpx_mock.add_response(json={"id": "msg-1", "body": {"content": "hi"}})
+        msg = graph.get_channel_message("t1", "c1", "msg-1")
+        assert msg["id"] == "msg-1"
+
+
+class TestGetChatMessage:
+    def test_calls_correct_endpoint(self, httpx_mock: HTTPXMock, graph):
+        httpx_mock.add_response(json={"id": "msg-2"})
+        graph.get_chat_message("chat-1", "msg-2")
+        assert "/chats/chat-1/messages/msg-2" in str(httpx_mock.get_requests()[0].url)
+
+
+class TestRenewSubscription:
+    def test_patches_correct_endpoint(self, httpx_mock: HTTPXMock, graph):
+        httpx_mock.add_response(json={"id": "sub-1"})
+        graph.renew_subscription("sub-1")
+        req = httpx_mock.get_requests()[0]
+        assert req.method == "PATCH"
+        assert "/subscriptions/sub-1" in str(req.url)
+
+    def test_sends_expiration_in_body(self, httpx_mock: HTTPXMock, graph):
+        httpx_mock.add_response(json={"id": "sub-1"})
+        graph.renew_subscription("sub-1", expiration_minutes=30)
+        body = json.loads(httpx_mock.get_requests()[0].content)
+        assert "expirationDateTime" in body
+
+
+class TestConnectionReuse:
+    def test_client_is_persistent(self):
+        g = GraphClient("tok")
+        assert g._http is not None
+
+    def test_context_manager_closes(self, httpx_mock: HTTPXMock):
+        httpx_mock.add_response(json={"id": "u1"})
+        with GraphClient("tok") as g:
+            g.me()
+        assert g._http.is_closed
+
+
 class TestHTTPErrors:
     def test_raises_on_4xx(self, httpx_mock: HTTPXMock, graph):
         httpx_mock.add_response(status_code=401, json={"error": "Unauthorized"})
@@ -222,3 +268,9 @@ class TestHTTPErrors:
         httpx_mock.add_response(status_code=500)
         with pytest.raises(httpx.HTTPStatusError):
             graph.list_joined_teams()
+
+
+class TestPollForReplyValidation:
+    def test_raises_without_destination(self, graph):
+        with pytest.raises(ValueError, match="chat_id"):
+            graph.poll_for_reply(after_iso="2024-01-01T00:00:00Z")
