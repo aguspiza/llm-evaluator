@@ -37,9 +37,9 @@ def parse(url: str) -> TeamsLink:
     """
     url = url.strip()
 
-    # Normalise msteams:// → https://teams.microsoft.com/
+    # Normalise msteams:// → https:// (keep the rest of the URL intact)
     if url.startswith("msteams://"):
-        url = "https://teams.microsoft.com/" + url[len("msteams://"):]
+        url = "https://" + url[len("msteams://"):]
 
     parsed = urlparse(url)
     qs = parse_qs(parsed.query)
