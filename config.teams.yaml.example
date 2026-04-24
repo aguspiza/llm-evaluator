@@ -1,0 +1,38 @@
+# llm-teams configuration
+# Copy to ~/.config/llm-teams/config.yaml  (created automatically by `auth init-config`)
+
+# ----------------------------
+# OAuth2 / SSO provider
+# ----------------------------
+# Built-in: github | google | microsoft | custom
+provider: github
+
+# OAuth2 client ID for the chosen provider.
+# For GitHub: create an OAuth App at https://github.com/settings/developers
+# For Google: create credentials at https://console.cloud.google.com/
+client_id: "your-client-id-here"
+
+# Seconds to wait for the browser callback before timing out
+login_timeout: 120
+
+# ----------------------------
+# Custom / self-hosted OIDC
+# ----------------------------
+# Uncomment and fill in when provider: custom
+#
+# custom_name: "Acme SSO"
+# custom_auth_url: "https://sso.acme.com/oauth2/authorize"
+# custom_token_url: "https://sso.acme.com/oauth2/token"
+# custom_userinfo_url: "https://sso.acme.com/oauth2/userinfo"
+# custom_scopes: [openid, email, profile]
+# custom_pkce: true
+
+# ----------------------------
+# LLM Agent
+# ----------------------------
+# Claude model used by `agent run` / `agent delegate`
+# Requires ANTHROPIC_API_KEY environment variable
+anthropic_model: "claude-sonnet-4-6"
+
+# Optional: your team's API base URL (passed to the agent's http_request tool)
+# api_base_url: "https://api.acme.com/v1"
