@@ -203,10 +203,23 @@ def token():
 
 @app.command("init-config")
 def init_config(
-    provider: Annotated[str, typer.Option()] = "github",
-    client_id: Annotated[Optional[str], typer.Option()] = None,
+    provider: Annotated[str, typer.Option()] = "microsoft",
+    client_id: Annotated[Optional[str], typer.Option(help="Azure AD app client ID")] = None,
+    teams_link: Annotated[Optional[str], typer.Option(
+        "--teams-link", "-l",
+        help="Teams channel/chat link — parses team_id and channel_id automatically",
+    )] = None,
 ):
-    """Create ~/.config/llm-teams/config.yaml."""
+    """Create ~/.config/llm-teams/config.yaml.
+
+    \b
+    Quickest setup:
+        python teams.py auth init-config \\
+            --client-id <azure-app-id> \\
+            --teams-link "https://teams.microsoft.com/l/channel/..."
+    """
+    from llm_teams.teams_link import parse as parse_link
+
     path = cfg_mod.config_path()
     if path.exists():
         if not typer.confirm(f"{path} already exists. Overwrite?", default=False):
@@ -217,7 +230,23 @@ def init_config(
     if client_id:
         doc["client_id"] = client_id
 
+    if teams_link:
+        try:
+            link = parse_link(teams_link)
+        except ValueError as exc:
+            console.print(f"[red]Bad Teams link: {exc}[/]")
+            raise typer.Exit(1)
+        if link.team_id:
+            doc["teams_team_id"] = link.team_id
+        if link.channel_id:
+            doc["teams_channel_id"] = link.channel_id
+        if link.chat_id:
+            doc["teams_chat_id"] = link.chat_id
+
     with path.open("w") as fh:
         yaml.dump(doc, fh, default_flow_style=False)
 
     console.print(f"[green]Config written to[/] [cyan]{path}[/]")
+    if teams_link and (doc.get("teams_team_id") or doc.get("teams_chat_id")):
+        console.print(f"  teams_team_id:    [cyan]{doc.get('teams_team_id', '—')}[/]")
+        console.print(f"  teams_channel_id: [cyan]{doc.get('teams_channel_id', '—')}[/]")

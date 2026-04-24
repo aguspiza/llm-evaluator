@@ -12,6 +12,7 @@ from rich.text import Text
 from llm_teams import config as cfg_mod
 from llm_teams.auth import session as sess_mod
 from llm_teams.graph import GraphClient, delta_event_stream, extract_text
+from llm_teams.teams_link import parse as parse_link
 
 app = typer.Typer(help="Browse and message Microsoft Teams teams and channels.")
 console = Console()
@@ -21,6 +22,63 @@ err = Console(stderr=True)
 def _graph() -> GraphClient:
     session = sess_mod.require()
     return GraphClient(session.access_token)
+
+
+# ------------------------------------------------------------------ #
+# teams use-link  — parse a Teams URL and save IDs to config
+# ------------------------------------------------------------------ #
+
+@app.command("use-link")
+def use_link(
+    url: Annotated[str, typer.Argument(help="Teams channel/chat link (from 'Get link to channel')")],
+):
+    """Parse a Teams deep link and save the IDs to ~/.config/llm-teams/config.yaml.
+
+    In Teams: right-click a channel → Get link to channel → paste here.
+
+    \b
+    Example:
+        python teams.py teams use-link "https://teams.microsoft.com/l/channel/19%3Axxx.../..."
+    """
+    import yaml
+
+    try:
+        link = parse_link(url)
+    except ValueError as exc:
+        console.print(f"[red]{exc}[/]")
+        raise typer.Exit(1)
+
+    cfg_path = cfg_mod.config_path()
+    cfg_path.parent.mkdir(parents=True, exist_ok=True)
+
+    existing: dict = {}
+    if cfg_path.exists():
+        with cfg_path.open() as fh:
+            existing = yaml.safe_load(fh) or {}
+
+    if link.team_id:
+        existing["teams_team_id"] = link.team_id
+    if link.channel_id:
+        existing["teams_channel_id"] = link.channel_id
+    if link.chat_id:
+        existing["teams_chat_id"] = link.chat_id
+
+    # Remove chat_id if we now have a channel destination (and vice-versa)
+    if link.is_channel and "teams_chat_id" in existing:
+        existing.pop("teams_chat_id")
+    if link.is_chat and "teams_team_id" in existing:
+        existing.pop("teams_team_id")
+        existing.pop("teams_channel_id", None)
+
+    with cfg_path.open("w") as fh:
+        yaml.dump(existing, fh, default_flow_style=False)
+
+    console.print(f"[green]Config updated:[/] [cyan]{cfg_path}[/]")
+    if link.is_channel:
+        console.print(f"  teams_team_id:    [cyan]{link.team_id}[/]")
+        console.print(f"  teams_channel_id: [cyan]{link.channel_id}[/]")
+    elif link.is_chat:
+        console.print(f"  teams_chat_id: [cyan]{link.chat_id}[/]")
 
 
 # ------------------------------------------------------------------ #
