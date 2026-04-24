@@ -1,5 +1,5 @@
 """Built-in OAuth2 / OIDC provider configurations."""
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 
@@ -11,12 +11,34 @@ class Provider:
     token_url: str
     userinfo_url: str
     default_scopes: list[str]
-    pkce: bool = True           # whether to send code_challenge
+    pkce: bool = True
     client_id: Optional[str] = None
-    # client_secret deliberately omitted — CLI flows are public clients
 
 
 _PROVIDERS: dict[str, Provider] = {
+    # Default provider — Microsoft identity with all Graph scopes needed for Teams
+    "microsoft": Provider(
+        id="microsoft",
+        name="Microsoft / Azure AD",
+        auth_url="https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        token_url="https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        userinfo_url="https://graph.microsoft.com/oidc/userinfo",
+        default_scopes=[
+            "openid",
+            "email",
+            "profile",
+            "offline_access",
+            # Teams & channels
+            "Team.ReadBasic.All",
+            "Channel.ReadBasic.All",
+            "ChannelMessage.Send",
+            "ChannelMessage.Read.All",
+            # Chat (1:1 and group)
+            "Chat.ReadWrite",
+            "ChatMessage.Send",
+        ],
+        pkce=True,
+    ),
     "github": Provider(
         id="github",
         name="GitHub",
@@ -24,7 +46,7 @@ _PROVIDERS: dict[str, Provider] = {
         token_url="https://github.com/login/oauth/access_token",
         userinfo_url="https://api.github.com/user",
         default_scopes=["read:user", "user:email"],
-        pkce=False,  # GitHub OAuth does not support PKCE
+        pkce=False,
     ),
     "google": Provider(
         id="google",
@@ -32,15 +54,6 @@ _PROVIDERS: dict[str, Provider] = {
         auth_url="https://accounts.google.com/o/oauth2/v2/auth",
         token_url="https://oauth2.googleapis.com/token",
         userinfo_url="https://openidconnect.googleapis.com/v1/userinfo",
-        default_scopes=["openid", "email", "profile"],
-        pkce=True,
-    ),
-    "microsoft": Provider(
-        id="microsoft",
-        name="Microsoft / Azure AD",
-        auth_url="https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
-        token_url="https://login.microsoftonline.com/common/oauth2/v2.0/token",
-        userinfo_url="https://graph.microsoft.com/oidc/userinfo",
         default_scopes=["openid", "email", "profile"],
         pkce=True,
     ),

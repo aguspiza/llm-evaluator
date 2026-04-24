@@ -1,38 +1,47 @@
 # llm-teams configuration
-# Copy to ~/.config/llm-teams/config.yaml  (created automatically by `auth init-config`)
+# Copy to ~/.config/llm-teams/config.yaml
+# or: python teams.py auth init-config
 
 # ----------------------------
-# OAuth2 / SSO provider
+# SSO provider (default: Microsoft Azure AD)
 # ----------------------------
-# Built-in: github | google | microsoft | custom
-provider: github
+provider: microsoft
 
-# OAuth2 client ID for the chosen provider.
-# For GitHub: create an OAuth App at https://github.com/settings/developers
-# For Google: create credentials at https://console.cloud.google.com/
-client_id: "your-client-id-here"
+# OAuth2 / Azure AD App Registration client ID
+# Create one at https://portal.azure.com → App registrations
+# Required redirect URI: http://localhost   (type: Mobile and desktop applications)
+client_id: "your-azure-app-client-id"
 
-# Seconds to wait for the browser callback before timing out
+# Seconds to wait for the browser callback
 login_timeout: 120
+
+# ----------------------------
+# Teams destination
+# The agent commands (ask-human, notify, confirm) post to this channel or chat.
+# Run `python teams.py teams list` to find your team ID.
+# Run `python teams.py teams channels <team-id>` to find channel IDs.
+# ----------------------------
+
+# Option A: post to a channel (team + channel)
+teams_team_id: "your-team-id-here"
+teams_channel_id: "your-channel-id-here"
+
+# Option B: post to a 1:1 or group chat (takes precedence over channel if set)
+# teams_chat_id: "your-chat-id-here"
+
+# ----------------------------
+# Polling (for ask-human / confirm)
+# ----------------------------
+poll_interval: 5      # seconds between Graph API polls
+poll_timeout: 300     # seconds before giving up and returning timeout
 
 # ----------------------------
 # Custom / self-hosted OIDC
 # ----------------------------
-# Uncomment and fill in when provider: custom
-#
+# provider: custom
 # custom_name: "Acme SSO"
 # custom_auth_url: "https://sso.acme.com/oauth2/authorize"
 # custom_token_url: "https://sso.acme.com/oauth2/token"
 # custom_userinfo_url: "https://sso.acme.com/oauth2/userinfo"
 # custom_scopes: [openid, email, profile]
 # custom_pkce: true
-
-# ----------------------------
-# LLM Agent
-# ----------------------------
-# Claude model used by `agent run` / `agent delegate`
-# Requires ANTHROPIC_API_KEY environment variable
-anthropic_model: "claude-sonnet-4-6"
-
-# Optional: your team's API base URL (passed to the agent's http_request tool)
-# api_base_url: "https://api.acme.com/v1"

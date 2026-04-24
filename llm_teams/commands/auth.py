@@ -1,7 +1,11 @@
-"""auth commands: login, logout, status, token, init-config."""
+"""auth commands — designed to be called by an agent harness as subprocess tools.
+
+All commands support --json for machine-readable output.
+"""
+import json
 import os
+from dataclasses import asdict
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Annotated, Optional
 
 import typer
@@ -13,7 +17,7 @@ from rich.table import Table
 from llm_teams import config as cfg_mod
 from llm_teams.auth import flow, providers, session as sess_mod
 
-app = typer.Typer(help="Manage authentication and sessions.")
+app = typer.Typer(help="Manage SSO authentication and sessions.")
 console = Console()
 
 
@@ -21,21 +25,24 @@ console = Console()
 # Helpers
 # ------------------------------------------------------------------ #
 
-def _resolve_provider(provider_id: str):
-    """Return a Provider; handle the 'custom' case via config/env vars."""
-    cfg = cfg_mod.load()
+def _out(data: dict, as_json: bool) -> None:
+    if as_json:
+        typer.echo(json.dumps(data))
+    # rich output already printed by caller
 
+
+def _resolve_provider(provider_id: str):
+    cfg = cfg_mod.load()
     if provider_id == "custom":
         from llm_teams.auth.providers import Provider
         for key in ("custom_auth_url", "custom_token_url", "custom_userinfo_url"):
             if not cfg.get(key):
                 console.print(
-                    f"[red]Missing config key '{key}' for custom provider.[/]\n"
-                    f"Set it in [cyan]{cfg_mod.config_path()}[/] or via env var "
-                    f"[cyan]LLM_TEAMS_{key.upper()}[/]."
+                    f"[red]Missing '{key}' for custom provider.[/] "
+                    f"Set it in {cfg_mod.config_path()} or via LLM_TEAMS_{key.upper()}"
                 )
                 raise typer.Exit(1)
-        return Provider(
+        return providers.Provider(
             id="custom",
             name=cfg.get("custom_name", "Custom SSO"),
             auth_url=cfg["custom_auth_url"],
@@ -44,7 +51,6 @@ def _resolve_provider(provider_id: str):
             default_scopes=cfg.get("custom_scopes", ["openid", "email", "profile"]),
             pkce=cfg.get("custom_pkce", True),
         )
-
     return providers.get(provider_id)
 
 
@@ -55,9 +61,8 @@ def _resolve_client_id(provider_id: str, override: Optional[str]) -> str:
     client_id = cfg.get("client_id") or os.environ.get("LLM_TEAMS_CLIENT_ID")
     if not client_id:
         console.print(
-            "[red]No client_id found.[/]\n"
-            f"Set [cyan]client_id[/] in [cyan]{cfg_mod.config_path()}[/] "
-            "or export [cyan]LLM_TEAMS_CLIENT_ID=…[/]"
+            "[red]No client_id found.[/] "
+            f"Set client_id in {cfg_mod.config_path()} or export LLM_TEAMS_CLIENT_ID=…"
         )
         raise typer.Exit(1)
     return client_id
@@ -71,98 +76,140 @@ def _resolve_client_id(provider_id: str, override: Optional[str]) -> str:
 def login(
     provider: Annotated[
         str,
-        typer.Option("--provider", "-p", help=f"OAuth2 provider ({', '.join(providers.names())})"),
+        typer.Option("--provider", "-p", help=f"SSO provider ({', '.join(providers.names())})"),
     ] = None,
-    client_id: Annotated[Optional[str], typer.Option("--client-id", help="OAuth2 client ID")] = None,
+    client_id: Annotated[Optional[str], typer.Option("--client-id")] = None,
     timeout: Annotated[int, typer.Option(help="Seconds to wait for browser callback")] = 120,
+    json_output: Annotated[bool, typer.Option("--json", help="Machine-readable JSON output")] = False,
 ):
-    """Authenticate via browser SSO and store a local session."""
+    """Open browser SSO, wait for callback, persist session.
+
+    The harness calls this when an authenticated session is needed.
+    Exits 0 on success with session info in stdout (--json) or rich display.
+    Exits 1 on failure with an error message.
+    """
     cfg = cfg_mod.load()
     provider_id = provider or cfg.get("provider", "github")
-
     prov = _resolve_provider(provider_id)
     cid = _resolve_client_id(provider_id, client_id)
 
     try:
         session = flow.login(prov, cid, timeout=timeout)
-    except TimeoutError as exc:
-        console.print(f"[red]{exc}[/]")
-        raise typer.Exit(1)
-    except RuntimeError as exc:
-        console.print(f"[red]{exc}[/]")
+    except (TimeoutError, RuntimeError) as exc:
+        if json_output:
+            typer.echo(json.dumps({"ok": False, "error": str(exc)}))
+        else:
+            console.print(f"[red]{exc}[/]")
         raise typer.Exit(1)
 
     expires_dt = datetime.fromtimestamp(session.expires_at, tz=timezone.utc).strftime(
         "%Y-%m-%d %H:%M UTC"
     )
-    console.print()
-    console.print(
-        Panel(
-            f"[bold green]Logged in![/]\n\n"
-            f"  User:     [cyan]{session.display_name}[/]\n"
-            f"  Provider: [cyan]{session.provider}[/]\n"
-            f"  Expires:  [dim]{expires_dt}[/]",
-            title="[bold]llm-teams[/]",
-            border_style="green",
+
+    if json_output:
+        typer.echo(json.dumps({
+            "ok": True,
+            "email": session.email,
+            "name": session.name,
+            "sub": session.sub,
+            "provider": session.provider,
+            "expires_at": session.expires_at,
+            "expires_in": session.expires_in,
+        }))
+    else:
+        console.print()
+        console.print(
+            Panel(
+                f"[bold green]Logged in![/]\n\n"
+                f"  User:     [cyan]{session.display_name}[/]\n"
+                f"  Provider: [cyan]{session.provider}[/]\n"
+                f"  Expires:  [dim]{expires_dt}[/]",
+                title="[bold]llm-teams[/]",
+                border_style="green",
+            )
         )
-    )
 
 
 @app.command()
-def logout():
-    """Remove the stored session."""
+def logout(
+    json_output: Annotated[bool, typer.Option("--json")] = False,
+):
+    """Clear the stored session."""
     sess_mod.clear()
-    console.print("[bold]Logged out.[/] Session cleared.")
+    if json_output:
+        typer.echo(json.dumps({"ok": True}))
+    else:
+        console.print("[bold]Logged out.[/]")
 
 
 @app.command()
-def status():
-    """Show the current session status."""
+def status(
+    json_output: Annotated[bool, typer.Option("--json")] = False,
+):
+    """Return current session state.
+
+    Exit code: 0 = valid session, 1 = no session or expired.
+    """
     session = sess_mod.load()
 
     if session is None:
-        console.print("[yellow]No session found.[/] Run [cyan]llm-teams auth login[/].")
-        return
-
-    table = Table(show_header=False, box=None, padding=(0, 2))
-    table.add_column(style="dim")
-    table.add_column()
-
-    table.add_row("User", session.display_name)
-    table.add_row("Email", session.email or "—")
-    table.add_row("Provider", session.provider)
-    table.add_row("Subject", session.sub or "—")
-    table.add_row("Team", session.team_id or "—")
+        if json_output:
+            typer.echo(json.dumps({"authenticated": False, "reason": "no_session"}))
+        else:
+            console.print("[yellow]No session.[/] Run: [cyan]llm-teams auth login[/]")
+        raise typer.Exit(1)
 
     if session.is_expired:
-        expires_str = "[red]EXPIRED[/]"
-    else:
-        h, rem = divmod(session.expires_in, 3600)
-        m = rem // 60
-        expires_str = f"[green]{h}h {m}m remaining[/]"
-    table.add_row("Session", expires_str)
+        if json_output:
+            typer.echo(json.dumps({"authenticated": False, "reason": "expired"}))
+        else:
+            console.print("[red]Session expired.[/] Run: [cyan]llm-teams auth login[/]")
+        raise typer.Exit(1)
 
-    console.print(Panel(table, title="[bold]Session Status[/]", border_style="blue"))
+    if json_output:
+        typer.echo(json.dumps({
+            "authenticated": True,
+            "email": session.email,
+            "name": session.name,
+            "sub": session.sub,
+            "provider": session.provider,
+            "team_id": session.team_id,
+            "expires_at": session.expires_at,
+            "expires_in": session.expires_in,
+        }))
+    else:
+        table = Table(show_header=False, box=None, padding=(0, 2))
+        table.add_column(style="dim")
+        table.add_column()
+        table.add_row("User", session.display_name)
+        table.add_row("Email", session.email or "—")
+        table.add_row("Provider", session.provider)
+        table.add_row("Sub", session.sub or "—")
+        table.add_row("Team", session.team_id or "—")
+        h, rem = divmod(session.expires_in, 3600)
+        table.add_row("Expires", f"[green]{h}h {rem // 60}m remaining[/]")
+        console.print(Panel(table, title="[bold]Session[/]", border_style="blue"))
 
 
 @app.command()
 def token():
-    """Print the raw access token (for scripting / piping to an agent)."""
+    """Print the raw access token to stdout (for harness injection via env or header).
+
+    Exits 1 if not authenticated. No --json flag: the token IS the output.
+    """
     session = sess_mod.require()
-    # Print with no markup so it can be captured cleanly
     typer.echo(session.access_token)
 
 
 @app.command("init-config")
 def init_config(
-    provider: Annotated[str, typer.Option(help="Default OAuth2 provider")] = "github",
-    client_id: Annotated[Optional[str], typer.Option(help="OAuth2 client ID")] = None,
+    provider: Annotated[str, typer.Option()] = "github",
+    client_id: Annotated[Optional[str], typer.Option()] = None,
 ):
-    """Create ~/.config/llm-teams/config.yaml with sensible defaults."""
+    """Create ~/.config/llm-teams/config.yaml."""
     path = cfg_mod.config_path()
     if path.exists():
-        overwrite = typer.confirm(f"{path} already exists. Overwrite?", default=False)
-        if not overwrite:
+        if not typer.confirm(f"{path} already exists. Overwrite?", default=False):
             raise typer.Exit(0)
 
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -174,4 +221,3 @@ def init_config(
         yaml.dump(doc, fh, default_flow_style=False)
 
     console.print(f"[green]Config written to[/] [cyan]{path}[/]")
-    console.print("Edit it to add your [bold]client_id[/] and other settings.")

@@ -9,11 +9,28 @@ _CONFIG_DIR = Path.home() / ".config" / "llm-teams"
 _CONFIG_FILE = _CONFIG_DIR / "config.yaml"
 
 _DEFAULTS: dict[str, Any] = {
-    "provider": "github",
+    # Auth
+    "provider": "microsoft",    # default: Microsoft Teams SSO
     "client_id": None,
-    "api_base_url": None,       # optional backend API
-    "anthropic_model": "claude-sonnet-4-6",
-    "login_timeout": 120,       # seconds to wait for browser callback
+
+    # Teams destination for agent ↔ human messages
+    "teams_team_id": None,      # which Team to use
+    "teams_channel_id": None,   # which channel to use (within that Team)
+    "teams_chat_id": None,      # alternative: 1:1 or group chat ID
+
+    # Polling
+    "poll_interval": 5,         # seconds between Graph API polls
+    "poll_timeout": 300,        # seconds before ask-human gives up
+
+    # Custom OIDC
+    "custom_auth_url": None,
+    "custom_token_url": None,
+    "custom_userinfo_url": None,
+    "custom_name": "Custom SSO",
+    "custom_scopes": ["openid", "email", "profile"],
+    "custom_pkce": True,
+
+    "login_timeout": 120,
 }
 
 
@@ -25,22 +42,24 @@ def load() -> dict[str, Any]:
             file_cfg = yaml.safe_load(fh) or {}
         cfg.update(file_cfg)
 
-    # Environment variables override everything
-    for key in (
-        "LLM_TEAMS_PROVIDER",
-        "LLM_TEAMS_CLIENT_ID",
-        "LLM_TEAMS_API_BASE_URL",
-        "LLM_TEAMS_ANTHROPIC_MODEL",
-        "LLM_TEAMS_CUSTOM_AUTH_URL",
-        "LLM_TEAMS_CUSTOM_TOKEN_URL",
-        "LLM_TEAMS_CUSTOM_USERINFO_URL",
-    ):
-        val = os.environ.get(key)
+    # Env vars override config file
+    _env_map = {
+        "LLM_TEAMS_PROVIDER": "provider",
+        "LLM_TEAMS_CLIENT_ID": "client_id",
+        "LLM_TEAMS_TEAM_ID": "teams_team_id",
+        "LLM_TEAMS_CHANNEL_ID": "teams_channel_id",
+        "LLM_TEAMS_CHAT_ID": "teams_chat_id",
+        "LLM_TEAMS_POLL_INTERVAL": "poll_interval",
+        "LLM_TEAMS_POLL_TIMEOUT": "poll_timeout",
+        "LLM_TEAMS_CUSTOM_AUTH_URL": "custom_auth_url",
+        "LLM_TEAMS_CUSTOM_TOKEN_URL": "custom_token_url",
+        "LLM_TEAMS_CUSTOM_USERINFO_URL": "custom_userinfo_url",
+    }
+    for env_key, cfg_key in _env_map.items():
+        val = os.environ.get(env_key)
         if val:
-            cfg_key = key.removeprefix("LLM_TEAMS_").lower()
             cfg[cfg_key] = val
 
-    # ANTHROPIC_API_KEY is read directly by the SDK — no need to mirror it here
     return cfg
 
 
