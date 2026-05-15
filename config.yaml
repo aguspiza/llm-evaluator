@@ -18,9 +18,105 @@ models:
     hf_repo: "Jackrong/Qwopus-GLM-18B-Merged-GGUF:Q4_K_M"
     port: 8082
     temperature: 0.7
+  - name: "Ternary-Bonsai-8B (Local)"
+    type: local
+    hf_repo: "prism-ml/Ternary-Bonsai-8B-gguf:Q2_0"
+    port: 8082
+    exe: "~/Downloads/llama-prism-vulkan-x64/llama-server.exe"
+    ctx_size: 8192
+    no_warmup: true
+    max_tokens: 4096
+
+  - name: "Qwopus3.6-35B-A3B-v1 (Local)"
+    type: local
+    hf_repo: "Jackrong/Qwopus3.6-35B-A3B-v1-GGUF:Q4_K_M"
+    port: 8011
+
+  - name: "Qwen3.6-35B-A3B-IQ4_K_R4 (Remote)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "abovespec/Qwen3.6-35B-A3B-IQ4_K_R4-GGUF"
+    hf_file: "Qwen3.6-35B-A3B-IQ4_K_R4.gguf"
+    hf_flag: "-hfr"
+    port: 8082
+    exe: "wsl env GGML_CUDA_NO_PINNED=1 //home/agus/ik_llama.cpp/build/bin/llama-server"
+    no_mmproj: false
+    ctk: "q4_0"
+    ctv: "q4_0"
+    extra_args: ["-ngl", "99", "--n-cpu-moe", "30", "-fa", "1", "--jinja"]
+
+  - name: "Qwen3.6-35B-A3B-IQ3_K_R4 (Remote)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "abovespec/Qwen3.6-35B-A3B-IQ3_K_R4-GGUF"
+    hf_file: "Qwen3.6-35B-A3B-IQ3_K_R4.gguf"
+    hf_flag: "-hfr"
+    port: 8082
+    exe: "wsl env GGML_CUDA_NO_PINNED=1 //home/agus/ik_llama.cpp/build/bin/llama-server"
+    no_mmproj: false
+    ctk: "q4_0"
+    ctv: "q4_0"
+    ctx_size: 65536
+    extra_args: ["-ngl", "99", "--n-cpu-moe", "32", "-fa", "1", "--jinja", "-b", "512", "-ub", "512"]
+
+  - name: "Qwen3.6-35B-A3B-IQ2_M (Remote)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "unsloth/Qwen3.6-35B-A3B-GGUF"
+    hf_file: "Qwen3.6-35B-A3B-UD-IQ2_M.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "q8_0"
+    ctv: "q8_0"
+    ctx_size: 65536
+    extra_args: ["-ngl", "99", "--n-cpu-moe", "28", "--jinja", "-b", "256", "-ub", "256", "-np", "1", "-t", "12"]
+
+  - name: "Granite-4.1-8B (Local)"
+    type: local
+    hf_repo: "bartowski/ibm-granite_granite-4.1-8b-GGUF:Q4_K_M"
+    port: 8082
+
+  - name: "Gemma4-E4B (Remote GTX1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "unsloth/gemma-4-E4B-it-GGUF"
+    hf_file: "gemma-4-E4B-it-Q4_0.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "q4_0"
+    ctv: "q4_0"
+    ctx_size: 65536
+    extra_args: ["-ngl", "99", "--n-cpu-moe", "20", "--jinja"]
+
+  - name: "Granite-4.1-8B (Remote GTX1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "bartowski/ibm-granite_granite-4.1-8b-GGUF:Q4_K_M"
+    port: 8082
+    exe: "~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "q4_0"
+    ctv: "q4_0"
+    ctx_size: 65536
+    extra_args: ["-ngl", "99"]
+
+  - name: "Gemma4-26B-A4B (Local)"
+    type: local
+    hf_repo: "bartowski/google_gemma-4-26B-A4B-it-GGUF:Q4_K_M"
+    port: 8082
+    ctx_size: 262144
+    extra_args: ["--jinja"]
+
+  - name: "Gemma4-E4B ggml (Local)"
+    type: local
+    hf_repo: "ggml-org/gemma-4-E4B-it-GGUF:Q4_K_M"
+    port: 8082
+    extra_args: ["--jinja"]
 
 judge:
   name: "Juez"
-  provider: anthropic
-  model: "claude-sonnet-4-6"
+  type: local
+  hf_repo: "unsloth/gemma-4-E4B-it-GGUF:Q4_0"
+  port: 8081
+  ctx_size: 8192
+  no_warmup: true
   temperature: 0.1
