@@ -180,6 +180,34 @@ Remote (via `llamaremote`):
 ssh user@host "llamacpp -hf <repo>:<quant> --host 0.0.0.0 --port <port>"
 ```
 
+## Results
+
+Quality scores (0–10) graded by the judge model. Throughput measured by llama.cpp's built-in benchmark. Each entry uses the most recent run for that model.
+
+### Quality
+
+| Model | Date | Avg Score | Avg Time |
+|---|---|---|---|
+| Ternary-Bonsai-8B (Local) | 2026-04-23 | — (all timeout) | — |
+| Granite-4.1-8B (Local) | 2026-05-09 | 9.57 | 60.9s |
+| Granite-4.1-8B (Remote GTX1060) | 2026-05-10 | 8.43 | 53.9s |
+| Gemma4-E4B (Remote GTX1060) | 2026-05-11 | 9.71 | 39.9s |
+| Qwen3.6-35B-A3B-IQ2_M (Remote) | 2026-05-18 | 9.9 | 59.0s |
+
+### Throughput
+
+| Model | PP 512 (tk/s) | PP 16K (tk/s) | TG short (tk/s) | TG 16K (tk/s) |
+|---|---|---|---|---|
+| Ternary-Bonsai-8B (Local) | — | — | — | — |
+| Granite-4.1-8B (Local) | 21.0 | — | 6.8 | — |
+| Granite-4.1-8B (Remote GTX1060) | 154.2 | 97.4 | 13.4 | 2.5 |
+| Gemma4-E4B (Remote GTX1060) | 522.2 | 201.6 | 1.1 | 17.2 |
+| Qwen3.6-35B-A3B-IQ2_M (Remote) | 257.0 | 304.8 | 21.5 | 17.7 |
+
+> Remote models run on a secondary machine (`pc1060.intra`) with an NVIDIA GTX 1060 6GB.
+
+---
+
 ## Adding New Tests
 
 1. Create prompt file: `prompts/tests/my_test.txt`
