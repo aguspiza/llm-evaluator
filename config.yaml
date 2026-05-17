@@ -69,7 +69,7 @@ models:
     ctk: "q8_0"
     ctv: "q8_0"
     ctx_size: 65536
-    extra_args: ["-ngl", "99", "--n-cpu-moe", "28", "--jinja", "-b", "256", "-ub", "256", "-np", "1", "-t", "12"]
+    extra_args: ["-ngl", "99", "--n-cpu-moe", "28", "--jinja", "-b", "1024", "-ub", "1024", "-np", "1", "-t", "12"]
 
   - name: "Granite-4.1-8B (Local)"
     type: local
