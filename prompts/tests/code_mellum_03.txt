@@ -1,0 +1,7 @@
+Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).
+
+Ejemplo:
+find_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]
+find_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente
+
+No uses fuerza bruta con dos bucles anidados.

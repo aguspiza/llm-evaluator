@@ -1,0 +1,12 @@
+Implementa un decorador @retry en Python con la siguiente especificacion:
+
+- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)
+- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas
+- Espera delay segundos entre reintentos
+- Si se agotan los intentos, relanza la ultima excepcion
+- Si la funcion tiene exito, devuelve su resultado normalmente
+
+Uso esperado:
+@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))
+def fetch_data(url):
+    ...

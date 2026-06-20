@@ -19,6 +19,16 @@ tests:
     prompt_file: "./prompts/tests/instruction_01.txt"
     evaluation_file: "./prompts/evaluations/instruction_01.txt"
 
+  - id: instruction_02
+    category: seguimiento_instrucciones
+    prompt_file: "./prompts/tests/instruction_02.txt"
+    evaluation_file: "./prompts/evaluations/instruction_02.txt"
+
+  - id: instruction_03
+    category: seguimiento_instrucciones
+    prompt_file: "./prompts/tests/instruction_03.txt"
+    evaluation_file: "./prompts/evaluations/instruction_03.txt"
+
   - id: comprehension_01
     category: comprension_y_resumen
     prompt_file: "./prompts/tests/comprehension_01.txt"
@@ -33,3 +43,42 @@ tests:
     category: conocimiento_temporal
     prompt_file: "./prompts/tests/date_01.txt"
     evaluation_file: "./prompts/evaluations/date_01.txt"
+
+  - id: code_mellum_01
+    category: generacion_codigo
+    prompt_file: "./prompts/tests/code_mellum_01.txt"
+    evaluation_file: "./prompts/evaluations/code_mellum_01.txt"
+
+  - id: code_mellum_02
+    category: generacion_codigo
+    prompt_file: "./prompts/tests/code_mellum_02.txt"
+    evaluation_file: "./prompts/evaluations/code_mellum_02.txt"
+
+  - id: code_mellum_03
+    category: generacion_codigo
+    prompt_file: "./prompts/tests/code_mellum_03.txt"
+    evaluation_file: "./prompts/evaluations/code_mellum_03.txt"
+
+  - id: bench_pp512
+    category: benchmark
+    benchmark: true
+    n_prompt: 512
+    n_generate: 0
+
+  - id: bench_tg128
+    category: benchmark
+    benchmark: true
+    n_prompt: 64
+    n_generate: 128
+
+  - id: bench_pp16k
+    category: benchmark
+    benchmark: true
+    n_prompt: 16384
+    n_generate: 0
+
+  - id: bench_tg128_16k
+    category: benchmark
+    benchmark: true
+    n_prompt: 16384
+    n_generate: 128
