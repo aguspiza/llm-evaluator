@@ -40,12 +40,23 @@ def load_tests(tests_path=None, base_dir=None):
 
     tests = []
     for t in data.get("tests", []):
-        test = {
-            "id": t["id"],
-            "category": t.get("category", "general"),
-            "prompt": load_file_content(t["prompt_file"], base_dir),
-            "evaluation_criteria": load_file_content(t["evaluation_file"], base_dir),
-        }
+        if t.get("benchmark"):
+            test = {
+                "id": t["id"],
+                "category": t.get("category", "benchmark"),
+                "benchmark": True,
+                "n_prompt": t["n_prompt"],
+                "n_generate": t["n_generate"],
+                "prompt": "",
+                "evaluation_criteria": "",
+            }
+        else:
+            test = {
+                "id": t["id"],
+                "category": t.get("category", "general"),
+                "prompt": load_file_content(t["prompt_file"], base_dir),
+                "evaluation_criteria": load_file_content(t["evaluation_file"], base_dir),
+            }
         tests.append(test)
     return tests
 
@@ -57,12 +68,26 @@ def start_server(server_mgr, model_config):
         return server_mgr.start_local(
             hf_repo=model_config["hf_repo"],
             port=model_config.get("port", 8080),
+            ctx_size=model_config.get("ctx_size"),
+            no_warmup=model_config.get("no_warmup", False),
+            exe=model_config.get("exe"),
+            ctk=model_config.get("ctk", "q4_0"),
+            ctv=model_config.get("ctv", "q4_0"),
+            extra_args=model_config.get("extra_args"),
         )
     elif mtype == "remote":
         return server_mgr.start_remote(
             host=model_config["host"],
             hf_repo=model_config["hf_repo"],
             port=model_config.get("port", 8080),
+            exe=model_config.get("exe"),
+            ctk=model_config.get("ctk", "q4_0"),
+            ctv=model_config.get("ctv", "q4_0"),
+            extra_args=model_config.get("extra_args"),
+            hf_flag=model_config.get("hf_flag", "-hf"),
+            hf_file=model_config.get("hf_file"),
+            no_mmproj=model_config.get("no_mmproj", True),
+            ctx_size=model_config.get("ctx_size"),
         )
     elif mtype == "openrouter":
         return OpenAIClient(
@@ -89,6 +114,8 @@ def get_judge_client(server_mgr, judge_config, model_clients):
             return server_mgr.start_local(
                 hf_repo=judge_config["hf_repo"],
                 port=judge_config.get("port", 8081),
+                ctx_size=judge_config.get("ctx_size"),
+                no_warmup=judge_config.get("no_warmup", False),
             )
         else:
             return server_mgr.start_remote(
@@ -117,6 +144,7 @@ def run(
         None, "--model", "-m", help="Filter by model name"
     ),
     test_filter: str = typer.Option(None, "--test", help="Run only this test by ID"),
+    judge_name: str = typer.Option(None, "--judge", "-j", help="Judge preset from judges: section (e.g. anthropic, openrouter, local)"),
 ):
     """Run all tests against all configured models."""
     config_data = load_config(config)
@@ -125,7 +153,15 @@ def run(
     system_prompt = load_file_content(config_data["system_prompt"], base_dir)
     test_list = load_tests(tests, base_dir)
     models = config_data.get("models", [])
-    judge_config = config_data.get("judge", {})
+    if judge_name:
+        judges = config_data.get("judges", {})
+        if judge_name not in judges:
+            print(f"Error: judge '{judge_name}' not found in judges: section. Available: {list(judges.keys())}")
+            raise typer.Exit(1)
+        judge_config = judges[judge_name]
+        print(f"Using judge preset: {judge_name} ({judge_config.get('model', judge_config.get('name', ''))})")
+    else:
+        judge_config = config_data.get("judge", {})
 
     # Apply model filter early
     if model_filter:
@@ -152,26 +188,31 @@ def run(
 
             client = start_server(server_mgr, model)
             model["client"] = client
+            if model.get("type") in ("local", "remote"):
+                model["server_cmd"] = " ".join(server_mgr.last_cmd)
             if repo_key:
                 model_clients[repo_key] = {
                     "client": client,
                     "hf_repo": model.get("hf_repo"),
                 }
 
-        # Get judge (reuses existing server if same repo)
-        judge_client = get_judge_client(server_mgr, judge_config, model_clients)
-
-        # Run ALL tests sequentially on the same servers
+        # Phase 1: collect all model responses, then stop model servers to free RAM
         runner = Runner(
             system_prompt,
             models,
             test_list,
-            judge_client,
+            None,
             judge_config,
             results_file=output,
             test_filter=test_filter,
         )
-        results = runner.run()
+        runner.collect_responses()
+        server_mgr.stop_all()
+
+        # Phase 2: start judge, evaluate all collected responses
+        judge_client = get_judge_client(server_mgr, judge_config, {})
+        runner.evaluator.client = judge_client
+        results = runner.evaluate_responses()
 
         # Report
         reporter = Reporter(results)

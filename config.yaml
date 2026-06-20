@@ -148,6 +148,13 @@ models:
     extra_args: ["-ngl", "99", "--jinja", "--reasoning", "on", "--reasoning-format", "deepseek", "--reasoning-budget", "1024"]
     max_tokens: 4096
 
+  - name: "Mellum2-12B-A2.5B-Thinking (Local)"
+    type: local
+    hf_repo: "CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M"
+    port: 8082
+    temperature: 0.6
+    extra_args: ["--jinja"]
+
   - name: "Mellum2-12B-A2.5B-Thinking (Remote pc1060)"
     type: remote
     host: "admin@pc1060.intra"
@@ -156,8 +163,9 @@ models:
     exe: "~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe"
     ctk: "q4_0"
     ctv: "q4_0"
+    ctx_size: 65536
     temperature: 0.6
-    extra_args: ["-ngl", "20", "--jinja"]
+    extra_args: ["-ngl", "99", "--n-cpu-moe", "16", "--no-mmap", "--jinja"]
 
   - name: "LFM2.5-8B-A1B (Remote GTX1060)"
     type: remote
@@ -178,3 +186,25 @@ judge:
   ctx_size: 8192
   no_warmup: true
   temperature: 0.1
+
+judges:
+  local:
+    name: "Gemma4-E4B (local)"
+    type: local
+    hf_repo: "unsloth/gemma-4-E4B-it-GGUF:Q4_0"
+    port: 8081
+    ctx_size: 8192
+    no_warmup: true
+    temperature: 0.1
+
+  anthropic:
+    provider: anthropic
+    model: "claude-haiku-4-5-20251001"
+    temperature: 0.1
+
+  openrouter:
+    provider: openrouter
+    model: "qwen/qwen3-8b:free"
+    base_url: "https://openrouter.ai/api/v1"
+    api_key: "${OPENROUTER_API_KEY}"
+    temperature: 0.1

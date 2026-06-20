@@ -27,6 +27,8 @@ class Reporter:
         table.add_column("Justification", style="white")
 
         for r in self.results:
+            if r.get("benchmark"):
+                continue
             total_time = r.get("total_time", r.get("response_time", 0))
             table.add_row(
                 r["model_name"],
@@ -40,12 +42,15 @@ class Reporter:
 
         console.print(table)
         self._print_averages()
+        self._print_benchmarks()
 
     def _print_averages(self):
         """Print average scores per model."""
         model_scores = {}
         model_times = {}
         for r in self.results:
+            if r.get("benchmark"):
+                continue
             name = r["model_name"]
             if name not in model_scores:
                 model_scores[name] = []
@@ -67,6 +72,28 @@ class Reporter:
             avg_table.add_row(name, f"{avg:.1f}", f"{avg_time:.1f}s", str(len(scores)))
 
         console.print(avg_table)
+
+    def _print_benchmarks(self):
+        benchmarks = [r for r in self.results if r.get("benchmark")]
+        if not benchmarks:
+            return
+        table = Table(title="Benchmark Results (synthetic)")
+        table.add_column("Model", style="cyan", no_wrap=True)
+        table.add_column("Test", style="magenta")
+        table.add_column("Prompt tokens", style="yellow", justify="right")
+        table.add_column("PP (tk/s)", style="green", justify="right")
+        table.add_column("TG (tk/s)", style="green", justify="right")
+        table.add_column("Time", style="blue", justify="right")
+        for r in benchmarks:
+            table.add_row(
+                r["model_name"],
+                r["test_id"],
+                str(r.get("n_prompt_actual", "")),
+                f"{r['pp_tps']:.1f}" if r.get("pp_tps") else "-",
+                f"{r['tg_tps']:.1f}" if r.get("tg_tps") else "-",
+                f"{r['response_time']:.1f}s",
+            )
+        console.print(table)
 
     def print_details(self, model_filter: str = None):
         """Print detailed results with full responses."""

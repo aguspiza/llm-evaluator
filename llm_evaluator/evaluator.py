@@ -48,7 +48,7 @@ Responde SOLO en formato JSON: {{"score": <0-10>, "justification": "..."}}"""
                 {"role": "system", "content": JUDGE_SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt},
             ]
-            response = self.client.chat(
+            response, _ = self.client.chat(
                 messages=messages,
                 model=self.model,
                 temperature=self.temperature,
@@ -68,7 +68,9 @@ Responde SOLO en formato JSON: {{"score": <0-10>, "justification": "..."}}"""
 
     def _parse_judge_response(self, response: str) -> dict:
         """Extract JSON from the judge response."""
-        json_match = re.search(r'\{[^}]+\}', response, re.DOTALL)
+        # Strip markdown code fences (```json ... ``` or ``` ... ```)
+        text = re.sub(r'```(?:json)?\s*', '', response).strip()
+        json_match = re.search(r'\{.*\}', text, re.DOTALL)
         if json_match:
             try:
                 data = json.loads(json_match.group())
