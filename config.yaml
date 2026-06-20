@@ -204,7 +204,7 @@ judges:
 
   openrouter:
     provider: openrouter
-    model: "qwen/qwen3-8b:free"
+    model: "@preset/good-free"
     base_url: "https://openrouter.ai/api/v1"
     api_key: "${OPENROUTER_API_KEY}"
     temperature: 0.1
