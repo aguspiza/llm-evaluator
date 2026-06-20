@@ -41,7 +41,9 @@ class Evaluator:
 
 Responde SOLO en formato JSON: {{"score": <0-10>, "justification": "..."}}"""
 
-        if self.provider == "anthropic":
+        if self.provider == "claude-code":
+            response = self._call_claude_code(user_prompt)
+        elif self.provider == "anthropic":
             response = self._call_anthropic(user_prompt)
         else:
             messages = [
@@ -55,6 +57,24 @@ Responde SOLO en formato JSON: {{"score": <0-10>, "justification": "..."}}"""
             )
 
         return self._parse_judge_response(response)
+
+    def _call_claude_code(self, user_prompt: str) -> str:
+        import subprocess
+        cmd = ["claude", "--print", "--output-format", "text",
+               "--system-prompt", JUDGE_SYSTEM_PROMPT]
+        if self.model and self.model != "local":
+            cmd += ["--model", self.model]
+        result = subprocess.run(
+            cmd,
+            input=user_prompt,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=120,
+        )
+        if result.returncode != 0:
+            raise RuntimeError(f"claude CLI error: {result.stderr.strip()}")
+        return result.stdout.strip()
 
     def _call_anthropic(self, user_prompt: str) -> str:
         message = self._anthropic.messages.create(

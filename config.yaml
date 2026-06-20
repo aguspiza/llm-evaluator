@@ -197,9 +197,9 @@ judges:
     no_warmup: true
     temperature: 0.1
 
-  anthropic:
-    provider: anthropic
-    model: "claude-haiku-4-5-20251001"
+  claude-code:
+    provider: claude-code
+    model: "claude-sonnet-4-6"
     temperature: 0.1
 
   openrouter:
