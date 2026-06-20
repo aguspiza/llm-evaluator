@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-06-12T21:25:19.997556",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "LFM2.5-8B-A1B (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-8B-A1B-GGUF:Q4_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "\n8",
+      "response_time": 4.08,
+      "completion_tokens": 98,
+      "gen_tps": 24.02,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin texto, puntuación o explicaciones.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin texto, puntuación o explicaciones.\"\n}\n```"
+      },
+      "judge_time": 33.68
+    }
+  ]
+}

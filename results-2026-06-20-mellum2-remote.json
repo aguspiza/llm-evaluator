@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-06-20T09:53:21.055545",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**Respuesta:**  \nNo, no es necesariamente cierto que algunos A son C bajo las condiciones dadas. Aquí está el razonamiento paso a paso:\n\n---\n\n### **1. Premisias:**  \n- **\"Todos los A son B\"**: Esto implica que el conjunto de **A está completamente contenido en B** (es decir, $ A \\subseteq B $).  \n- **\"Algunos B son C\"**: Significa que hay una **superposición entre B y C**, pero no necesariamente entre A y C (es decir, $ B \\cap C \\neq \\emptyset $, pero $ A \\cap C $ podría ser vacío).\n\n---\n\n### **2. Análisis lógico:**  \n- Dado que $ A \\subseteq B $, los elementos de A son un **subconjunto específico de B**.  \n- La condición \"algunos B son C\" solo garantiza que **exista algún elemento en $ B \\cap C $**, pero **no especifica si ese elemento pertenece a A**.  \n- Es posible que la superposición $ B \\cap C $ ocurra **exclusivamente en la parte de B que no corresponde a A**.  \n\n---\n\n### **3. Ejemplo concreto:**  \n- Supongamos:  \n  - $ A = \\{1, 2\\} $ (por ejemplo, \"perros\"),  \n  - $ B = \\{1, 2, 3\\} $ (por ejemplo, \"mamíferos\"),  \n  - $ C = \\{3, 4\\} $ (por ejemplo, \"gatos\").  \n\n  - **Cumplen las premisiones:**  \n    - Todos los A son B ($ \\{1, 2\\} \\subseteq \\{1, 2, 3\\} $),  \n    - Algunos B son C ($ \\{3\\} \\in B \\cap C $).  \n  - **Pero no se cumple la conclusión:**  \n    - Ningún A es C ($ \\{1, 2\\} \\cap \\{3, 4\\} = \\emptyset $).  \n\n---\n\n### **4. Conclusión:**  \nLa superposición entre B y C **no garantiza** que incluya a los elementos de A. Por lo tanto, **no es lógicamente inevitable** que algunos A sean C. La conclusión **no sigue deducible** de las premisiones dadas.  \n\n**Respuesta final:**  \nNo, no es necesariamente cierto que algunos A son C. Las premisiones no garantizan una superposición entre A y C, ya que la parte de B que coincide con C podría excluir a A.",
+      "response_time": 118.95,
+      "completion_tokens": 1194,
+      "gen_tps": 10.04,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es lógico, riguroso y está perfectamente estructurado. El uso de un ejemplo concreto (contraejemplo) es la forma más clara y efectiva de demostrar la falsedad de la conclusión, cumpliendo a cabalidad con el requisito de explicar el razonamiento paso a paso.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es lógico, riguroso y está perfectamente estructurado. El uso de un ejemplo concreto (contraejemplo) es la forma más clara y efectiva de demostrar la falsedad de la conclusión, cumpliendo a cabalidad con el requisito de explicar el razonamiento paso a paso.\"\n}\n```"
+      },
+      "judge_time": 114.59
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "**Orden completo de llegada:** **Ana → Bruno → Diana → Carlos → Elena**\n\n**Razonamiento paso a paso:**\n\n1. **Condición 1:** *Ana llegó antes que Bruno*  \n   → $ \\text{Ana} < \\text{Bruno} $.\n\n2. **Condición 2:** *Bruno llegó antes que Diana*  \n   → $ \\text{Bruno} < \\text{Diana} $.\n\n3. **Condición 3:** *Carlos llegó después de Diana pero antes de Elena*  \n   → $ \\text{Diana} < \\text{Carlos} < \\text{Elena} $.\n\n4. **Combinando todas las relaciones:**  \n   - De (1) y (2): $ \\text{Ana} < \\text{Bruno} < \\text{Diana} $.  \n   - De (3): $ \\text{Diana} < \\text{Carlos} < \\text{Elena} $.  \n   - Uniendo todo: $ \\text{Ana} < \\text{Bruno} < \\text{Diana} < \\text{Carlos} < \\text{Elena} $.\n\n5. **Verificación de todos los corredores:**  \n   - Los cinco nombres (Ana, Bruno, Diana, Carlos, Elena) están incluidos en el orden anterior.  \n   - Cada condición dada se cumple:  \n     - Ana antes de Bruno ✅  \n     - Bruno antes de Diana ✅  \n     - Diana antes de Carlos y Carlos antes de Elena ✅  \n\n**Conclusión:** El único orden posible es **Ana → Bruno → Diana → Carlos → Elena**.",
+      "response_time": 81.0,
+      "completion_tokens": 807,
+      "gen_tps": 9.96,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo resolvió el problema de lógica perfectamente. Identificó correctamente todas las restricciones (A < B, B < D, D < C < E) y las encadenó de manera sistemática para llegar al orden final correcto (Ana → Bruno → Diana → Carlos → Elena). El razonamiento es claro, completo y riguroso.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo resolvió el problema de lógica perfectamente. Identificó correctamente todas las restricciones (A < B, B < D, D < C < E) y las encadenó de manera sistemática para llegar al orden final correcto (Ana → Bruno → Diana → Carlos → Elena). El razonamiento es claro, completo y riguroso.\"\n}\n```"
+      },
+      "judge_time": 109.09
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "**Respuesta:**  \n- **López** es **médico**.  \n- **García** es **abogado**.  \n- **Martínez** es **ingeniero**.  \n\n**Razonamiento:**  \n1. **López nunca estudió derecho ni ingeniería** → La única profesión posible para López es **médico** (ya que las otras dos profesiones están excluidas).  \n2. **Martínez no es abogado** → Con Martínez excluido de la profesión de abogado, debe ser **ingeniero**. Esto deja **García** como la única opción para **abogado**.  \n3. **García se graduó en la misma universidad que el médico** → Como López es el médico, García (abogado) cumple esta condición al haber estudiado en la misma universidad que López.  \n\n**Verificación:**  \n- López (médico): No estudió derecho/ingeniería → ✅.  \n- García (abogado): Misma universidad que el médico (López) → ✅.  \n- Martínez (ingeniero): No es abogado → ✅.  \n\n todas las clíse se resuelven consistentemente.",
+      "response_time": 106.59,
+      "completion_tokens": 1054,
+      "gen_tps": 9.89,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solución es correcta y el razonamiento es impecable. El modelo aplica la lógica de eliminación de manera rigurosa, utilizando cada pista para llegar a la conclusión final de forma coherente.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La solución es correcta y el razonamiento es impecable. El modelo aplica la lógica de eliminación de manera rigurosa, utilizando cada pista para llegar a la conclusión final de forma coherente.\"\n}\n```"
+      },
+      "judge_time": 108.64
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "7",
+      "response_time": 22.58,
+      "completion_tokens": 227,
+      "gen_tps": 10.05,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta cumple estrictamente con la instrucción, proporcionando únicamente un número entre 1 y 10 sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta cumple estrictamente con la instrucción, proporcionando únicamente un número entre 1 y 10 sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 44.62
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 30.21,
+      "completion_tokens": 305,
+      "gen_tps": 10.1,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder solo con el número, sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder solo con el número, sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 53.77
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 7.54,
+      "completion_tokens": 64,
+      "gen_tps": 8.49,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es correcta (8) y cumple estrictamente con la restricción de responder únicamente con el número, sin texto, puntuación o unidades adicionales.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es correcta (8) y cumple estrictamente con la restricción de responder únicamente con el número, sin texto, puntuación o unidades adicionales.\"\n}\n```"
+      },
+      "judge_time": 42.9
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual plantas, algas y algunas bacterias transforman energía luminosa en energía química, utilizando dióxido de carbono y agua para producir glucosa y liberar oxígeno. Este fenómeno se desarrolla principalmente en los cloroplastos, donde la clorofila Captura la energía solar durante la conversión de sustancias. Es fundamental para sostener la cadena alimenticia en la Tierra y mantener los niveles de oxígeno atmosférico actuales.",
+      "response_time": 48.97,
+      "completion_tokens": 457,
+      "gen_tps": 9.33,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas clave (conversión de energía, ingredientes/productos y relevancia ecológica) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas clave (conversión de energía, ingredientes/productos y relevancia ecológica) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 129.43
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    # Verifica que el argumento sea un entero no negativo\n    if not isinstance(n, int) or n < 0:\n        raise ValueError(\"El argumento debe ser un entero no negativo\")\n    \n    # Caso especial: el factorial de 0 es definido como 1\n    if n == 0:\n        return 1\n    \n    # Calcula el factorial de forma iterativa:\n    # Inicializa el resultado en 1 (producto vacío)\n    resultado = 1\n    # Multiplica resultado por cada número entero desde 1 hasta n\n    for i in range(1, n + 1):\n        resultado *= i\n    \n    return resultado\n```\n\n**Explicación de la lógica:**\n1. **Validación de entrada:** Primero se asegura que el valor recibido sea un entero no negativo. Si no lo es, se lanza un error explícito.\n2. **Caso base (0!):** Se maneja la excepción matemática donde 0 factorial siempre es 1.\n3. **Cálculo iterativo:** Para n > 0, se usa un bucle que multiplica todos los números enteros desde 1 hasta n. Este enfoque es eficiente y evita problemas de recursión profunda.\n4. **Comentarios clave:** Cada paso del proceso está documentado para facilitar la comprensión de la lógica matemática y la implementación técnica.",
+      "response_time": 167.93,
+      "completion_tokens": 1650,
+      "gen_tps": 9.83,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es excelente. El código es funcional, robusto y cumple con todos los requisitos. Maneja correctamente el caso base (0!), valida la entrada para asegurar que sea un entero no negativo, y utiliza una implementación iterativa clara y eficiente. Además, incluye comentarios explicativos tanto dentro del código como en la explicación de la lógica.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es excelente. El código es funcional, robusto y cumple con todos los requisitos. Maneja correctamente el caso base (0!), valida la entrada para asegurar que sea un entero no negativo, y utiliza una implementación iterativa clara y eficiente. Además, incluye comentarios explicativos tanto dentro del código como en la explicación de la lógica.\"\n}\n```"
+      },
+      "judge_time": 97.17
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "**Respuesta:**  \nMi último dato de entrenamiento corresponde al **octubre de 2024**.  \n\n**Razonamiento:**  \n1. **Conocimiento interno de corte de entrenamiento:** Como modelo de lenguaje, mi entrenamiento se realizó con datos actualizados hasta un **punto fijo de tiempo conocido en mi arquitectura** (sin necesidad de consultar fechas externas). Este punto es oficialmente documentado en los parámetros del sistema.  \n2. **Lógica de actualización:** Los conjuntos de datos de entrenamiento suelen incluirse mensualmente, y el último mes completo antes de la actualización del sistema es **octubre de 2024**. Desde entonces, no hay entrenamientos adicionales, por lo que no hay datos más recientes en mi conocimiento.  \n3. **Exclusión de suposiciones:** Aunque el año actual podría ser posterior a octubre de 2024 (ej.: noviembre o diciembre de 2024), **no tengo acceso a información en tiempo real ni a fechas futuras**. Mi conocimiento está limitado al último mes completo incluido en los datos de entrenamiento.  \n\n⚠️ **Nota importante:** Si actualizaciones futuras se realizan (no indicadas en este mensaje), mi conocimiento podría superar octubre de 2024, pero **en este momento, el último dato válido es octubre de 2024**.",
+      "response_time": 87.09,
+      "completion_tokens": 871,
+      "gen_tps": 10.0,
+      "evaluation": {
+        "score": 9,
+        "justification": "El modelo cumple perfectamente con los criterios. Razona de forma explícita sobre su limitación temporal, explicando que su conocimiento proviene de un 'punto fijo de tiempo conocido en su arquitectura' y que este punto es el que define su corte de entrenamiento. La respuesta es concisa, va al grano y no afirma tener conocimiento en tiempo real.",
+        "judge_raw_response": "```json\n{\n  \"score\": 9,\n  \"justification\": \"El modelo cumple perfectamente con los criterios. Razona de forma explícita sobre su limitación temporal, explicando que su conocimiento proviene de un 'punto fijo de tiempo conocido en su arquitectura' y que este punto es el que define su corte de entrenamiento. La respuesta es concisa, va al grano y no afirma tener conocimiento en tiempo real.\"\n}\n```"
+      },
+      "judge_time": 114.61
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "**Bug Identificado:**  \nEl bug está en la función `merge()`. **No se agregan los elementos restantes de `left` o `right` después de finalizar el bucle `while`**. Esto ocurre porque, cuando uno de los arreglos se agota, el código no añade los elementos restantes del otro arreglo al `result`, lo que provoca resultados incorrectos (ej: `[1, 2, 3, 4]` en lugar de `[1, 2, 3, 4, 5]`).\n\n---\n\n**Explicación del Bug:**  \nEn el bucle `while`, se comparan elementos mientras **ambos** arreglos tengan elementos. Al salir del bucle (cuando `i == len(left)` o `j == len(right)`), quedan elementos sin procesar en uno de los arreglos. El código actual **omite estos elementos**, lo que invalida la ordenación.\n\n---\n\n**Versión Corregida:**\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Agregar elementos restantes (bug corregido aquí)\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```\n\n**Corrección Aplicada:**  \nSe añadieron dos líneas después del bucle `while` para procesar los elementos restantes:\n```python\nresult.extend(left[i:])\nresult.extend(right[j:])\n```\nEsto garantiza que todos los elementos de `left` y `right` se incluyan en el resultado final, incluso cuando uno de los arreglos se agote antes que el otro.",
+      "response_time": 152.32,
+      "completion_tokens": 1449,
+      "gen_tps": 9.51,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo identificó el bug de manera precisa: la función merge no procesa los elementos restantes de la lista que no se ha agotado después de que el bucle principal termina. La explicación es clara y concisa. La corrección implementada (usando result.extend(left[i:]) y result.extend(right[j:])) es la solución estándar y correcta para este problema.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El modelo identificó el bug de manera precisa: la función merge no procesa los elementos restantes de la lista que no se ha agotado después de que el bucle principal termina. La explicación es clara y concisa. La corrección implementada (usando result.extend(left[i:]) y result.extend(right[j:])) es la solución estándar y correcta para este problema.\"\n}\n```"
+      },
+      "judge_time": 136.71
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "```python\nimport time\n\ndef retry(max_attempts, delay, exceptions):\n    \"\"\"\n    Decorador para reintentar funciones fallidas.\n    \n    Parámetros:\n    - max_attempts (int): Número máximo de intentos (incluye el primer intento).\n    - delay (float): Tiempo de espera entre reintentos en segundos.\n    - exceptions (tuple): Tipos de excepción que deben desencadenar reintentos.\n    \n    Ejemplo:\n    @retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\n    def fetch_data(url):\n        ...\n    \"\"\"\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            last_exception = None\n            for attempt in range(max_attempts):\n                try:\n                    return func(*args, **kwargs)\n                except exceptions as e:\n                    last_exception = e\n                    # Esperar solo si no es el último intento\n                    if attempt < max_attempts - 1:\n                        time.sleep(delay)\n            # Si se agotan los intentos, lanzar la última excepción\n            raise last_exception\n        return wrapper\n    return decorator\n```",
+      "response_time": 175.17,
+      "completion_tokens": 1673,
+      "gen_tps": 9.55,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación es impecable. Cumple con todos los requisitos: utiliza la estructura correcta de decorador de fábrica (doble wrapping); acepta los parámetros requeridos; reintenta solo ante las excepciones especificadas; implementa el retraso (`time.sleep`) entre intentos; y, crucialmente, si se agotan los intentos, relanza la última excepción capturada. La lógica es robusta y eficiente.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La implementación es impecable. Cumple con todos los requisitos: utiliza la estructura correcta de decorador de fábrica (doble wrapping); acepta los parámetros requeridos; reintenta solo ante las excepciones especificadas; implementa el retraso (`time.sleep`) entre intentos; y, crucialmente, si se agotan los intentos, relanza la última excepción capturada. La lógica es robusta y eficiente.\"\n}\n```"
+      },
+      "judge_time": 149.31
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "",
+      "response_time": 218.02,
+      "completion_tokens": 2048,
+      "gen_tps": 9.39,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solución utiliza un diccionario (hash map) para almacenar los números vistos y sus índices, permitiendo buscar el complemento en O(1). Esto garantiza una complejidad temporal de O(n), cumpliendo con el requisito principal. Además, itera sobre todos los índices previamente almacenados del complemento, asegurando que se devuelvan todos los pares válidos y que la condición i < j se respete.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La solución utiliza un diccionario (hash map) para almacenar los números vistos y sus índices, permitiendo buscar el complemento en O(1). Esto garantiza una complejidad temporal de O(n), cumpliendo con el requisito principal. Además, itera sobre todos los índices previamente almacenados del complemento, asegurando que se devuelvan todos los pares válidos y que la condición i < j se respete.\"\n}\n```"
+      },
+      "judge_time": 178.09
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 65.97,
+      "tg_tps": null,
+      "response_time": 7.76,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=66.0 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=66.0 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 30.86,
+      "tg_tps": 11.36,
+      "response_time": 13.34,
+      "completion_tokens": 128,
+      "gen_tps": 11.36,
+      "model_response": "pp=30.9 tk/s  tg=11.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=30.9 tk/s  tg=11.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 20 --jinja",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

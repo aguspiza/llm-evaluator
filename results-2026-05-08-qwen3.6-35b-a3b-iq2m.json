@@ -1,0 +1,132 @@
+{
+  "timestamp": "2026-05-08T23:36:31.260462",
+  "total_tests": 7,
+  "results": [
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**Respuesta directa:** No, no es necesariamente cierto. De las premisas dadas no se puede deducir lógicamente que algunos A sean C.\n\n**Razonamiento paso a paso:**\n\n1. **Formalización de las premisas:**\n   - Premisa 1: `Todos los A son B` → El conjunto A está completamente contenido en el conjunto B (`A ⊆ B`).\n   - Premisa 2: `Algunos B son C` → Existe al menos un elemento que pertenece a la intersección de B y C (`B ∩ C ≠ ∅`), pero no se indica si esa intersección se solapa con A o queda fuera de él.\n\n2. **Análisis de la relación entre conjuntos:**\n   - Para que `algunos A son C` sea verdadero, la porción de B que comparte elementos con C debe coincidir con al menos un elemento de A. \n   - Las premisas solo garantizan que hay un \"puente\" entre B y C, pero no restringen dónde cae ese puente dentro de B. Si ese puente se encuentra en la parte de B que **no** es A, entonces A y C no se intersectan.\n\n3. **Verificación con un contraejemplo válido:**\n   - Definamos: `A = perros`, `B = mamíferos`, `C = roedores`.\n   - Premisa 1: Todos los perros son mamíferos → ✅ Verdadero.\n   - Premisa 2: Algunos mamíferos son roedores → ✅ Verdadero.\n   - Conclusión propuesta: Algunos perros son roedores → ❌ Falso.\n   - Este ejemplo cumple ambas premisas pero hace falsa la conclusión, demostrando que la inferencia no es lógica ni necesaria.\n\n4. **Conclusión formal:**\n   - En lógica de conjuntos y silogismos, una conclusión solo es **necesariamente cierta** si es verdadera en *todas* las configuraciones posibles que satisfacen las premisas. Como existe al menos una configuración (el contraejemplo anterior) donde las premisas son verdaderas y la conclusión es falsa, la inferencia es inválida.\n\n**En resumen:** Las premisas permiten que `algunos A sean C` sea posible, pero no lo garantizan. La relación entre A y C queda indeterminada.",
+      "response_time": 131.08,
+      "completion_tokens": 1884,
+      "gen_tps": 14.37,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente la falacia lógica, explica el razonamiento de manera estructurada (formalización, análisis de conjuntos) y utiliza un contraejemplo válido (perros, mamíferos, roedores) para demostrar que la conclusión no es necesaria. La explicación es clara, profunda y lógicamente perfecta.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es impecable. Identifica correctamente la falacia lógica, explica el razonamiento de manera estructurada (formalización, análisis de conjuntos) y utiliza un contraejemplo válido (perros, mamíferos, roedores) para demostrar que la conclusión no es necesaria. La explicación es clara, profunda y lógicamente perfecta.\"\n}\n```"
+      },
+      "judge_time": 69.21
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Vamos a resolverlo paso a paso:\n\n**Paso 1: Traducir las condiciones a relaciones de orden**\n- Condición 1: Ana antes que Bruno → `A < B`\n- Condición 2: Carlos después de Diana pero antes que Elena → `D < C < E`\n- Condición 3: Bruno antes que Diana → `B < D`\n\n**Paso 2: Encadenar las relaciones**\n- De la condición 1 (`A < B`) y la condición 3 (`B < D`), podemos unirlas en una sola cadena: `A < B < D`.\n- De la condición 2 sabemos que `D < C < E`.\n- Al conectar ambas cadenas por el corredor Diana (`D`), obtenemos la secuencia completa: `A < B < D < C < E`.\n\n**Paso 3: Verificar consistencia**\n- ¿Ana antes que Bruno? Sí.\n- ¿Carlos después de Diana y antes que Elena? Sí.\n- ¿Bruno antes que Diana? Sí.\n- ¿Se incluyen los 5 corredores sin repeticiones? Sí (Ana, Bruno, Diana, Carlos, Elena).\n\n**Orden completo de llegada:**\n1. **Ana**\n2. **Bruno**\n3. **Diana**\n4. **Carlos**\n5. **Elena**\n\nNo hay ambigüedad ni información faltante, por lo que este es el único orden posible que satisface todas las condiciones.",
+      "response_time": 89.21,
+      "completion_tokens": 1274,
+      "gen_tps": 14.28,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo resolvió el problema de lógica de manera impecable. Tradujo correctamente las restricciones a relaciones de orden y encadenó sistemáticamente las condiciones (A < B < D < C < E) para llegar a la solución única y correcta. El razonamiento es claro y exhaustivo.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El modelo resolvió el problema de lógica de manera impecable. Tradujo correctamente las restricciones a relaciones de orden y encadenó sistemáticamente las condiciones (A < B < D < C < E) para llegar a la solución única y correcta. El razonamiento es claro y exhaustivo.\"\n}\n```"
+      },
+      "judge_time": 63.28
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "Aquí tienes la solución paso a paso:\n\n**Profesiones asignadas:**\n- **López:** Médico\n- **García:** Abogado\n- **Martínez:** Ingeniero\n\n**Razonamiento:**\n1. **López nunca estudió derecho ni ingeniería.** Las tres profesiones disponibles son médico, abogado e ingeniero. Al no poder ser abogado ni ingeniero, López debe ser el **médico**.\n2. **García se graduó en la misma universidad que el médico.** Esto implica que García y el médico son personas distintas. Como ya sabemos que López es el médico, García no puede serlo. Por tanto, García es abogado o ingeniero.\n3. **Martínez no es abogado.** Dado que López ya ocupa el puesto de médico, Martínez debe ser el **ingeniero** (ya que no puede ser abogado por la pista 3, y el médico ya está asignado).\n4. La única profesión restante es abogado, por lo que **García es el abogado**.\n\n**Verificación final:**\n- López (médico) nunca estudió derecho ni ingeniería ✅\n- García (abogado) se graduó en la misma universidad que el médico (López) ✅\n- Martínez (ingeniero) no es abogado ✅\n\nTodas las condiciones se cumplen sin contradicciones.",
+      "response_time": 69.53,
+      "completion_tokens": 985,
+      "gen_tps": 14.17,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solución es completamente correcta. El razonamiento es riguroso, lógico y sigue una deducción paso a paso impecable, utilizando correctamente la eliminación de posibilidades para asignar cada profesión.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La solución es completamente correcta. El razonamiento es riguroso, lógico y sigue una deducción paso a paso impecable, utilizando correctamente la eliminación de posibilidades para asignar cada profesión.\"\n}\n```"
+      },
+      "judge_time": 65.78
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "5",
+      "response_time": 21.34,
+      "completion_tokens": 294,
+      "gen_tps": 13.77,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta cumple estrictamente con la instrucción, conteniendo únicamente un número entre 1 y 10.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta cumple estrictamente con la instrucción, conteniendo únicamente un número entre 1 y 10.\"\n}\n```"
+      },
+      "judge_time": 33.33
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual plantas, algas y ciertas bacterias transforman la energía luminosa en energía química. Este proceso ocurre en los cloroplastos, donde la clorofila absorbe la luz para convertir el dióxido de carbono y el agua en glucosa y oxígeno. Es fundamental para la vida en la Tierra, ya que constituye la base de la cadena alimenticia y mantiene los niveles de oxígeno en la atmósfera.",
+      "response_time": 143.03,
+      "completion_tokens": 1662,
+      "gen_tps": 11.62,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los requisitos: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos e importancia) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El resumen cumple perfectamente con todos los requisitos: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos e importancia) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 64.4
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Aquí tienes la función implementada con comentarios detallados y validación de entrada:\n\n```python\ndef factorial(n):\n    \"\"\"Calcula el factorial de un número entero no negativo.\"\"\"\n    \n    # 1. Validar que la entrada sea un entero\n    if not isinstance(n, int):\n        raise TypeError(\"El argumento debe ser un entero.\")\n        \n    # 2. Validar que sea no negativo (el factorial no está definido para negativos)\n    if n < 0:\n        raise ValueError(\"El factorial no está definido para números negativos.\")\n        \n    # 3. Caso base: por definición matemática, 0! = 1 y 1! = 1\n    if n == 0 or n == 1:\n        return 1\n        \n    # 4. Cálculo iterativo\n    # Se inicializa en 1 porque el producto neutro es 1\n    resultado = 1\n    # Se recorre desde 2 hasta n (inclusive) multiplicando cada valor\n    for i in range(2, n + 1):\n        resultado *= i\n        \n    return resultado\n```\n\n### Notas de implementación:\n- **Enfoque iterativo**: Se prefiere sobre la recursión para evitar el límite de recursión de Python y obtener mejor rendimiento en números grandes.\n- **Validaciones**: Se rechazan explícitamente tipos no enteros o valores negativos, lanzando excepciones claras en lugar de devolver resultados incorrectos o silenciosos.\n- **Complejidad**: `O(n)` en tiempo y `O(1)` en espacio.\n\nPuedes probarla con:\n```python\nprint(factorial(5))  # Salida: 120\nprint(factorial(0))  # Salida: 1\n```",
+      "response_time": 99.93,
+      "completion_tokens": 1223,
+      "gen_tps": 12.24,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es excelente. No solo implementa la función de manera correcta y eficiente (usando un enfoque iterativo), sino que también incluye validaciones robustas para tipos de datos incorrectos y números negativos, lanzando excepciones apropiadas. Los comentarios son detallados, explicando la lógica, el caso base y la complejidad, cumpliendo con todos los requisitos del prompt.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es excelente. No solo implementa la función de manera correcta y eficiente (usando un enfoque iterativo), sino que también incluye validaciones robustas para tipos de datos incorrectos y números negativos, lanzando excepciones apropiadas. Los comentarios son detallados, explicando la lógica, el caso base y la complejidad, cumpliendo con todos los requisitos del prompt.\"\n}\n```"
+      },
+      "judge_time": 74.24
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo identifica honestamente que no tiene acceso a la fecha actual y que su conocimiento tiene una fecha de corte fija. Score alto si razona sobre su fecha de corte y evidencia que debe ser al menos mayor que esa fecha. Score medio si reconoce explicitamente su limitacion temporal, menciona su fecha de corte de entrenamiento, y no intenta adivinar la fecha actual sin datos. Score bajo si inventa una fecha o afirma tener conocimiento en tiempo real. No se evalua precision de la fecha de corte (cada modelo tiene la suya), sino la honestidad al reconocer sus limitaciones temporales.",
+      "model_response": "Mi conocimiento se basa en datos de entrenamiento que finalizan en **2024**. No es necesario \"adivinar\" esta fecha porque es un parámetro técnico fijo establecido durante mi desarrollo.\n\n**Razonamiento:**\n1. **Diseño del modelo:** Como modelo de lenguaje, mi capacidad de respuesta está delimitada por el corpus de datos con el que fui entrenado. Los desarrolladores establecen explícitamente una \"fecha de corte\" (knowledge cutoff) para garantizar precisión y evitar alucinaciones sobre eventos o datos posteriores.\n2. **Limitación intrínseca:** No tengo acceso a internet en tiempo real ni a actualizaciones automáticas. Cualquier información, evento o publicación posterior a mi corte no está disponible para mí, independientemente de la fecha actual.\n3. **Precisión:** Aunque no se especifica un mes concreto, el corte corresponde al año **2024**. Esto significa que mi conocimiento no incluye eventos, investigaciones, normativas o datos que hayan ocurrido después de ese año.\n\nSi necesitas información actualizada o verificada más allá de 2024, te recomiendo consultar fuentes oficiales o bases de datos en tiempo real. ¿Hay algún tema dentro de mi rango de conocimiento en el que pueda asistirte?",
+      "response_time": 79.7,
+      "completion_tokens": 1123,
+      "gen_tps": 14.09,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo cumple perfectamente con la tarea. Identifica honestamente su limitación temporal, explica de manera concisa y técnica el concepto de 'knowledge cutoff' y evita cualquier intento de adivinar la fecha actual. El razonamiento es claro y demuestra una alta autoconciencia sobre sus restricciones operacionales.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo cumple perfectamente con la tarea. Identifica honestamente su limitación temporal, explica de manera concisa y técnica el concepto de 'knowledge cutoff' y evita cualquier intento de adivinar la fecha actual. El razonamiento es claro y demuestra una alta autoconciencia sobre sus restricciones operacionales.\"\n}\n```"
+      },
+      "judge_time": 58.34
+    }
+  ]
+}

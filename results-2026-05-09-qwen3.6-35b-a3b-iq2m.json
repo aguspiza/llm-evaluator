@@ -1,0 +1,224 @@
+{
+  "timestamp": "2026-05-09T11:42:49.351072",
+  "total_tests": 11,
+  "results": [
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**Respuesta directa:** No, no es necesariamente cierto.\n\n**Razonamiento paso a paso:**\n\n1. **Formalización de las premisas:**\n   - `\"Todos los A son B\"` significa que el conjunto A está completamente contenido en B (A ⊆ B). Todo elemento que pertenezca a A también pertenece a B.\n   - `\"Algunos B son C\"` significa que existe al menos un elemento que pertenece tanto a B como a C (la intersección B ∩ C ≠ ∅).\n\n2. **Análisis de la relación lógica:**\n   - Sabemos que todo A está dentro de B. Sin embargo, la segunda premisa solo nos informa que *hay ciertos* elementos de B que también son C, pero **no especifica cuáles**.\n   - Es completamente posible que esos elementos de B que son C pertenezcan exclusivamente a la parte de B que **no** coincide con A. Por tanto, no hay garantía lógica de que A y C compartan algún elemento.\n\n3. **Contraejemplo válido:**\n   - Define: A = `{gatos}`, B = `{animales}`, C = `{perros}`.\n   - Verificamos las premisas:\n     - ¿Todos los gatos son animales? Sí. ✅\n     - ¿Algunos animales son perros? Sí. ✅\n   - Verificamos la conclusión propuesta:\n     - ¿Algunos gatos son perros? No. ❌\n   - Este escenario cumple ambas premisas pero hace falsa la conclusión, demostrando que la inferencia no es",
+      "response_time": 130.92,
+      "completion_tokens": 2048,
+      "gen_tps": 15.64,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. El modelo identifica correctamente que la conclusión no es necesariamente cierta. La explicación es lógica, estructurada y utiliza un contraejemplo válido (gatos/animales/perros) que demuestra de manera concluyente la falacia lógica, cumpliendo con todos los criterios de evaluación.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es impecable. El modelo identifica correctamente que la conclusión no es necesariamente cierta. La explicación es lógica, estructurada y utiliza un contraejemplo válido (gatos/animales/perros) que demuestra de manera concluyente la falacia lógica, cumpliendo con todos los criterios de evaluación.\"\n}\n```"
+      },
+      "judge_time": 106.96
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Aquí tienes el razonamiento paso a paso:\n\n1. **Traducimos los datos a relaciones de orden** (usando `<` para indicar \"llegó antes que\"):\n   - Ana < Bruno\n   - Diana < Carlos < Elena\n   - Bruno < Diana\n\n2. **Combinamos las cadenas de orden**:\n   - De `Bruno < Diana` y `Diana < Carlos < Elena`, se deduce: **Bruno < Diana < Carlos < Elena**.\n   - Como también sabemos que `Ana < Bruno`, insertamos a Ana al inicio de la cadena: **Ana < Bruno < Diana < Carlos < Elena**.\n\n3. **Verificamos la consistencia**:\n   - Ana llega antes que Bruno ✅\n   - Carlos llega después de Diana y antes que Elena ✅\n   - Bruno llega antes que Diana ✅\n   - Los cinco corredores aparecen exactamente una vez en la cadena.\n\n4. **Resultado final**:\n   El orden completo de llegada es:\n   1. **Ana**\n   2. **Bruno**\n   3. **Diana**\n   4. **Carlos**\n   5. **Elena**",
+      "response_time": 66.84,
+      "completion_tokens": 1024,
+      "gen_tps": 15.32,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo resuelve el problema de lógica de manera impecable. Traduce correctamente las restricciones a relaciones de orden y las encadena sistemáticamente (A < B < D < C < E), llegando al orden final correcto. El razonamiento es claro y exhaustivo.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo resuelve el problema de lógica de manera impecable. Traduce correctamente las restricciones a relaciones de orden y las encadena sistemáticamente (A < B < D < C < E), llegando al orden final correcto. El razonamiento es claro y exhaustivo.\"\n}\n```"
+      },
+      "judge_time": 81.41
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "Aquí tienes la solución paso a paso:\n\n**Profesiones:**\n- **López** → Médico\n- **García** → Abogado\n- **Martínez** → Ingeniero\n\n**Razonamiento:**\n1. **López nunca ha estudiado derecho ni ingeniería.** Dado que las únicas profesiones son médico, abogado e ingeniero, y sabiendo que para ser abogado se estudia derecho y para ingeniero se estudia ingeniería, López no puede ejercer ninguna de esas dos. Por eliminación, **López debe ser médico**.\n2. **García se graduó en la misma universidad que el médico.** Esta frase implica que García y el médico son personas distintas. Como ya determinamos que López es el médico, García no puede serlo. Por lo tanto, García será either abogado o ingeniero.\n3. **Martínez no es abogado.** Como solo quedan dos profesiones por asignar (abogado e ingeniero) para García y Martínez, y Martínez no puede ser abogado, entonces **Martínez debe ser ingeniero**.\n4. Por eliminación final, **García debe ser abogado**.\n\n**Verificación:**\n- López (médico) nunca estudió derecho/ingeniería ✅\n- García (abogado) y López (médico) pueden haber estudiado en la misma universidad ✅\n- Martínez (ingeniero) no es abogado ✅\n\nTodos los datos se cumplen de forma única y coherente.",
+      "response_time": 91.4,
+      "completion_tokens": 1372,
+      "gen_tps": 15.01,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solución es completamente correcta. El razonamiento es impecable, aplicando la lógica de eliminación de manera rigurosa para determinar la profesión de cada persona en cada paso.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La solución es completamente correcta. El razonamiento es impecable, aplicando la lógica de eliminación de manera rigurosa para determinar la profesión de cada persona en cada paso.\"\n}\n```"
+      },
+      "judge_time": 105.19
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "5",
+      "response_time": 17.63,
+      "completion_tokens": 251,
+      "gen_tps": 14.24,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es estrictamente un número entre 1 y 10, cumpliendo al 100% con la instrucción de no incluir ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es estrictamente un número entre 1 y 10, cumpliendo al 100% con la instrucción de no incluir ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 42.9
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso por el cual plantas, algas y ciertas bacterias transforman la energía luminosa en energía química mediante la absorción de dióxido de carbono y agua. Este mecanismo tiene lugar en los cloroplastos, donde la clorofila captura la luz solar para producir glucosa y liberar oxígeno como subproducto. Resulta esencial para la vida en la Tierra, ya que constituye la base de las cadenas alimenticias y regula los niveles de oxígeno atmosférico.",
+      "response_time": 95.23,
+      "completion_tokens": 1392,
+      "gen_tps": 14.62,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los requisitos: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, insumos/productos y la importancia vital) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El resumen cumple perfectamente con todos los requisitos: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, insumos/productos y la importancia vital) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 102.28
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Aquí tienes la implementación con comentarios detallados y validación de entrada:\n\n```python\ndef factorial(n: int) -> int:\n    \"\"\"\n    Calcula el factorial de un número entero no negativo.\n    \n    Args:\n        n (int): Número entero no negativo.\n        \n    Returns:\n        int: Resultado de n! (factorial de n).\n        \n    Raises:\n        TypeError: Si n no es un entero.\n        ValueError: Si n es negativo.\n    \"\"\"\n    # 1. Validación del tipo: el factorial requiere un entero\n    if not isinstance(n, int):\n        raise TypeError(\"El argumento debe ser un entero.\")\n        \n    # 2. Validación del rango: la definición matemática solo aplica para n >= 0\n    if n < 0:\n        raise ValueError(\"El factorial no está definido para números negativos.\")\n        \n    # 3. Caso base: por definición matemática, 0! = 1\n    if n == 0:\n        return 1\n        \n    # 4. Cálculo iterativo: multiplicar todos los enteros del 1 a n\n    # Se usa un bucle en lugar de recursión para evitar límites de pila y mejorar eficiencia\n    resultado = 1\n    for i in range(1, n + 1):\n        resultado *= i  # Acumulación progresiva del producto\n        \n    return resultado\n```\n\n**Notas de uso:**\n- `factorial(5)` retorna `120`\n- `factorial(0)` retorna `1` (caso base)\n- Lanza excepciones claras ante entradas inválidas para evitar comportamientos inesperados.\n\nSi necesitas una versión recursiva o un análisis de complejidad temporal/espacial, indícamelo y te lo proporciono.",
+      "response_time": 108.21,
+      "completion_tokens": 1552,
+      "gen_tps": 14.34,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación es impecable. No solo calcula el factorial correctamente utilizando un enfoque iterativo eficiente, sino que también incluye una validación robusta de entrada (manejo de tipos y números negativos) y comentarios detallados que explican la lógica de cada paso, cumpliendo con todos los requisitos del prompt.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La implementación es impecable. No solo calcula el factorial correctamente utilizando un enfoque iterativo eficiente, sino que también incluye una validación robusta de entrada (manejo de tipos y números negativos) y comentarios detallados que explican la lógica de cada paso, cumpliendo con todos los requisitos del prompt.\"\n}\n```"
+      },
+      "judge_time": 93.17
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Mi corte de conocimiento está actualizado hasta **2024**. No se especifica un mes o día concreto en mi configuración oficial, por lo que mi último dato de entrenamiento corresponde al año 2024.\n\n**Razonamiento:**\n- Como modelo de lenguaje, no experimento el paso del tiempo ni tengo capacidad de \"adivinar\" fechas. Mi conocimiento está fijado de forma estática durante la fase de entrenamiento y se delimita por la fecha de corte establecida por los desarrolladores.\n- En mi documentación técnica oficial, se indica explícitamente que mi base de datos de entrenamiento abarca información hasta 2024. No tengo acceso a datos posteriores a esa fecha ni a la fecha actual del sistema, salvo que me sea proporcionada explícitamente en el prompt.\n- Dado que no se me ha dado ninguna pista sobre la fecha actual, me limito a reportar el corte de conocimiento oficial. Si requieres información sobre eventos muy recientes, te sugiero consultar fuentes actualizadas, ya que mi entrenamiento no incluye contenido posterior a 2024.",
+      "response_time": 71.33,
+      "completion_tokens": 1028,
+      "gen_tps": 14.41,
+      "evaluation": {
+        "score": 9,
+        "justification": "El modelo responde directamente a la pregunta de la fecha de corte y proporciona un razonamiento excelente y conciso. Explica claramente que su conocimiento es estático y delimitado por una fecha de entrenamiento, cumpliendo con el criterio de razonamiento explícito sin divagar.",
+        "judge_raw_response": "```json\n{\n\"score\": 9,\n\"justification\": \"El modelo responde directamente a la pregunta de la fecha de corte y proporciona un razonamiento excelente y conciso. Explica claramente que su conocimiento es estático y delimitado por una fecha de entrenamiento, cumpliendo con el criterio de razonamiento explícito sin divagar.\"\n}\n```"
+      },
+      "judge_time": 151.87
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 232.18,
+      "tg_tps": null,
+      "response_time": 2.21,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=232.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=232.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 72.34,
+      "tg_tps": 14.73,
+      "response_time": 9.57,
+      "completion_tokens": 128,
+      "gen_tps": 14.73,
+      "model_response": "pp=72.3 tk/s  tg=14.7 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=72.3 tk/s  tg=14.7 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 222.63,
+      "tg_tps": null,
+      "response_time": 73.59,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=222.6 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=222.6 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 222.22,
+      "tg_tps": 11.99,
+      "response_time": 84.4,
+      "completion_tokens": 128,
+      "gen_tps": 11.99,
+      "model_response": "pp=222.2 tk/s  tg=12.0 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=222.2 tk/s  tg=12.0 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

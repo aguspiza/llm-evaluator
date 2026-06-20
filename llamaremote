@@ -1,0 +1,7 @@
+#!/bin/bash
+# llamaremote - Levanta llama-server en una maquina remota via SSH
+# Uso: llamaremote user@host -hf repo:quant --port 8080 --host 0.0.0.0
+
+HOST="$1"
+shift
+ssh "$HOST" "llamacpp $@"

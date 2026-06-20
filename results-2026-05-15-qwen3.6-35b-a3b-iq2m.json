@@ -1,0 +1,235 @@
+{
+  "timestamp": "2026-05-15T22:01:13.992182",
+  "total_tests": 11,
+  "results": [
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**Respuesta corta:** No, no es necesariamente cierto.\n\n**Razonamiento paso a paso:**\n\n1. **Formalización de las premisas**\n   - `\"Todos los A son B\"` → El conjunto A está completamente contenido en B (`A ⊆ B`).\n   - `\"Algunos B son C\"` → Existe al menos un elemento que pertenece tanto a B como a C (`B ∩ C ≠ ∅`).\n\n2. **Análisis de lo que sabemos y lo que desconocemos**\n   - Sabemos con certeza que A está dentro de B.\n   - Sabemos que C comparte al menos un elemento con B.\n   - **Lo que no sabemos:** Ese elemento compartido con C puede estar dentro de A o puede estar fuera de A (en la parte de B que no es A). Las premisas no restringen la relación entre A y C.\n\n3. **Prueba con un contraejemplo concreto**\n   - Definamos: `A = {perros}`, `B = {animales}`, `C = {gatos}`.\n   - Premisa 1: `Todos los perros son animales` → **Verdadero**.\n   - Premisa 2: `Algunos animales son gatos` → **Verdadero**.\n   - Conclusión propuesta: `Algunos perros son gatos` → **Falso**.\n   - Este ejemplo cumple ambas premisas, pero la conclusión es falsa.\n\n4. **Conclusión lógica**\n   - En lógica formal, para que una conclusión sea \"necesariamente cierta\", debe ser verdadera en **todos** los casos posibles que satisfagan las premisas.\n   - Como existe al menos un caso válido donde las premisas se cumplen y la conclusión no, la inferencia es **inválida**.\n   - Formalmente, este es un silogismo de forma incorrecta (en lógica categórica, la conclusión no se sigue porque el término medio \"B\" no queda distribuido adecuadamente para conectar A y C).\n\n**Resultado final:** No, la afirmación `\"algunos A son C\"` no se deduce lógicamente de las premisas dadas. Puede ser verdadera en algunos contextos, pero no es necesariamente cierta.",
+      "response_time": 75.0,
+      "completion_tokens": 1513,
+      "gen_tps": 20.17,
+      "evaluation": {
+        "score": 10,
+        "justification": "El razonamiento es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. La explicación es exhaustiva, utiliza la formalización lógica y, crucialmente, proporciona un contraejemplo concreto (perros/gatos) que demuestra de manera irrefutable la invalidez de la inferencia.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El razonamiento es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. La explicación es exhaustiva, utiliza la formalización lógica y, crucialmente, proporciona un contraejemplo concreto (perros/gatos) que demuestra de manera irrefutable la invalidez de la inferencia.\"\n}\n```"
+      },
+      "judge_time": 114.22
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Para determinar el orden completo, analizaremos paso a paso las relaciones dadas:\n\n1. **Relación 1:** Ana llegó antes que Bruno → `Ana < Bruno`\n2. **Relación 3:** Bruno llegó antes que Diana → `Bruno < Diana`\n   *Combinando ambas:* `Ana < Bruno < Diana`\n3. **Relación 2:** Carlos llegó después de Diana pero antes de Elena → `Diana < Carlos < Elena`\n4. **Unificación:** Al enlazar ambas cadenas en el corredor común \"Diana\", obtenemos una secuencia lineal única que incluye a los cinco participantes:\n   `Ana < Bruno < Diana < Carlos < Elena`\n5. **Verificación:** El orden satisface todas las condiciones iniciales y asigna una posición concreta a cada corredor sin ambigüedades.\n\n**Orden completo de llegada (del 1.º al 5.º):**\n1. Ana\n2. Bruno\n3. Diana\n4. Carlos\n5. Elena",
+      "response_time": 47.33,
+      "completion_tokens": 934,
+      "gen_tps": 19.73,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo dedujo el orden correctamente (Ana, Bruno, Diana, Carlos, Elena). El razonamiento es impecable, encadenando las restricciones de manera lógica y sistemática para llegar a la solución única.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El modelo dedujo el orden correctamente (Ana, Bruno, Diana, Carlos, Elena). El razonamiento es impecable, encadenando las restricciones de manera lógica y sistemática para llegar a la solución única.\"\n}\n```"
+      },
+      "judge_time": 59.86
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "**Respuesta:**\n- **López** es médico.\n- **García** es abogado.\n- **Martínez** es ingeniero.\n\n**Razonamiento paso a paso:**\n1. **Primer dato:** \"López nunca ha estudiado derecho ni ingeniería\". Como las únicas profesiones son médico, abogado e ingeniero, López solo puede ser **médico**.\n2. **Segundo dato:** \"García se graduó en la misma universidad que el médico\". Esta frase implica que García y el médico son personas distintas. Por lo tanto, García **no es médico**.\n3. **Tercer dato:** \"Martínez no es abogado\". Como López ya es médico y García no puede serlo (por el dato 2), Martínez debe corresponder a la profesión restante: **ingeniero**.\n4. **Eliminación final:** Queda una persona (García) y una profesión (abogado) sin asignar, por lo que García es **abogado**.\n\nTodas las condiciones se cumplen sin contradicciones.",
+      "response_time": 56.2,
+      "completion_tokens": 1098,
+      "gen_tps": 19.54,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solución es completamente correcta. El razonamiento es riguroso, lógico y sigue la deducción paso a paso requerida para resolver el acertijo. La aplicación de la eliminación es impecable.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La solución es completamente correcta. El razonamiento es riguroso, lógico y sigue la deducción paso a paso requerida para resolver el acertijo. La aplicación de la eliminación es impecable.\"\n}\n```"
+      },
+      "judge_time": 80.11
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "5",
+      "response_time": 18.56,
+      "completion_tokens": 347,
+      "gen_tps": 18.69,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta cumple estrictamente con la instrucción, proporcionando únicamente un número entre 1 y 10 sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta cumple estrictamente con la instrucción, proporcionando únicamente un número entre 1 y 10 sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 31.64
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es un proceso realizado por plantas, algas y ciertas bacterias que transforma la energía luminosa en energía química. Este mecanismo se lleva a cabo en los cloroplastos, donde la clorofila utiliza la luz solar para convertir el dióxido de carbono y el agua en glucosa y oxígeno. Dicho proceso resulta fundamental para la vida en la Tierra, ya que sostiene las cadenas alimenticias y regula los niveles de oxígeno en la atmósfera.",
+      "response_time": 77.82,
+      "completion_tokens": 1464,
+      "gen_tps": 18.81,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene las ideas principales (conversión de energía, ingredientes/productos y la importancia para la vida) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene las ideas principales (conversión de energía, ingredientes/productos y la importancia para la vida) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 80.92
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Aquí tienes la implementación con comentarios detallados y validación de entrada:\n\n```python\ndef factorial(n: int) -> int:\n    \"\"\"\n    Calcula el factorial de un número entero no negativo.\n    \n    Args:\n        n (int): Número del cual se desea calcular el factorial.\n        \n    Returns:\n        int: El factorial de n.\n        \n    Raises:\n        TypeError: Si n no es un número entero.\n        ValueError: Si n es negativo.\n    \"\"\"\n    # 1. Validar que la entrada sea un número entero\n    if not isinstance(n, int):\n        raise TypeError(\"El argumento debe ser un número entero.\")\n    \n    # 2. Validar que el número sea no negativo\n    if n < 0:\n        raise ValueError(\"El factorial solo está definido para números no negativos.\")\n    \n    # 3. Inicializar resultado en 1\n    # Esto funciona como caso base: 0! = 1 y 1! = 1\n    resultado = 1\n    \n    # 4. Multiplicar secuencialmente por todos los enteros desde 2 hasta n\n    # Si n es 0 o 1, range(2, n+1) no genera valores y el bucle no se ejecuta,\n    # por lo que la función retorna correctamente 1.\n    for i in range(2, n + 1):\n        resultado *= i\n        \n    return resultado\n```\n\n**Ejemplo de uso:**\n```python\nprint(factorial(5))   # Salida: 120\nprint(factorial(0))   # Salida: 1\nprint(factorial(1))   # Salida: 1\n```\n\n**Notas de implementación:**\n- Se usa un enfoque **iterativo** en lugar de recursivo para evitar el límite de recursión de Python y mejorar el rendimiento con números grandes.\n- La validación de tipos y rango asegura que la función se comporte de forma predecible y lance errores descriptivos en lugar de fallar silenciosamente.\n- Si necesitas calcular factoriales grandes con frecuencia, considera usar `math.factorial(n)` del estándar de Python, que está optimizado en C y maneja automáticamente los casos válidos.",
+      "response_time": 85.89,
+      "completion_tokens": 1611,
+      "gen_tps": 18.76,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es excelente. El código es funcionalmente correcto, maneja de manera robusta los casos límite (0! y 1!), y proporciona una validación de entrada completa para tipos incorrectos y números negativos. Los comentarios son detallados, claros y explican la lógica de la implementación de forma efectiva. Cumple con todos los requisitos del prompt.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es excelente. El código es funcionalmente correcto, maneja de manera robusta los casos límite (0! y 1!), y proporciona una validación de entrada completa para tipos incorrectos y números negativos. Los comentarios son detallados, claros y explican la lógica de la implementación de forma efectiva. Cumple con todos los requisitos del prompt.\"\n}\n```"
+      },
+      "judge_time": 89.12
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Mi corte de conocimiento es el **año 2024**. En los documentos técnicos y la documentación oficial no se especifica un mes concreto de finalización, pero los datos utilizados para mi entrenamiento finalizan en ese año.\n\n**Razonamiento:**\n- Esta fecha no es una suposición ni se deduce de pistas externas; es un **parámetro fijo** establecido durante el diseño y entrenamiento del modelo.\n- Como IA, no tengo acceso a eventos, noticias, publicaciones o actualizaciones posteriores a mi corte de conocimiento. Mi capacidad de respuesta está estrictamente limitada a la información disponible hasta esa fecha.\n- Si requieres datos más recientes o actualizados, te recomiendo consultar fuentes en tiempo real o verificar si existe una versión del modelo con un corte de conocimiento posterior.",
+      "response_time": 65.44,
+      "completion_tokens": 1219,
+      "gen_tps": 18.63,
+      "evaluation": {
+        "score": 9,
+        "justification": "El modelo responde de manera concisa y proporciona un razonamiento explícito y técnico sobre cómo conoce su fecha de corte (como un 'parámetro fijo'). Cumple perfectamente con el criterio de ir al grano sin divagar, lo que resulta en una respuesta de alta calidad.",
+        "judge_raw_response": "```json\n{\n  \"score\": 9,\n  \"justification\": \"El modelo responde de manera concisa y proporciona un razonamiento explícito y técnico sobre cómo conoce su fecha de corte (como un 'parámetro fijo'). Cumple perfectamente con el criterio de ir al grano sin divagar, lo que resulta en una respuesta de alta calidad.\"\n}\n```"
+      },
+      "judge_time": 66.82
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 183.48,
+      "tg_tps": null,
+      "response_time": 2.79,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=183.5 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=183.5 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 81.65,
+      "tg_tps": 19.3,
+      "response_time": 7.42,
+      "completion_tokens": 128,
+      "gen_tps": 19.3,
+      "model_response": "pp=81.7 tk/s  tg=19.3 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=81.7 tk/s  tg=19.3 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 163.87,
+      "tg_tps": null,
+      "response_time": 99.98,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=163.9 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=163.9 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 256 -ub 256 -np 1 -t 12",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 163.76,
+      "tg_tps": 17.74,
+      "response_time": 107.27,
+      "completion_tokens": 128,
+      "gen_tps": 17.74,
+      "model_response": "pp=163.8 tk/s  tg=17.7 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=163.8 tk/s  tg=17.7 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

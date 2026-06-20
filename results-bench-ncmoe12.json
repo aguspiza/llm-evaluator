@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-06-20T10:16:31.444424",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 0.0.0.0 --port 8083 -ctk q4_0 -ctv q4_0 --no-mmproj -ngl 99 --n-cpu-moe 12 --no-mmap --jinja",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 129.27,
+      "tg_tps": 31.4,
+      "response_time": 4.57,
+      "completion_tokens": 128,
+      "gen_tps": 31.4,
+      "model_response": "pp=129.3 tk/s  tg=31.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=129.3 tk/s  tg=31.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

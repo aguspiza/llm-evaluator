@@ -1,0 +1,224 @@
+{
+  "timestamp": "2026-05-11T20:06:26.015933",
+  "total_tests": 11,
+  "results": [
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**No, no es necesariamente cierto que algunos A son C.**\n\nLa conclusión no se deriva de manera lógica garantizada a partir de las premisas dadas. Este es un ejemplo de un fallo en la inferencia lógica.\n\nA continuación, se presenta el razonamiento paso a paso:\n\n### 1. Análisis de las Premisas\n\n*   **Premisa 1: Todos los A son B.**\n    *   Esto establece que el conjunto $A$ está completamente contenido dentro del conjunto $B$. Si algo es A, debe ser B.\n*   **Premisa 2: Algunos B son C.**\n    *   Esto establece que existe al menos un elemento ($x$) que pertenece tanto al conjunto $B$ como al conjunto $C$. Es decir, $B$ y $C$ tienen una intersección.\n\n### 2. Evaluación de la Conclusión\n\n*   **Conclusión a probar: Algunos A son C.**\n    *   Para que esta conclusión sea necesariamente cierta, el elemento ($x$) que se sabe que está en $B$ y $C$ (según la Premisa 2) debe estar obligado a estar también en $A$.\n\n### 3. El Razonamiento Lógico (El Vacío)\n\nEl problema radica en que la Premisa 2 solo nos dice que *algún* B es C. No especifica *qué* parte de B es C.\n\n*   El conjunto $B$ puede dividirse en dos partes: $B_{A}$ (la parte que es A) y $B_{\\text{No A}}$ (la parte que no es A).\n*   La Premisa 1 nos dice que todo $A$ está en $B_{A}$.\n*   La Premisa 2 dice que hay una intersección entre $B$ y $C$.\n\n**El escenario que invalida la conclusión es:** El elemento o los elementos de $B$ que son $C$ pertenecen únicamente a la porción de $B$ que *no* es $A$ ($B_{\\text{No A}}$).\n\n**Ejemplo con conjuntos:**\n\n*   Sea $A = \\{\\text{manzana}\\}$.\n*   Sea $B = \\{\\text{manzana, pera}\\}$. (Cumple Premisa 1: Todos los A son B)\n*   Sea $C = \\{\\text{pera}\\}$. (Cumple Premisa 2: Algún B es C, porque la pera es B y C)\n\nEn este ejemplo, se cumplen ambas premisas, pero la conclusión es falsa: la manzana (A) no es pera (C).\n\n### Conclusión Final\n\nDado que es posible construir un escenario (un contraejemplo) donde las premisas sean verdaderas y la conclusión sea falsa, **no es necesariamente cierto** que algunos A son C. La información proporcionada no fuerza la intersección entre A y C.",
+      "response_time": 55.68,
+      "completion_tokens": 1220,
+      "gen_tps": 21.91,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es riguroso, utiliza la lógica de conjuntos de manera efectiva y proporciona un contraejemplo claro y convincente que demuestra la falacia lógica. La explicación es completa y de alta calidad.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es riguroso, utiliza la lógica de conjuntos de manera efectiva y proporciona un contraejemplo claro y convincente que demuestra la falacia lógica. La explicación es completa y de alta calidad.\"\n}\n```"
+      },
+      "judge_time": 72.4
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Este es el razonamiento paso a paso para determinar el orden completo de llegada:\n\n**1. Establecer las relaciones de tiempo (A $\\rightarrow$ B significa que A llegó antes que B):**\n\n*   **Dato 1:** Ana llegó antes que Bruno.\n    $$A \\rightarrow B$$\n*   **Dato 2:** Carlos llegó después de Diana pero antes de Elena.\n    $$D \\rightarrow C \\rightarrow E$$\n*   **Dato 3:** Bruno llegó antes que Diana.\n    $$B \\rightarrow D$$\n\n**2. Construir la cadena de llegadas:**\n\n*   **Paso A: Conectar Bruno y Diana.**\n    Sabemos que $B \\rightarrow D$.\n*   **Paso B: Extender la cadena con Carlos y Elena.**\n    Tomamos la relación de Diana ($D \\rightarrow C \\rightarrow E$) y la unimos con Bruno.\n    $$B \\rightarrow D \\rightarrow C \\rightarrow E$$\n    (En este punto, sabemos el orden de 4 corredores: Bruno, Diana, Carlos y Elena).\n*   **Paso C: Incorporar Ana.**\n    Sabemos que $A \\rightarrow B$. Ana debe llegar antes que Bruno, quien es el primer corredor de nuestra cadena actual.\n    $$A \\rightarrow B \\rightarrow D \\rightarrow C \\rightarrow E$$\n\n**3. Conclusión:**\n\nEl orden completo de llegada es:\n\n1.  **Ana**\n2.  **Bruno**\n3.  **Diana**\n4.  **Carlos**\n5.  **Elena**",
+      "response_time": 35.51,
+      "completion_tokens": 786,
+      "gen_tps": 22.13,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo resuelve el problema de lógica de manera impecable. Identifica correctamente todas las restricciones y las encadena sistemáticamente (A -> B -> D -> C -> E), llegando a la conclusión correcta con un razonamiento claro y bien estructurado.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo resuelve el problema de lógica de manera impecable. Identifica correctamente todas las restricciones y las encadena sistemáticamente (A -> B -> D -> C -> E), llegando a la conclusión correcta con un razonamiento claro y bien estructurado.\"\n}\n```"
+      },
+      "judge_time": 71.6
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "Este es el razonamiento para determinar la profesión de cada persona.\n\n### Análisis de los datos\n\n1. **López nunca ha estudiado derecho ni ingeniería.**\n    *   Esto significa que López no es el Abogado ni el Ingeniero.\n    *   **Conclusión 1:** López debe ser el **Médico**.\n\n2. **Martínez no es abogado.**\n    *   Sabemos que López es el Médico. Las profesiones restantes son Abogado e Ingeniero.\n    *   Dado que Martínez no es el Abogado, debe ser el Ingeniero.\n    *   **Conclusión 2:** Martínez es el **Ingeniero**.\n\n3. **García se graduó en la misma universidad que el médico.**\n    *   Ya sabemos que López es el Médico. Las únicas profesiones restantes para García son Abogado.\n    *   **Conclusión 3:** García debe ser el **Abogado**.\n\n### Resumen de la solución\n\n| Nombre | Profesión |\n| :---: | :---: |\n| **López** | Médico |\n| **García** | Abogado |\n| **Martínez** | Ingeniero |\n\n### Explicación del razonamiento\n\nEl proceso se basa en la eliminación de posibilidades:\n\n*   **Paso 1 (López):** Al descartar que López sea Abogado o Ingeniero, se establece que es el Médico.\n*   **Paso 2 (Martínez):** Con López ya identificado, y sabiendo que Martínez no es Abogado, debe ocupar la única posición restante que no sea el Abogado (Ingeniero).\n*   **Paso 3 (García):** Una vez que López y Martínez han sido asignados a Médico e Ingeniero, García es el único que queda, por lo que debe ser el Abogado. (La pista de la universidad es consistente, pero no necesaria para resolver el puzzle).",
+      "response_time": 42.96,
+      "completion_tokens": 984,
+      "gen_tps": 22.91,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es completamente correcta. El modelo aplica la lógica de eliminación de manera impecable, deduciendo correctamente que López es el Médico, Martínez es el Ingeniero y García es el Abogado. El razonamiento es claro, estructurado y riguroso.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es completamente correcta. El modelo aplica la lógica de eliminación de manera impecable, deduciendo correctamente que López es el Médico, Martínez es el Ingeniero y García es el Abogado. El razonamiento es claro, estructurado y riguroso.\"\n}\n```"
+      },
+      "judge_time": 77.37
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "7",
+      "response_time": 6.97,
+      "completion_tokens": 147,
+      "gen_tps": 21.08,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta cumple perfectamente con la instrucción, conteniendo únicamente un número entre 1 y 10 sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta cumple perfectamente con la instrucción, conteniendo únicamente un número entre 1 y 10 sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 28.39
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual plantas, algas y ciertas bacterias convierten la energía luminosa en energía química. En este proceso, los organismos absorben dióxido de carbono y agua para producir glucosa, liberando oxígeno como subproducto. Este proceso, que ocurre principalmente en los cloroplastos, es fundamental para la vida en la Tierra, pues sustenta la cadena alimenticia y mantiene los niveles de oxígeno atmosférico.",
+      "response_time": 27.1,
+      "completion_tokens": 642,
+      "gen_tps": 23.69,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los requisitos: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos y la importancia para la vida en la Tierra) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El resumen cumple perfectamente con todos los requisitos: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos y la importancia para la vida en la Tierra) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 79.04
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Aquí tienes la función solicitada. Utilizaré un enfoque iterativo (un bucle `for`) ya que es el método más directo y eficiente para calcular el factorial.\n\n```python\ndef calcular_factorial(n):\n    \"\"\"\n    Calcula el factorial de un número entero no negativo (n!).\n\n    El factorial de un número (n!) es el producto de todos los enteros positivos \n    desde 1 hasta n. Por definición, 0! es igual a 1.\n\n    Args:\n        n (int): El número entero no negativo para calcular el factorial.\n\n    Returns:\n        int: El resultado del factorial de n.\n\n    Raises:\n        ValueError: Si el número de entrada es negativo.\n    \"\"\"\n    \n    # 1. Validación de entrada: Verificar si el número es negativo.\n    # El factorial solo está definido para números enteros no negativos.\n    if n < 0:\n        raise ValueError(\"Error: El factorial solo está definido para números enteros no negativos.\")\n    \n    # 2. Caso base: Si n es 0, el factorial es 1 por definición.\n    if n == 0:\n        return 1\n    \n    # 3. Inicialización: Se inicializa la variable 'resultado' a 1.\n    # Este es el valor multiplicativo inicial. Si no fuera 1, el cálculo fallaría.\n    resultado = 1\n    \n    # 4. Iteración: Recorremos desde 1 hasta n (inclusive).\n    # range(1, n + 1) asegura que el bucle incluya el número 'n'.\n    for i in range(1, n + 1):\n        # 5. Cálculo: En cada paso, multiplicamos el resultado actual por el número actual (i).\n        # Esto implementa la multiplicación repetida: 1 * 2 * 3 * ... * n\n        resultado = resultado * i\n        \n    # 6. Retorno: Devolvemos el producto final.\n    return resultado\n\n# ==============================================================================\n# EJEMPLOS DE USO\n# ==============================================================================\n\n# Ejemplo 1: Factorial de 5 (5! = 5 * 4 * 3 * 2 * 1 = 120)\nnumero1 = 5\nprint(f\"El factorial de {numero1} es: {calcular_factorial(numero1)}\")\n\n# Ejemplo 2: Caso base (Factorial de 0)\nnumero2 = 0\nprint(f\"El factorial de {numero2} es: {calcular_factorial(numero2)}\")\n\n# Ejemplo 3: Otro número (Factorial de 7)\nnumero3 = 7\nprint(f\"El factorial de {numero3} es: {calcular_factorial(numero3)}\")\n\n# Ejemplo 4: Manejo de error (Número negativo)\nnumero_error = -5\ntry:\n    calcular_factorial(numero_error)\nexcept ValueError as e:\n    print(f\"\\nError al calcular el factorial de {numero_error}: {e}\")\n```",
+      "response_time": 55.61,
+      "completion_tokens": 1322,
+      "gen_tps": 23.77,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es excelente. La función calcula el factorial de manera correcta y eficiente utilizando un enfoque iterativo. Demuestra un manejo robusto de casos especiales: maneja correctamente el caso base (0! = 1) y lanza una excepción apropiada para números negativos. Además, la inclusión de un docstring detallado y comentarios inline muy claros que explican la lógica de cada paso eleva la calidad del código a un nivel profesional.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es excelente. La función calcula el factorial de manera correcta y eficiente utilizando un enfoque iterativo. Demuestra un manejo robusto de casos especiales: maneja correctamente el caso base (0! = 1) y lanza una excepción apropiada para números negativos. Además, la inclusión de un docstring detallado y comentarios inline muy claros que explican la lógica de cada paso eleva la calidad del código a un nivel profesional.\"\n}\n```"
+      },
+      "judge_time": 78.34
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Como asistente util y preciso, no puedo \"adivinar\" la fecha más reciente de mi conocimiento, ya que esta es una variable estática y programada en mi arquitectura. Sin embargo, puedo proporcionarle la fecha exacta de mi corte de conocimiento.\n\n**Fecha de mi último dato de entrenamiento:**\n\nMi conocimiento se basa en datos entrenados y procesados hasta **[Indicar la fecha de corte específica de mi entrenamiento]**.\n\n*(Nota: Dado que soy un modelo de lenguaje, esta fecha es fija y es la frontera de la información que poseo. Si la fecha de corte de mi entrenamiento no está disponible para mí de forma explícita en este momento, debo indicarlo.)*\n\n**Mi razonamiento:**\n\n1.  **Naturaleza de mi conocimiento (Estático vs. Dinámico):** A diferencia de los motores de búsqueda en tiempo real, yo no navego por Internet en el momento en que respondo. Mi conocimiento es el resultado de un proceso masivo de entrenamiento con un conjunto de datos finalizado.\n2.  **La Función del \"Corte\":** El \"corte de conocimiento\" es el punto temporal exacto en el que se finalizó la recopilación y el procesamiento de ese vasto conjunto de datos. Todo lo que ocurrió después de esa fecha no fue incluido en mi entrenamiento inicial.\n3.  **Incapacidad de Inferencia:** No puedo inferir la fecha actual ni la fecha más reciente de mi entrenamiento basándome en patrones, ya que mi base de conocimiento es una instantánea congelada del mundo en ese momento.\n\n**En resumen:** Para ser preciso, mi conocimiento es un reflejo de la información existente *hasta* la fecha de mi entrenamiento.",
+      "response_time": 37.33,
+      "completion_tokens": 812,
+      "gen_tps": 21.75,
+      "evaluation": {
+        "score": 9,
+        "justification": "El modelo aborda la pregunta de manera sofisticada, reconociendo la imposibilidad de adivinar la fecha y explicando de forma exhaustiva el concepto de 'corte de conocimiento'. El razonamiento es explícito, técnico y se mantiene enfocado en la limitación temporal de su arquitectura, cumpliendo perfectamente con el criterio de no divagar.",
+        "judge_raw_response": "```json\n{\n  \"score\": 9,\n  \"justification\": \"El modelo aborda la pregunta de manera sofisticada, reconociendo la imposibilidad de adivinar la fecha y explicando de forma exhaustiva el concepto de 'corte de conocimiento'. El razonamiento es explícito, técnico y se mantiene enfocado en la limitación temporal de su arquitectura, cumpliendo perfectamente con el criterio de no divagar.\"\n}\n```"
+      },
+      "judge_time": 76.79
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 513,
+      "n_generate_actual": 1,
+      "pp_tps": 522.15,
+      "tg_tps": null,
+      "response_time": 0.98,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=522.1 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=522.1 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 65,
+      "n_generate_actual": 128,
+      "pp_tps": 272.72,
+      "tg_tps": 1.08,
+      "response_time": 118.88,
+      "completion_tokens": 128,
+      "gen_tps": 1.08,
+      "model_response": "pp=272.7 tk/s  tg=1.1 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=272.7 tk/s  tg=1.1 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 1,
+      "pp_tps": 201.59,
+      "tg_tps": null,
+      "response_time": 81.28,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=201.6 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=201.6 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Gemma4-E4B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 128,
+      "pp_tps": 168.96,
+      "tg_tps": 17.17,
+      "response_time": 104.43,
+      "completion_tokens": 128,
+      "gen_tps": 17.17,
+      "model_response": "pp=169.0 tk/s  tg=17.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=169.0 tk/s  tg=17.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-06-20T10:13:56.278038",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**Respuesta:**  \nNo, no es necesariamente cierto que \"algunos A son C\". Aquí está el razonamiento paso a paso:\n\n---\n\n### 1. **Interpretación de las proposiciones:**\n- **\"Todos los A son B\"**: Esto significa que el conjunto **A es subconjunto de B** (escrito $ A \\subseteq B $).  \n  *Ejemplo:* Si $ A = \\{1, 2\\} $, entonces $ B $ debe contener al menos $ \\{1, 2\\} $ (puede ser $ B = \\{1, 2, 3\\} $).\n\n- **\"Algunos B son C\"**: Esto significa que **existe al menos un elemento común entre B y C** (escrito $ B \\cap C \\neq \\emptyset $).  \n  *Ejemplo:* Si $ B = \\{1, 2, 3\\} $, entonces $ C $ debe contener al menos uno de esos elementos (p. ej., $ C = \\{3\\} $).\n\n---\n\n### 2. **¿Qué se busca comprobar?**  \nLa pregunta es: **¿Existe al menos un elemento en $ A \\cap C $?**  \n  Es decir, ¿Hay algún elemento que sea **a la vez en A y en C**?\n\n---\n\n### 3. **Análisis con ejemplos:**\n\n#### **Caso 1 (Falso la conclusión):**  \n- $ A = \\{1, 2\\} $  \n- $ B = \\{1, 2, 3\\} $  \n- $ C = \\{3\\} $  \n\n  - $ A \\subseteq B $: ✅ (Todos los A son B).  \n  - $ B \\cap C = \\{3\\} \\neq \\emptyset $: ✅ (Algunos B son C).  \n  - $ A \\cap C = \\emptyset $: ❌ (Ningún A es C).  \n\n  **Conclusión:** Aunque se cumplen ambas condiciones, **no hay elementos en $ A \\cap C $**. Por lo tanto, la afirmación \"algunos A son C\" **no es verdadera**.\n\n#### **Caso 2 (Verdadera la conclusión):**  \n- $ A = \\{1\\} $  \n- $ B = \\{1, 2\\} $  \n- $ C = \\{1\\} $  \n\n  - $ A \\subseteq B $: ✅.  \n  - $ B \\cap C = \\{1\\} \\neq \\emptyset $: ✅.  \n  - $ A \\cap C = \\{1\\} \\neq \\emptyset $: ✅.  \n\n  **Conclusión:** En este caso, **sí hay elementos en $ A \\cap C $**, pero esto es **caso específico**, no garantizado por las condiciones iniciales.\n\n---\n\n### 4. **¿Por qué no es necesario que \"algunos A son C\"?**  \n- La condición \"algunos B son C\" solo garantiza que **existe un elemento en $ B \\cap C $**, pero **no especifica si ese elemento pertenece a $ A $**.  \n- Dado que $ A \\subseteq B $, los elementos en $ B \\cap C $ **podrían estar fuera de $ A $** (como en el Caso 1).  \n- Por lo tanto, **es posible que $ B \\cap C $ no interseccione con $ A $**, lo que invalidaría la conclusión.\n\n---\n\n### 5. **Conclusión formal:**  \n- Las condiciones $ A \\subseteq B $ y $ B \\cap C \\neq \\emptyset $ **no implican** $ A \\cap C \\neq \\emptyset $.  \n- **Contador contrapositivo:** Si $ A \\cap C = \\emptyset $, entonces $ B \\cap C $ debe estar contenido en $ B \\setminus A $, lo que es posible (ejemplo del Caso 1).  \n\n**Respuesta final:**  \nNo, **no es necesariamente cierto** que \"algunos A son C\". Las condiciones dadas no garantizan que la intersección $ A \\cap C $ sea no vacía.",
+      "response_time": 87.83,
+      "completion_tokens": 1504,
+      "gen_tps": 17.12,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. Utiliza la notación de conjuntos de manera precisa y proporciona un contraejemplo (Caso 1) que demuestra de forma concluyente la falacia lógica, explicando claramente por qué el elemento compartido entre B y C puede estar fuera del conjunto A.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. Utiliza la notación de conjuntos de manera precisa y proporciona un contraejemplo (Caso 1) que demuestra de forma concluyente la falacia lógica, explicando claramente por qué el elemento compartido entre B y C puede estar fuera del conjunto A.\"\n}\n```"
+      },
+      "judge_time": 92.77
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "**Razonamiento paso a paso:**\n\n1. **Datos iniciales:**\n   - Ana llegó antes que Bruno → **Ana < Bruno**.\n   - Carlos llegó después de Diana pero antes de Elena → **Diana < Carlos < Elena**.\n   - Bruno llegó antes que Diana → **Bruno < Diana**.\n\n2. **Combinando las relaciones:**\n   - Desde **Ana < Bruno** y **Bruno < Diana**, obtenemos:  \n     **Ana < Bruno < Diana**.\n   - Desde **Diana < Carlos < Elena**, integramos esto al orden anterior:  \n     **Ana < Bruno < Diana < Carlos < Elena**.\n\n3. **Verificación de todas las condiciones:**\n   - **Ana < Bruno**: Sí (1° posición < 2° posición).\n   - **Diana < Carlos < Elena**: Sí (3° posición < 4° posición < 5° posición).\n   - **Bruno < Diana**: Sí (2° posición < 3° posición).\n   - **Todos los corredores están incluidos**: Ana, Bruno, Diana, Carlos y Elena → **Correcto**.\n\n4. **Conclusión:**\n   - No existen alternativas válidas, ya que cualquier cambio rompería al menos una de las condiciones dadas.\n\n**Orden completo de llegada:**  \n**Ana → Bruno → Diana → Carlos → Elena**.",
+      "response_time": 45.36,
+      "completion_tokens": 796,
+      "gen_tps": 17.55,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "**Respuesta:**  \n- **López:** Médico  \n- **García:** Abogado  \n- **Martínez:** Ingeniero  \n\n**Razonamiento:**  \n1. **López nunca ha estudiado derecho ni ingeniería** (dato 1).  \n   - Esto elimina las profesiones de *abogado* e *ingeniero* para López.  \n   - Solo queda **médico**.  \n   → **López es médico**.  \n\n2. **García se graduó en la misma universidad que el médico** (dato 2).  \n   - Como López es el médico, García comparte la universidad de grado con él.  \n   - Esto implica que García **no es médico** (ya que López lo es).  \n   - Las profesiones restantes para García son *abogado* o *ingeniero*.  \n\n3. **Martínez no es abogado** (dato 3).  \n   - Esto elimina *abogado* para Martínez.  \n   - Las profesiones restantes para Martínez son *médico* o *ingeniero*.  \n   - Pero **López ya es médico**, por lo que Martínez debe ser **ingeniero**.  \n   → **Martínez es ingeniero**.  \n\n4. **Conclusión para García:**  \n   - Las únicas profesiones no asignadas son *abogado*.  \n   → **García es abogado**.  \n\n**Verificación:**  \n- Dato 2: García (abogado) se graduó en la misma universidad que el médico (López). ✅  \n- Dato 3: Martínez (ingeniero) no es abogado. ✅  \n- Dato 1: López (médico) no estudió derecho ni ingeniería. ✅  \n\n**Orden final:**  \n- López → Médico  \n- García → Abogado  \n- Martínez → Ingeniero",
+      "response_time": 69.61,
+      "completion_tokens": 1196,
+      "gen_tps": 17.18,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "7",
+      "response_time": 13.73,
+      "completion_tokens": 259,
+      "gen_tps": 18.87,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 9.73,
+      "completion_tokens": 180,
+      "gen_tps": 18.5,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 6.25,
+      "completion_tokens": 109,
+      "gen_tps": 17.43,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energía luminosa en energía química, utilizando dióxido de carbono y agua para producir glucosa y liberar oxígeno como subproducto. Occurre principalmente en los cloroplastos, donde la clorofila captura la luz solar, siendo esencial para la generación de sustancias energéticas y la mantención del oxígeno en la atmósfera. Este proceso es fundamental para la vida en la Tierra, ya que sustenta las cadenas alimenticias y garantiza los niveles de oxígeno necesarios.",
+      "response_time": 62.88,
+      "completion_tokens": 1028,
+      "gen_tps": 16.35,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un número entero no negativo.\n    \n    Args:\n        n (int): Número entero no negativo (n >= 0)\n        \n    Returns:\n        int: Factorial de n (n!)\n    \n    Lógica:\n        - El factorial de 0 está definido como 1 (caso base).\n        - Para n > 0, se multiplica todos los enteros desde 1 hasta n.\n        - Se usa un bucle iterativo para acumular el producto resultante.\n    \"\"\"\n    # Caso base: factorial de 0 es 1\n    if n == 0:\n        return 1\n    \n    # Inicializar el resultado en 1\n    result = 1\n    \n    # Multiplicar todos los números desde 1 hasta n (inclusive)\n    for i in range(1, n + 1):\n        result *= i\n    \n    return result\n```",
+      "response_time": 70.49,
+      "completion_tokens": 1238,
+      "gen_tps": 17.56,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "**Respuesta:**  \nEl último mes y año de mi conocimiento de entrenamiento es **octubre de 2024**.  \n\n**Razonamiento:**  \nMis datos de entrenamiento están actualizados hasta **octubre de 2024**, según estándares comunes en modelos de lenguaje avanzados (como GPT-4, por ejemplo). Este \"cutoff\" (fecha de corte) se establece al finalizar el proceso de entrenamiento con datos históricos, y en la práctica, las actualizaciones más recientes suelen incluir información válida hasta finales de los meses clave del año (como octubre, que marca el transición a 2025 en muchos contextos institucionales). Dado que no se me proporcionó ninguna pista sobre la fecha actual, y basándome en mi configuración técnica interna (sin acceso a datos en tiempo real), es el último dato fiable en mi conocimiento. \n\n⚠️ **Nota:** Si la fecha actual fuera posterior a octubre de 2024, mi información no reflejaría eventos o datos más recientes de esa fecha.",
+      "response_time": 63.63,
+      "completion_tokens": 1117,
+      "gen_tps": 17.55,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "**Explicación del bug:**  \nEl código implementa correctamente la lógica de `merge_sort`, pero el problema está en la función `merge()`. Tras terminar el bucle `while` (cuando uno de los arreglos `left` o `right` se agota), **no se añaden los elementos restantes** de `left` o `right` al `result`. Esto ocurre porque el código devuelve `result` sin procesar las posiciones `i` o `j` que aún contengan elementos. \n\nEn el ejemplo estándar de merge sort, si `left = [1, 3, 5]` y `right = [2, 4]`, el bucle termina con `i = 2` y `j = 2`, pero `left[i:]` contiene `[5]`, que **no se incluye** en el resultado. El mismo problema ocurre si `right` tiene elementos restantes.\n\n---\n\n**Versión corregida:**  \nSe añaden las líneas `result.extend(left[i:])` y `result.extend(right[j:])` para incluir los elementos restantes:\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Añadir elementos restantes (corrección clave)\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```\n\n**¿Por qué funciona?**  \n- Después del bucle `while`, si `i` aún está dentro de `left`, `left[i:]` contiene los elementos restantes que deben agregarse.  \n- Lo mismo ocurre con `right[j:]`.  \n- `extend()` agrega estos elementos de forma eficiente al `result`, garantizando que **todos los elementos se incluyan** en el orden correcto.",
+      "response_time": 112.01,
+      "completion_tokens": 1776,
+      "gen_tps": 15.86,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "```python\nimport time\n\ndef retry(max_attempts: int, delay: float, exceptions: tuple):\n    \"\"\"\n    Decorador para reintentar una función hasta un número máximo de intentos\n    si ocurre una de las excepciones especificadas.\n    \n    Parámetros:\n    - max_attempts (int): Número máximo de intentos (incluye el intento inicial)\n    - delay (float): Tiempo en segundos a esperar entre reintentos\n    - exceptions (tuple): Tipos de excepciones que se deben manejar\n    \"\"\"\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            for attempt in range(max_attempts):\n                try:\n                    return func(*args, **kwargs)\n                except exceptions as e:\n                    if attempt == max_attempts - 1:\n                        raise e\n                    time.sleep(delay)\n        return wrapper\n    return decorator\n```\n\n**Explicación:**\n- El decorador `retry` recibe los parámetros de configuración (`max_attempts`, `delay`, `exceptions`)\n- En cada intento, ejecuta la función original dentro de un bloque `try/except`\n- Si ocurre una excepción permitida y no es el último intento, espera `delay` segundos antes de reintentar\n- Si se agotan los intentos, relanza la última excepción ocurrida\n- Si la función ejecuta correctamente, devuelve su resultado inmediatamente\n\n**Uso:**\n```python\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    # Lógica que puede lanzar IOError o TimeoutError\n    pass\n```",
+      "response_time": 112.6,
+      "completion_tokens": 1810,
+      "gen_tps": 16.07,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "",
+      "response_time": 129.03,
+      "completion_tokens": 2048,
+      "gen_tps": 15.87,
+      "evaluation": {
+        "score": 0,
+        "justification": "Evaluation failed: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8081/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 49.65,
+      "tg_tps": null,
+      "response_time": 10.31,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=49.7 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=49.7 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 55.34,
+      "tg_tps": 21.47,
+      "response_time": 7.12,
+      "completion_tokens": 128,
+      "gen_tps": 21.47,
+      "model_response": "pp=55.3 tk/s  tg=21.5 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=55.3 tk/s  tg=21.5 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 10.92,
+      "tg_tps": null,
+      "response_time": 1500.88,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=10.9 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=10.9 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Mellum2-12B-A2.5B-Thinking (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf CodeFault/Mellum2-12B-A2.5B-Thinking-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --jinja",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 16.66,
+      "tg_tps": 7.76,
+      "response_time": 999.87,
+      "completion_tokens": 128,
+      "gen_tps": 7.76,
+      "model_response": "pp=16.7 tk/s  tg=7.8 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=16.7 tk/s  tg=7.8 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

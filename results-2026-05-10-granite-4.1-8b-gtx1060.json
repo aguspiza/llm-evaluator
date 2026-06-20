@@ -1,0 +1,224 @@
+{
+  "timestamp": "2026-05-10T17:40:37.439670",
+  "total_tests": 11,
+  "results": [
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "Para analizar la afirmación \"Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C?\", procederemos paso a paso:\n\n1. **Entender las premisas**:\n   - **Premisa 1**: \"Todos los A son B\". Esto significa que cada elemento que pertenece al conjunto A también pertenece al conjunto B. No hay un A que no sea B.\n   - **Premisa 2**: \"Algunos B son C\". Esto indica que existe al menos un elemento que pertenece tanto al conjunto B como al conjunto C. Es una afirmación sobre una parte del conjunto B, no sobre todo el conjunto B.\n\n2. **Analizar la relación entre los conjuntos**:\n   - Dado que todos los A son B, el conjunto A está completamente contenido dentro del conjunto B.\n   - Sabemos que dentro de B, hay al menos un elemento que también es C.\n\n3. **Determinar si \"algunos A son C\" es necesariamente cierto**:\n   - Dado que todos los A están dentro de B, si hay algún B que es C, debemos considerar si ese B que es C podría ser también A.\n   - La premisa \"algunos B son C\" no especifica si esos B que son C están dentro o fuera del conjunto A.\n   - Podría ser el caso de que los B que son C no se superpongan con el conjunto A. Por ejemplo, si el conjunto B tiene dos subconjuntos: uno que es A y otro que es C, pero estos subconjuntos no se intersectan, entonces \"algunos B son C\" es cierto, pero \"algunos A son C\" no lo es.\n\n4. **Conclusión**:\n   - **No es necesariamente cierto** que algunos A son C. La afirmación \"algunos B son C\" no garantiza que haya algún elemento que sea tanto A como C. Podría haber B que sean C sin ser A, o podría haber A que sean B sin ser C.\n   - **Ejemplo ilustrativo**:\n     - A = {1, 2, 3}\n     - B = {1, 2, 3, 4, 5}\n     - C = {4, 5}\n     - Aquí, todos los A son B (ver Premisa 1), y algunos B son C (ver Premisa 2), pero **ninguno de los A es C** porque los elementos C (4 y 5) no están en A.\n\nPor lo tanto, la afirmación \"si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C\" es **falsa**. La superposición entre A y C no está garantizada por las premisas dadas.",
+      "response_time": 55.24,
+      "completion_tokens": 611,
+      "gen_tps": 11.06,
+      "evaluation": {
+        "score": 0,
+        "justification": "Failed to parse judge response: ```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es lógico, claro y el uso de un contraej",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es lógico, claro y el uso de un contraejemplo (A={1, 2, 3}, B={1, 2, 3, 4, 5}, C={4, 5}) es perfecto para demostrar que la intersección entre B y C puede ocurrir fuera del conjunto A.\"\n}\n```"
+      },
+      "judge_time": 74.21
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Para determinar el orden de llegada de los cinco corredores, analizaremos cada una de las condiciones dadas paso a paso y las combinaremos para llegar a un orden consistente.\n\n### Datos dados:\n1. **Ana llegó antes que Bruno.**  \n   Esto significa: \\( \\text{Ana} < \\text{Bruno} \\).\n\n2. **Carlos llegó después de Diana pero antes que Elena.**  \n   Esto implica dos relaciones:  \n   - \\( \\text{Diana} < \\text{Carlos} \\) (Carlos llegó después de Diana).  \n   - \\( \\text{Carlos} < \\text{Elena} \\) (Carlos llegó antes que Elena).\n\n3. **Bruno llegó antes que Diana.**  \n   Esto significa: \\( \\text{Bruno} < \\text{Diana} \\).\n\n### Paso 1: Ordenar las relaciones conocidas.\n\nPrimero, combinamos las condiciones que involucran a Bruno y Diana:\n- \\( \\text{Bruno} < \\text{Diana} \\)  \n- \\( \\text{Ana} < \\text{Bruno} \\)\n\nDe aquí, podemos deducir que:\n\\[ \\text{Ana} < \\text{Bruno} < \\text{Diana} \\]\n\n### Paso 2: Incorporar a Carlos y Elena.\n\nTenemos las siguientes relaciones adicionales:\n- \\( \\text{Diana} < \\text{Carlos} \\)  \n- \\( \\text{Carlos} < \\text{Elena} \\)\n\nCombinando estas con la cadena ya establecida (\\( \\text{Ana} < \\text{Bruno} < \\text{Diana} \\)):\n\\[ \\text{Ana} < \\text{Bruno} < \\text{Diana} < \\text{Carlos} < \\text{Elena} \\]\n\n### Paso 3: Verificar si hay algún corredor sin asignar.\n\nHasta ahora hemos ordenado a Ana, Bruno, Diana, Carlos y Elena. Todos los corredores están incluidos en el orden establecido.\n\n### Conclusión:\nEl orden completo de llegada de los cinco corredores es:\n\\[ \\text{Ana}, \\text{Bruno}, \\text{Diana}, \\text{Carlos}, \\text{Elena} \\]\n\nPor lo tanto, el orden de llegada es: **Ana, Bruno, Diana, Carlos, Elena**.",
+      "response_time": 44.42,
+      "completion_tokens": 521,
+      "gen_tps": 11.73,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo resuelve el problema de lógica de manera impecable. Utiliza un razonamiento sistemático, encadenando correctamente las restricciones (Ana < Bruno < Diana) y luego integrando las condiciones restantes (Diana < Carlos < Elena) para llegar a la secuencia final correcta: Ana, Bruno, Diana, Carlos, Elena.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo resuelve el problema de lógica de manera impecable. Utiliza un razonamiento sistemático, encadenando correctamente las restricciones (Ana < Bruno < Diana) y luego integrando las condiciones restantes (Diana < Carlos < Elena) para llegar a la secuencia final correcta: Ana, Bruno, Diana, Carlos, Elena.\"\n}\n```"
+      },
+      "judge_time": 75.95
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "Para determinar la profesión de cada uno, analicemos la información proporcionada paso a paso:\n\n1. **López nunca ha estudiado derecho ni ingeniería.**\n   - Esto significa que López no puede ser ni un abogado ni un ingeniero. Por lo tanto, López debe ser el médico.\n\n2. **García se graduó en la misma universidad que el médico.**\n   - Dado que hemos deducido que López es el médico, García debe haberse graduado en la misma universidad que López. Por lo tanto, García no puede ser el médico (ya que López ya lo es). Asimismo, García no puede ser el abogado porque López nunca ha estudiado derecho. Por lo tanto, García debe ser el ingeniero.\n\n3. **Martínez no es abogado.**\n   - Con las dos conclusiones anteriores, López es médico y García es ingeniero, queda clara la profesión de Martínez. Dado que Martínez no es abogado y las otras dos profesiones ya están asignadas, Martínez debe ser el abogado.\n\nResumiendo:\n- **López** es el **médico** (ya que no estudia derecho ni ingeniería).\n- **García** es el **ingeniero** (ya que se graduó con el médico, López).\n- **Martínez** es el **abogado** (porque no puede ser médico ni ingeniero).\n\nPor lo tanto, las profesiones corresponden a:\n- **López** → Médico\n- **García** → Ingeniero\n- **Martínez** → Abogado",
+      "response_time": 30.91,
+      "completion_tokens": 365,
+      "gen_tps": 11.81,
+      "evaluation": {
+        "score": 4,
+        "justification": "El modelo identifica correctamente que López es el médico, pero falla en la asignación final. La solución correcta es López (Médico), García (Abogado) y Martínez (Ingeniero). El modelo concluye incorrectamente que García es el ingeniero y Martínez es el abogado, lo cual contradice la pista inicial de que Martínez no es abogado.",
+        "judge_raw_response": "```json\n{\n\"score\": 4,\n\"justification\": \"El modelo identifica correctamente que López es el médico, pero falla en la asignación final. La solución correcta es López (Médico), García (Abogado) y Martínez (Ingeniero). El modelo concluye incorrectamente que García es el ingeniero y Martínez es el abogado, lo cual contradice la pista inicial de que Martínez no es abogado.\"\n}\n```"
+      },
+      "judge_time": 117.16
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "7",
+      "response_time": 0.44,
+      "completion_tokens": 2,
+      "gen_tps": 4.56,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente un número entre 1 y 10, cumpliendo perfectamente con la instrucción.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es exclusivamente un número entre 1 y 10, cumpliendo perfectamente con la instrucción.\"\n}\n```"
+      },
+      "judge_time": 29.83
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis permite que plantas, algas y ciertas bacterias transformen la energía luminosa en energía química mediante la absorción de dióxido de carbono y agua, produciendo glucosa y liberando oxígeno. Este proceso ocurre principalmente en los cloroplastos de las células vegetales, donde la clorofila captura la energía solar. Es esencial para la vida en la Tierra, formando la base de la cadena alimenticia y manteniendo los niveles de oxígeno atmosférico.",
+      "response_time": 11.89,
+      "completion_tokens": 127,
+      "gen_tps": 10.68,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, insumos/productos y la importancia vital) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, insumos/productos y la importancia vital) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 79.5
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Claro, a continuación se muestra una función en Python que calcula el factorial de un número entero no negativo, junto con comentarios que explican la lógica detrás de cada paso:\n\n```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un número entero no negativo n.\n    \n    Parámetros:\n    n (int): Un número entero no negativo cuyo factorial se desea calcular.\n    \n    Retorna:\n    int: El factorial de n, es decir, el producto de todos los enteros positivos desde 1 hasta n.\n    \"\"\"\n    # Verifica si el número es negativo, en cuyo caso el factorial no está definido\n    if n < 0:\n        raise ValueError(\"El factorial solo está definido para números no negativos.\")\n    \n    # El factorial de 0 es 1 por definición\n    if n == 0:\n        return 1\n    \n    # Inicializa el resultado en 1 (el producto inicial)\n    resultado = 1\n    \n    # Itera desde 1 hasta n (inclusive) y multiplica cada número al resultado\n    for i in range(1, n + 1):\n        resultado *= i\n    \n    # Retorna el factorial calculado\n    return resultado\n\n# Ejemplo de uso:\n# print(factorial(5))  # Salida: 120\n```\n\n### Explicación de la lógica:\n1. **Validación del input**: Primero, la función verifica si el número de entrada `n` es negativo. Si lo es, se lanza una excepción `ValueError` porque el factorial no está definido para números negativos.\n2. **Caso base**: El factorial de `0` se define como `1`. Por lo tanto, si `n` es `0`, la función devuelve inmediatamente `1`.\n3. **Cálculo del factorial**: Para cualquier `n` positivo, la función inicializa una variable `resultado` en `1`. Luego, utiliza un bucle `for` que itera desde `1` hasta `n` (inclusive), multiplicando cada número al `resultado` acumulado.\n4. **Retorno del resultado**: Finalmente, la función retorna el valor calculado de `resultado`, que es el factorial de `n`.\n\nEste enfoque es directo y eficiente para calcular el factorial de números enteros no negativos en Python.",
+      "response_time": 42.73,
+      "completion_tokens": 512,
+      "gen_tps": 11.98,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es excelente. El código es correcto, eficiente y robusto. Maneja correctamente el caso base (0! = 1), valida y lanza una excepción para números negativos, y utiliza un bucle claro para el cálculo. Además, incluye comentarios detallados tanto en el código como en la explicación de la lógica, cumpliendo con todos los requisitos del prompt.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es excelente. El código es correcto, eficiente y robusto. Maneja correctamente el caso base (0! = 1), valida y lanza una excepción para números negativos, y utiliza un bucle claro para el cálculo. Además, incluye comentarios detallados tanto en el código como en la explicación de la lógica, cumpliendo con todos los requisitos del prompt.\"\n}\n```"
+      },
+      "judge_time": 66.07
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Mi último dato de entrenamiento fue en octubre de 2023. Este es el mes y año más reciente que tengo disponible, ya que soy un modelo de lenguaje entrenado hasta esa fecha. Mi conocimiento incluye eventos, información y desarrollos que habían ocurrido hasta esa fecha, pero no puedo acceder a información o eventos posteriores a octubre de 2023. Por lo tanto, no puedo proporcionar detalles sobre fechas más recientes que esa. Mi razonamiento se basa en la información proporcionada por mi equipo de desarrollo y la última actualización de mi conocimiento.",
+      "response_time": 10.07,
+      "completion_tokens": 129,
+      "gen_tps": 12.81,
+      "evaluation": {
+        "score": 9,
+        "justification": "El modelo cumple perfectamente con el criterio. Declara su fecha de corte de manera explícita y proporciona un razonamiento conciso y lógico sobre por qué esa fecha es el límite de su conocimiento, sin divagar ni incluir información irrelevante.",
+        "judge_raw_response": "```json\n{\n  \"score\": 9,\n  \"justification\": \"El modelo cumple perfectamente con el criterio. Declara su fecha de corte de manera explícita y proporciona un razonamiento conciso y lógico sobre por qué esa fecha es el límite de su conocimiento, sin divagar ni incluir información irrelevante.\"\n}\n```"
+      },
+      "judge_time": 70.26
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 154.22,
+      "tg_tps": null,
+      "response_time": 3.32,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=154.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=154.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 141.74,
+      "tg_tps": 13.39,
+      "response_time": 10.01,
+      "completion_tokens": 128,
+      "gen_tps": 13.39,
+      "model_response": "pp=141.7 tk/s  tg=13.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=141.7 tk/s  tg=13.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 97.4,
+      "tg_tps": null,
+      "response_time": 168.22,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=97.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=97.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Granite-4.1-8B (Remote GTX1060)",
+      "model_type": "remote",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 97.29,
+      "tg_tps": 2.53,
+      "response_time": 219.03,
+      "completion_tokens": 128,
+      "gen_tps": 2.53,
+      "model_response": "pp=97.3 tk/s  tg=2.5 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=97.3 tk/s  tg=2.5 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

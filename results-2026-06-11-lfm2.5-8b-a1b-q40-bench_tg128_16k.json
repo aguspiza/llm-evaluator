@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-06-12T16:59:29.625400",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "LFM2.5-8B-A1B (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-8B-A1B-GGUF:Q4_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 128,
+      "pp_tps": 38.51,
+      "tg_tps": 15.77,
+      "response_time": 433.63,
+      "completion_tokens": 128,
+      "gen_tps": 15.77,
+      "model_response": "pp=38.5 tk/s  tg=15.8 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=38.5 tk/s  tg=15.8 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-06-12T19:03:42.619049",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "LFM2.5-8B-A1B (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-8B-A1B-GGUF:Q4_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "\nNo estoy seguro",
+      "response_time": 16.9,
+      "completion_tokens": 490,
+      "gen_tps": 29.0,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta no contiene un número entre 1 y 10, sino texto explicativo, incumpliendo la instrucción principal.",
+        "judge_raw_response": "```json\n{\n\"score\": 0,\n\"justification\": \"La respuesta no contiene un número entre 1 y 10, sino texto explicativo, incumpliendo la instrucción principal.\"\n}\n```"
+      },
+      "judge_time": 36.32
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-04-23T11:37:54",
+  "total_tests": 6,
+  "results": [
+    {
+      "model_name": "Ternary-Bonsai-8B (Local)",
+      "model_type": "local",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "model_response": "ERROR: timed out",
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: timed out",
+        "judge_raw_response": ""
+      },
+      "response_time": 0
+    },
+    {
+      "model_name": "Ternary-Bonsai-8B (Local)",
+      "model_type": "local",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "model_response": "ERROR: timed out",
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: timed out",
+        "judge_raw_response": ""
+      },
+      "response_time": 0
+    },
+    {
+      "model_name": "Ternary-Bonsai-8B (Local)",
+      "model_type": "local",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "model_response": "ERROR: timed out",
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: timed out",
+        "judge_raw_response": ""
+      },
+      "response_time": 0
+    },
+    {
+      "model_name": "Ternary-Bonsai-8B (Local)",
+      "model_type": "local",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "model_response": "ERROR: timed out",
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: timed out",
+        "judge_raw_response": ""
+      },
+      "response_time": 0
+    },
+    {
+      "model_name": "Ternary-Bonsai-8B (Local)",
+      "model_type": "local",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "model_response": "ERROR: timed out",
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: timed out",
+        "judge_raw_response": ""
+      },
+      "response_time": 0
+    },
+    {
+      "model_name": "Ternary-Bonsai-8B (Local)",
+      "model_type": "local",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "model_response": "ERROR: timed out",
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: timed out",
+        "judge_raw_response": ""
+      },
+      "response_time": 0
+    }
+  ]
+}

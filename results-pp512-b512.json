@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-05-17T22:46:41.573506",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Qwen3.6-35B-A3B-IQ2_M (Remote)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/Qwen3.6-35B-A3B-GGUF -hff Qwen3.6-35B-A3B-UD-IQ2_M.gguf --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 512 -ub 512 -np 1 -t 12",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 245.19,
+      "tg_tps": null,
+      "response_time": 2.09,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=245.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=245.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

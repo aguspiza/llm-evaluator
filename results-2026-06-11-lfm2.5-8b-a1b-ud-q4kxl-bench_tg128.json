@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-06-11T22:12:23.439861",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "LFM2.5-8B-A1B UD-Q4_K_XL (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf unsloth/LFM2.5-8B-A1B-GGUF:UD-Q4_K_XL --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 65,
+      "n_generate_actual": 128,
+      "pp_tps": 87.02,
+      "tg_tps": 28.86,
+      "response_time": 5.18,
+      "completion_tokens": 128,
+      "gen_tps": 28.86,
+      "model_response": "pp=87.0 tk/s  tg=28.9 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=87.0 tk/s  tg=28.9 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

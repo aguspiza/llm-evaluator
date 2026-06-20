@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-06-12T16:44:04.474285",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "LFM2.5-8B-A1B UD-Q4_K_XL (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf unsloth/LFM2.5-8B-A1B-GGUF:UD-Q4_K_XL --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "\nNo tengo información para proporcionar un número.",
+      "response_time": 31.08,
+      "completion_tokens": 737,
+      "gen_tps": 23.71,
+      "evaluation": {
+        "score": 1,
+        "justification": "La respuesta no cumplió con la instrucción de proporcionar únicamente un número. Incluyó texto explicativo adicional.",
+        "judge_raw_response": "```json\n{\n  \"score\": 1,\n  \"justification\": \"La respuesta no cumplió con la instrucción de proporcionar únicamente un número. Incluyó texto explicativo adicional.\"\n}\n```"
+      },
+      "judge_time": 39.21
+    }
+  ]
+}
