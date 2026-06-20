@@ -165,7 +165,7 @@ models:
     ctv: "q4_0"
     ctx_size: 65536
     temperature: 0.6
-    extra_args: ["-ngl", "99", "--n-cpu-moe", "16", "--no-mmap", "--jinja"]
+    extra_args: ["-ngl", "99", "--n-cpu-moe", "12", "--no-mmap", "--jinja"]
 
   - name: "LFM2.5-8B-A1B (Remote GTX1060)"
     type: remote

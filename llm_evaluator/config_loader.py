@@ -9,7 +9,7 @@ def resolve_env_vars(obj):
             var_name = match.group(1)
             value = os.environ.get(var_name)
             if value is None:
-                raise ValueError(f"Environment variable '{var_name}' not found")
+                return match.group(0)  # leave ${VAR} as-is if not set
             return value
         return re.sub(r'\$\{(\w+)\}', replacer, obj)
     elif isinstance(obj, dict):
