@@ -131,7 +131,7 @@ python main.py list-tests
 |--------|-------|-------------|
 | `--config` | `-c` | Path to config.yaml |
 | `--tests` | `-t` | Path to tests.yaml |
-| `--output` | `-o` | Output JSON file (default: results.json) |
+| `--output` | `-o` | Output JSON file (default: results.json). Bare filenames are stored under `results/`; pass a path with a directory to override. |
 | `--details` | `-d` | Show full responses in console |
 | `--model` | `-m` | Run only on this model (by name) |
 | `--test` | | Run only this test (by ID) |
@@ -159,7 +159,7 @@ Average Scores by Model
 +-------------------------------------------+
 ```
 
-### JSON (`results.json`)
+### JSON (`results/results.json`)
 
 Full results including raw prompts, responses, judge scores, justifications, and timing data. Saved incrementally after each test so nothing is lost on crash.
 

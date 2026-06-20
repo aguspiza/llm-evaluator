@@ -147,6 +147,10 @@ def run(
     judge_name: str = typer.Option(None, "--judge", "-j", help="Judge preset from judges: section (e.g. anthropic, openrouter, local)"),
 ):
     """Run all tests against all configured models."""
+    # Store results under results/ unless an explicit directory was given.
+    if not os.path.dirname(output):
+        output = os.path.join("results", output)
+
     config_data = load_config(config)
     base_dir = config_data.pop("_base_dir")
 
