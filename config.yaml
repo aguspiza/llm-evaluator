@@ -112,6 +112,29 @@ models:
     port: 8082
     extra_args: ["--jinja"]
 
+  - name: "LFM2.5-230M (Local)"
+    type: local
+    hf_repo: "LiquidAI/LFM2.5-230M-GGUF:Q8_0"
+    port: 8082
+    temperature: 0.2
+
+  - name: "LFM2.5-230M Q4_K_M (Local)"
+    type: local
+    hf_repo: "LiquidAI/LFM2.5-230M-GGUF:Q4_K_M"
+    port: 8082
+    temperature: 0.2
+
+  - name: "LFM2.5-230M Q8_0 (Remote GTX1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "LiquidAI/LFM2.5-230M-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "q4_0"
+    ctv: "q4_0"
+    ctx_size: 65536
+    extra_args: ["-ngl", "99", "-b", "512", "-ub", "512"]
+
   - name: "LFM2.5-8B-A1B (Local)"
     type: local
     hf_repo: "LiquidAI/LFM2.5-8B-A1B-GGUF:Q4_0"

@@ -1,0 +1,24 @@
+tests:
+  - id: bench_pp512
+    category: benchmark
+    benchmark: true
+    n_prompt: 512
+    n_generate: 0
+
+  - id: bench_tg128
+    category: benchmark
+    benchmark: true
+    n_prompt: 64
+    n_generate: 128
+
+  - id: bench_pp16k
+    category: benchmark
+    benchmark: true
+    n_prompt: 16384
+    n_generate: 0
+
+  - id: bench_tg128_16k
+    category: benchmark
+    benchmark: true
+    n_prompt: 16384
+    n_generate: 128

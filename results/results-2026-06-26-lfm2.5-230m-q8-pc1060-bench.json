@@ -1,0 +1,102 @@
+{
+  "timestamp": "2026-06-26T18:29:35.410176",
+  "total_tests": 4,
+  "results": [
+    {
+      "model_name": "LFM2.5-230M Q8_0 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 -b 512 -ub 512",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 513,
+      "n_generate_actual": 1,
+      "pp_tps": 4744.95,
+      "tg_tps": null,
+      "response_time": 0.11,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=4744.9 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=4744.9 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM2.5-230M Q8_0 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 -b 512 -ub 512",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 65,
+      "n_generate_actual": 63,
+      "pp_tps": 4471.96,
+      "tg_tps": 239.99,
+      "response_time": 0.28,
+      "completion_tokens": 63,
+      "gen_tps": 239.99,
+      "model_response": "pp=4472.0 tk/s  tg=240.0 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=4472.0 tk/s  tg=240.0 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM2.5-230M Q8_0 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 -b 512 -ub 512",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 1,
+      "pp_tps": 4734.06,
+      "tg_tps": null,
+      "response_time": 3.46,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=4734.1 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=4734.1 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM2.5-230M Q8_0 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 -b 512 -ub 512",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 12,
+      "pp_tps": 4721.61,
+      "tg_tps": 209.54,
+      "response_time": 3.53,
+      "completion_tokens": 12,
+      "gen_tps": 209.54,
+      "model_response": "pp=4721.6 tk/s  tg=209.5 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=4721.6 tk/s  tg=209.5 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-06-26T18:06:32.713627",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "Claro, conmoción. Aquí tienes la explicación paso a paso:\n\n1. **Definición de términos**: \n   - \"A son B\" significa que todos los miembros del grupo A pertenecen a los miembros del grupo B.\n   - \"C son B\" significa que algunos miembros del grupo A son miembros del grupo B.\n\n2. **Conclusión**: \n   - Dado que B son B, entonces debe haber miembros de C que también pertenezcan a B.\n\nPor lo tanto, es necesariamente cierto que algunos miembros del grupo A son C.",
+      "response_time": 1.1,
+      "completion_tokens": 126,
+      "gen_tps": 114.38,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta es completamente incorrecta en todos los niveles. El modelo llega a la conclusión opuesta a la correcta, afirmando que 'es necesariamente cierto que algunos A son C', cuando la respuesta correcta es que NO lo es necesariamente. Además, la explicación está llena de errores lógicos graves: confunde las premisas (escribe 'C son B' cuando debería decir 'algunos B son C'), redefine incorrectamente los términos dados, y el razonamiento carece de coherencia interna. El modelo no reconoce que la intersección entre B y C puede existir en una parte de B completamente disjunta de A. La respuesta demuestra una comprensión nula de la lógica de predicados básica.",
+        "judge_raw_response": "```json\n{\"score\": 0, \"justification\": \"La respuesta es completamente incorrecta en todos los niveles. El modelo llega a la conclusión opuesta a la correcta, afirmando que 'es necesariamente cierto que algunos A son C', cuando la respuesta correcta es que NO lo es necesariamente. Además, la explicación está llena de errores lógicos graves: confunde las premisas (escribe 'C son B' cuando debería decir 'algunos B son C'), redefine incorrectamente los términos dados, y el razonamiento carece de coherencia interna. El modelo no reconoce que la intersección entre B y C puede existir en una parte de B completamente disjunta de A. La respuesta demuestra una comprensión nula de la lógica de predicados básica.\"}\n```"
+      },
+      "judge_time": 7.98
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "**Paso 1:** Ana llegó antes que Bruno.  \n**Paso 2:** Carlos llegó después de Diana pero antes de Elena.  \n**Paso 3:** Bruno llegó antes que Diana.  \n\n**Respuesta:** Ana, Bruno, Carlos, Diana y Elena.  \n\nEsta secuencia sigue las reglas dadas en el documento.",
+      "response_time": 0.8,
+      "completion_tokens": 75,
+      "gen_tps": 93.63,
+      "evaluation": {
+        "score": 1,
+        "justification": "El orden final proporcionado es incorrecto. La respuesta indica 'Ana, Bruno, Carlos, Diana y Elena', pero el orden correcto es Ana, Bruno, Diana, Carlos, Elena. El modelo no encadenó las restricciones correctamente: de las pistas se deduce Ana < Bruno (pista 1), Bruno < Diana (pista 3), y Diana < Carlos < Elena (pista 2), lo que da Ana < Bruno < Diana < Carlos < Elena. Además, el razonamiento es prácticamente inexistente: el modelo simplemente lista las pistas sin realizar ningún encadenamiento lógico real, y la 'conclusión' no se deriva de los pasos previos.",
+        "judge_raw_response": "```json\n{\"score\": 1, \"justification\": \"El orden final proporcionado es incorrecto. La respuesta indica 'Ana, Bruno, Carlos, Diana y Elena', pero el orden correcto es Ana, Bruno, Diana, Carlos, Elena. El modelo no encadenó las restricciones correctamente: de las pistas se deduce Ana < Bruno (pista 1), Bruno < Diana (pista 3), y Diana < Carlos < Elena (pista 2), lo que da Ana < Bruno < Diana < Carlos < Elena. Además, el razonamiento es prácticamente inexistente: el modelo simplemente lista las pistas sin realizar ningún encadenamiento lógico real, y la 'conclusión' no se deriva de los pasos previos.\"}\n```"
+      },
+      "judge_time": 6.22
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "La profesión de cada uno es diferente según los datos proporcionados:\n\n1. **López**: Es un médico, por lo que es profesional en derecho y en ingeniería.\n2. **García**: Es un abogado, por lo que es profesional en derecho.\n3. **Martínez**: Es un ingeniero, por lo que es profesional en ingeniería.\n\nEste orden se basa en los datos proporcionados, que indican que López no ha estudiado derecho ni ingeniería, García ha graduado en la misma universidad que el médico y Martínez no es abogado.",
+      "response_time": 1.22,
+      "completion_tokens": 130,
+      "gen_tps": 106.22,
+      "evaluation": {
+        "score": 3,
+        "justification": "La respuesta llega a la asignación correcta (López=médico, García=abogado, Martínez=ingeniero), pero el razonamiento es completamente deficiente y contradictorio. Afirma que López 'es médico, por lo que es profesional en derecho y en ingeniería', lo cual contradice directamente la pista 1 y carece de sentido lógico. No aplica eliminación sistemática: no explica por qué López solo puede ser médico (descarte de derecho e ingeniería), no usa la pista de García para deducir que no es médico (estudió con el médico, luego son personas distintas), ni deduce correctamente que Martínez es ingeniero por exclusión. Las justificaciones son circulares e incorrectas. El resultado final coincide por azar o copia, no por razonamiento válido.",
+        "judge_raw_response": "```json\n{\"score\": 3, \"justification\": \"La respuesta llega a la asignación correcta (López=médico, García=abogado, Martínez=ingeniero), pero el razonamiento es completamente deficiente y contradictorio. Afirma que López 'es médico, por lo que es profesional en derecho y en ingeniería', lo cual contradice directamente la pista 1 y carece de sentido lógico. No aplica eliminación sistemática: no explica por qué López solo puede ser médico (descarte de derecho e ingeniería), no usa la pista de García para deducir que no es médico (estudió con el médico, luego son personas distintas), ni deduce correctamente que Martínez es ingeniero por exclusión. Las justificaciones son circulares e incorrectas. El resultado final coincide por azar o copia, no por razonamiento válido.\"}\n```"
+      },
+      "judge_time": 8.45
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "3",
+      "response_time": 0.16,
+      "completion_tokens": 2,
+      "gen_tps": 12.39,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta contiene exclusivamente el número '3', sin ningún texto adicional, explicaciones, saludos ni justificaciones. Cumple perfectamente con el criterio de evaluación.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta contiene exclusivamente el número '3', sin ningún texto adicional, explicaciones, saludos ni justificaciones. Cumple perfectamente con el criterio de evaluación.\"}\n```"
+      },
+      "judge_time": 5.51
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "2",
+      "response_time": 0.16,
+      "completion_tokens": 2,
+      "gen_tps": 12.46,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta es incorrecta. Una araña tiene 8 patas, no 2. Además de ser factualmente errónea, el valor proporcionado (2) no corresponde en absoluto a la respuesta esperada (8).",
+        "judge_raw_response": "```json\n{\"score\": 0, \"justification\": \"La respuesta es incorrecta. Una araña tiene 8 patas, no 2. Además de ser factualmente errónea, el valor proporcionado (2) no corresponde en absoluto a la respuesta esperada (8).\"}\n```"
+      },
+      "judge_time": 4.98
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "1",
+      "response_time": 0.17,
+      "completion_tokens": 2,
+      "gen_tps": 11.64,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta es incorrecta. Una araña tiene 8 patas, no 1. El valor proporcionado es factualmente erróneo.",
+        "judge_raw_response": "```json\n{\"score\": 0, \"justification\": \"La respuesta es incorrecta. Una araña tiene 8 patas, no 1. El valor proporcionado es factualmente erróneo.\"}\n```"
+      },
+      "judge_time": 5.07
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energía luminosa en energía quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energía, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las células vegetales, donde la clorofila captura la energía de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que también mantiene los niveles de oxigeno en la atmosfera.",
+      "response_time": 1.59,
+      "completion_tokens": 150,
+      "gen_tps": 94.28,
+      "evaluation": {
+        "score": 2,
+        "justification": "El modelo reprodujo el texto original completo en 4 oraciones en lugar de resumirlo en exactamente 3 oraciones como se solicitaba. No realizó ninguna síntesis ni condensación de ideas; simplemente copió el texto con mínimas variaciones tipográficas (acentos). Incumple el requisito central de la tarea: generar un resumen de 3 oraciones.",
+        "judge_raw_response": "```json\n{\"score\": 2, \"justification\": \"El modelo reprodujo el texto original completo en 4 oraciones en lugar de resumirlo en exactamente 3 oraciones como se solicitaba. No realizó ninguna síntesis ni condensación de ideas; simplemente copió el texto con mínimas variaciones tipográficas (acentos). Incumple el requisito central de la tarea: generar un resumen de 3 oraciones.\"}\n```"
+      },
+      "judge_time": 7.22
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un número entero n.\n    \n    Args:\n        n (int): El número entero a calcular el factorial de.\n    \n    Returns:\n        int: El factorial del número n.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Factorial no está permitido para números negativos.\")\n    elif n == 0:\n        return 1\n    else:\n        return n * factorial(n - 1)\n```",
+      "response_time": 1.02,
+      "completion_tokens": 112,
+      "gen_tps": 109.6,
+      "evaluation": {
+        "score": 8,
+        "justification": "La función calcula correctamente el factorial usando recursión. Maneja adecuadamente el caso base (0! = 1) y lanza una excepción ValueError para números negativos. Incluye un docstring con descripción, args y returns, lo cual es buena documentación. Sin embargo, el criterio pedía explícitamente 'comentarios explicando la lógica' (inline comments), no solo un docstring, y la función carece de comentarios dentro del cuerpo que expliquen cada paso lógico. Además, no hay protección contra stack overflow para números muy grandes, aunque esto no fue requerido explícitamente.",
+        "judge_raw_response": "```json\n{\"score\": 8, \"justification\": \"La función calcula correctamente el factorial usando recursión. Maneja adecuadamente el caso base (0! = 1) y lanza una excepción ValueError para números negativos. Incluye un docstring con descripción, args y returns, lo cual es buena documentación. Sin embargo, el criterio pedía explícitamente 'comentarios explicando la lógica' (inline comments), no solo un docstring, y la función carece de comentarios dentro del cuerpo que expliquen cada paso lógico. Además, no hay protección contra stack overflow para números muy grandes, aunque esto no fue requerido explícitamente.\"}\n```"
+      },
+      "judge_time": 4.94
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Sin fecha específica, necesito conocer el mes y el año de entrenamiento para determinar la fecha más reciente. ¿Podrías proporcionarme el mes y el año de entrenamiento?",
+      "response_time": 0.49,
+      "completion_tokens": 41,
+      "gen_tps": 83.43,
+      "evaluation": {
+        "score": 1,
+        "justification": "La respuesta es completamente inadecuada. En lugar de intentar razonar sobre su propia fecha de corte de entrenamiento, el modelo pide al usuario que le proporcione esa información, lo cual es absurdo: el modelo debería tener acceso a ese conocimiento internamente. No hay ningún intento de razonamiento, no menciona eventos conocidos o desconocidos, no infiere nada a partir de su base de conocimiento. La respuesta evade por completo la tarea solicitada.",
+        "judge_raw_response": "```json\n{\"score\": 1, \"justification\": \"La respuesta es completamente inadecuada. En lugar de intentar razonar sobre su propia fecha de corte de entrenamiento, el modelo pide al usuario que le proporcione esa información, lo cual es absurdo: el modelo debería tener acceso a ese conocimiento internamente. No hay ningún intento de razonamiento, no menciona eventos conocidos o desconocidos, no infiere nada a partir de su base de conocimiento. La respuesta evade por completo la tarea solicitada.\"}\n```"
+      },
+      "judge_time": 5.2
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "El bug en el código está en la lógica de comparación dentro de la función `merge`. La comparación es incorrecta, ya que se estima que `left[i] <= right[j]` debería ser `left[i] <= right[j]`. Esto podría llevar a resultados inesperados o subóptimos en la comparación de elementos.\n\nLa versión corregida es la siguiente:\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n```\n\nEn esta versión corregida:\n- Se estima que `left[i] <= right[j]` debería ser `left[i] <= right[j]`. Esto garantiza que el algoritmo se compara eficientemente los elementos en orden ascendente, mejorando la corrección del algoritmo.",
+      "response_time": 2.19,
+      "completion_tokens": 220,
+      "gen_tps": 100.61,
+      "evaluation": {
+        "score": 0,
+        "justification": "El modelo no identifica el bug real en absoluto. El bug verdadero es que la función merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]`), lo que provoca pérdida de elementos cuando una lista se agota antes que la otra. En cambio, el modelo inventa un problema ficticio comparando `left[i] <= right[j]` consigo mismo (idéntico), lo cual no tiene ningún sentido. La 'corrección' mostrada ni siquiera modifica la función merge, y la explicación es completamente incoherente y circular. La respuesta es incorrecta en todos los aspectos evaluables.",
+        "judge_raw_response": "```json\n{\"score\": 0, \"justification\": \"El modelo no identifica el bug real en absoluto. El bug verdadero es que la función merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]`), lo que provoca pérdida de elementos cuando una lista se agota antes que la otra. En cambio, el modelo inventa un problema ficticio comparando `left[i] <= right[j]` consigo mismo (idéntico), lo cual no tiene ningún sentido. La 'corrección' mostrada ni siquiera modifica la función merge, y la explicación es completamente incoherente y circular. La respuesta es incorrecta en todos los aspectos evaluables.\"}\n```"
+      },
+      "judge_time": 8.44
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "```python\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    for attempt in range(max_attempts):\n        try:\n            # Simulado operación de recuperación\n            result = some_operation(url)\n            return result\n        except Exception as e:\n            if e is not IOError:\n                # Si excepción no es IOError, relanza la excepción\n                raise\n            else:\n                # Si excepción es IOException, relanza la excepción\n                raise\n    raise\n```",
+      "response_time": 1.45,
+      "completion_tokens": 131,
+      "gen_tps": 90.15,
+      "evaluation": {
+        "score": 1,
+        "justification": "La respuesta es fundamentalmente incorrecta como implementación de un decorador. No implementa la fábrica de decoradores (@retry retorna un decorador que retorna un wrapper), sino que muestra código dentro de la función decorada como si los parámetros del decorador estuvieran disponibles en su scope (usa max_attempts directamente en fetch_data). No hay función retry() definida, no hay función wrapper/inner, no se usa time.sleep para el delay entre reintentos, el manejo de excepciones es erróneo (no filtra por el tuple exceptions, tiene lógica contradictoria que siempre relanza), y la estructura del doble nivel de wrapping está completamente ausente. El único mérito marginal es que muestra un bucle for con try/except, lo que sugiere comprensión parcial del concepto de reintentos, pero la implementación es no funcional e incorrecta en todos los requisitos evaluados.",
+        "judge_raw_response": "```json\n{\"score\": 1, \"justification\": \"La respuesta es fundamentalmente incorrecta como implementación de un decorador. No implementa la fábrica de decoradores (@retry retorna un decorador que retorna un wrapper), sino que muestra código dentro de la función decorada como si los parámetros del decorador estuvieran disponibles en su scope (usa max_attempts directamente en fetch_data). No hay función retry() definida, no hay función wrapper/inner, no se usa time.sleep para el delay entre reintentos, el manejo de excepciones es erróneo (no filtra por el tuple exceptions, tiene lógica contradictoria que siempre relanza), y la estructura del doble nivel de wrapping está completamente ausente. El único mérito marginal es que muestra un bucle for con try/except, lo que sugiere comprensión parcial del concepto de reintentos, pero la implementación es no funcional e incorrecta en todos los requisitos evaluados.\"}\n```"
+      },
+      "judge_time": 8.45
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "Aquí tienes una solución en Python que cumple con los requisitos:\n\n```python\ndef find_pairs(lst, target):\n    seen = set()\n    result = []\n    for num in lst:\n        complement = target - num\n        if complement in seen:\n            result.append((complement, num))\n        seen.add(num)\n    return result\n```\n\n### Explicación:\n- Usamos un conjunto `seen` para almacenar los números que ya hemos procesado.\n- Iteramos a través de cada número en la lista.\n- Para cada número, calculamos el complemento (el número que, al ser sumado a él, produce la diferencia de `target`).\n- Verificamos si el complemento está en el conjunto `seen` para evitar duplicados.\n- Si lo está, agregamos el par (complemento, número) a la lista `result`.\n\n### Ejemplos:\n- `find_pairs([1, 2, 3, 4, 5], 5)` → `[(0, 3), (1, 2)]`\n- `find_pairs([1, 1, 2, 3], 4)` → `[(1, 3), (0, 3)]` o equivalente\n\nLa función garantiza que la solución sea **O(n)** en tiempo lineal, ya que solo necesitas recorrer la lista una vez.",
+      "response_time": 2.8,
+      "completion_tokens": 303,
+      "gen_tps": 108.15,
+      "evaluation": {
+        "score": 2,
+        "justification": "La solución tiene múltiples errores críticos: 1) Devuelve valores en vez de índices (i, j), cuando la tarea exige pares de ÍNDICES. 2) El resultado del primer ejemplo sería [(1, 4), (2, 3)] en valores, no [(0, 3), (1, 2)] en índices — los ejemplos mostrados en la explicación son incorrectos y engañosos. 3) No maneja duplicados correctamente: con [1, 1, 2, 3] y target=4, el set 'seen' descartaría el segundo '1' al ya tener '1' registrado, perdiendo pares válidos. 4) Aunque la estructura es O(n) en concepto, al usar set en vez de dict no puede rastrear índices ni múltiples ocurrencias del mismo valor. La complejidad temporal es O(n) pero la solución es funcionalmente incorrecta para el problema planteado.",
+        "judge_raw_response": "```json\n{\"score\": 2, \"justification\": \"La solución tiene múltiples errores críticos: 1) Devuelve valores en vez de índices (i, j), cuando la tarea exige pares de ÍNDICES. 2) El resultado del primer ejemplo sería [(1, 4), (2, 3)] en valores, no [(0, 3), (1, 2)] en índices — los ejemplos mostrados en la explicación son incorrectos y engañosos. 3) No maneja duplicados correctamente: con [1, 1, 2, 3] y target=4, el set 'seen' descartaría el segundo '1' al ya tener '1' registrado, perdiendo pares válidos. 4) Aunque la estructura es O(n) en concepto, al usar set en vez de dict no puede rastrear índices ni múltiples ocurrencias del mismo valor. La complejidad temporal es O(n) pero la solución es funcionalmente incorrecta para el problema planteado.\"}\n```"
+      },
+      "judge_time": 7.93
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 513,
+      "n_generate_actual": 1,
+      "pp_tps": 456.39,
+      "tg_tps": null,
+      "response_time": 1.12,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=456.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=456.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 65,
+      "n_generate_actual": 60,
+      "pp_tps": 583.37,
+      "tg_tps": 131.66,
+      "response_time": 0.57,
+      "completion_tokens": 60,
+      "gen_tps": 131.66,
+      "model_response": "pp=583.4 tk/s  tg=131.7 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=583.4 tk/s  tg=131.7 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 1,
+      "pp_tps": 99.85,
+      "tg_tps": null,
+      "response_time": 164.09,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=99.9 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=99.9 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM2.5-230M (Local)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b8664-bin-win-cpu-x64/llama-server.exe -hf LiquidAI/LFM2.5-230M-GGUF:Q8_0 --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 5,
+      "pp_tps": 96.48,
+      "tg_tps": 44.3,
+      "response_time": 169.95,
+      "completion_tokens": 5,
+      "gen_tps": 44.3,
+      "model_response": "pp=96.5 tk/s  tg=44.3 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=96.5 tk/s  tg=44.3 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}
