@@ -1,10 +1,20 @@
 import json
 import os
+import sys
 from datetime import datetime
 from typing import List, Dict, Any
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
+
+
+# Legacy Windows consoles default stdout to cp1252, which makes rich crash when
+# a judge justification contains non-cp1252 chars (e.g. '→'). Force UTF-8.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
 
 
 console = Console()
