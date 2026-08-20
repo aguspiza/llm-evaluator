@@ -213,6 +213,16 @@ models:
     temperature: 0.2
     extra_args: ["-ngl", "99", "--n-cpu-moe", "12"]
 
+  - name: "Ling-3.0-Tiny Q4_K_M (Local ryzen7)"
+    type: local
+    hf_repo: "bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M"
+    port: 8082
+    exe: "~/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe"
+    ctx_size: 32768
+    extra_args: ["--jinja", "--reasoning", "on", "--reasoning-format", "deepseek", "--reasoning-budget", "4096"]
+    max_tokens: 12288
+    stop: ["<|role_end|>"]
+
 judge:
   name: "Juez"
   type: local

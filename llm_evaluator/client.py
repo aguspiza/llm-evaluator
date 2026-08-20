@@ -6,7 +6,7 @@ class OpenAIClient:
     """Unified OpenAI-compatible API client."""
 
     def __init__(
-        self, base_url: str, api_key: Optional[str] = None, timeout: float = 600.0
+        self, base_url: str, api_key: Optional[str] = None, timeout: float = 3600.0
     ):
         self.base_url = base_url.rstrip("/")
         if self.base_url.endswith("/v1"):
@@ -24,6 +24,7 @@ class OpenAIClient:
         model: str = "local",
         temperature: float = 0.7,
         max_tokens: int = 16384,
+        stop: Optional[list] = None,
     ) -> tuple[str, dict]:
         """Send a chat completion request and return (content, usage)."""
         data = {
@@ -33,6 +34,8 @@ class OpenAIClient:
         }
         if max_tokens > 0:
             data["max_tokens"] = max_tokens
+        if stop:
+            data["stop"] = stop
 
         response = self.client.post("/v1/chat/completions", json=data)
         response.raise_for_status()

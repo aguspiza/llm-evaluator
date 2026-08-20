@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-08-20T09:56:02.653584",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "No, no es necesariamente cierto que algunos A sean C. A continuación, se explica el razonamiento paso a paso:\n\n1. **Premisa 1:** \"Todos los A son B\"  \n   Esto significa que el conjunto A es un subconjunto del conjunto B: A ⊆ B. Cualquier elemento de A también pertenece a B.\n\n2. **Premisa 2:** \"Algunos B son C\"  \n   Esto significa que la intersección B ∩ C no es vacía: existe al menos un elemento que pertenece tanto a B como a C.\n\n3. **Conclusión a evaluar:** \"Algunos A son C\"  \n   Esto significa que la intersección A ∩ C no es vacía: existe al menos un elemento que pertenece tanto a A como a C.\n\n4. **Análisis:**  \n   - De la premisa 1, todos los elementos de A están en B.  \n   - De la premisa 2, hay al menos un elemento en B ∩ C.  \n   - Sin embargo, ese elemento de B ∩ C no necesariamente está en A, porque B puede contener elementos que no están en A (es decir, B no es igual a A).  \n\n5. **Contraejemplo:**  \n   Considere los siguientes conjuntos:  \n   - A = {1, 2}  \n   - B = {1, 2, 3}  \n   - C = {3, 4}  \n\n   Verificación:  \n   - Todos los A son B: {1, 2} ⊆ {1, 2, 3} → cierto.  \n   - Algunos B son C: B ∩ C = {3} → no vacío → cierto.  \n   - Algunos A son C: A ∩ C = {1, 2} ∩ {3, 4} = vacío → falso.  \n\n   En este caso, ambas premisas son ciertas, pero la conclusión \"algunos A son C\" es falsa. Por lo tanto, no se deduce necesariamente.\n\n**Respuesta:** No, la afirmación \"algunos A son C\" no se sigue necesariamente de las premisas dadas.",
+      "response_time": 62.61,
+      "completion_tokens": 1345,
+      "gen_tps": 21.48,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es lógico, estructurado y está perfectamente respaldado por un contraejemplo claro y verificable, demostrando un dominio completo de la lógica de conjuntos.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es lógico, estructurado y está perfectamente respaldado por un contraejemplo claro y verificable, demostrando un dominio completo de la lógica de conjuntos.\"\n}\n```"
+      },
+      "judge_time": 91.87
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "1. Ana llegó antes que Bruno (Ana < Bruno).\n2. Bruno llegó antes que Diana (Bruno < Diana).\n3. Carlos llegó después de Diana pero antes de Elena (Diana < Carlos < Elena).\n\nAl combinar las restricciones:\n- De (1) y (2): Ana < Bruno < Diana.\n- De (3): Diana < Carlos < Elena.\n\nSe une en: **Ana < Bruno < Diana < Carlos < Elena**.\n\nPor lo tanto, el orden completo de llegada es:\n1. Ana\n2. Bruno\n3. Diana\n4. Carlos\n5. Elena",
+      "response_time": 17.41,
+      "completion_tokens": 410,
+      "gen_tps": 23.55,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo resuelve el problema de lógica de manera impecable. Transcribe correctamente las restricciones y las encadena sistemáticamente (A < B < D y D < C < E) para llegar a la secuencia final correcta: Ana, Bruno, Diana, Carlos, Elena. El razonamiento es claro y completo.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo resuelve el problema de lógica de manera impecable. Transcribe correctamente las restricciones y las encadena sistemáticamente (A < B < D y D < C < E) para llegar a la secuencia final correcta: Ana, Bruno, Diana, Carlos, Elena. El razonamiento es claro y completo.\"\n}\n```"
+      },
+      "judge_time": 71.0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "López es médico, García es abogado y Martínez es ingeniero.\n\n**Razonamiento:**\n\n1. De la primera afirmación, López no estudió derecho ni ingeniería, por lo tanto debe ser médico (solo hay tres profesiones: médico, abogado e ingeniero).\n2. García se graduó en la misma universidad que el médico. Como López es médico, García asistió a la misma universidad que él.\n3. Martínez no es abogado, y como ya sabemos que López es médico, las profesiones restantes son abogado e ingeniero. Si Martínez no es abogado, entonces debe ser ingeniero.\n4. En consecuencia, García es abogado.\n\nTodas las condiciones se cumplen: López (médico) no estudió derecho ni ingeniería; García (abogado) se graduó en la misma universidad que el médico (López); y Martínez (ingeniero) no es abogado.",
+      "response_time": 26.54,
+      "completion_tokens": 594,
+      "gen_tps": 22.38,
+      "evaluation": {
+        "score": 10,
+        "justification": "La deducción es impecable. El modelo aplica la eliminación de manera rigurosa: López debe ser médico por descarte. Luego, al saber que Martínez no es abogado y López es médico, Martínez debe ser ingeniero. Finalmente, García es abogado por descarte. El razonamiento es lógico y completo.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La deducción es impecable. El modelo aplica la eliminación de manera rigurosa: López debe ser médico por descarte. Luego, al saber que Martínez no es abogado y López es médico, Martínez debe ser ingeniero. Finalmente, García es abogado por descarte. El razonamiento es lógico y completo.\"\n}\n```"
+      },
+      "judge_time": 83.56
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "7",
+      "response_time": 0.7,
+      "completion_tokens": 3,
+      "gen_tps": 4.3,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta cumple estrictamente con la instrucción, proporcionando únicamente un número entre 1 y 10 sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta cumple estrictamente con la instrucción, proporcionando únicamente un número entre 1 y 10 sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 36.51
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 2.15,
+      "completion_tokens": 42,
+      "gen_tps": 19.51,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 38.19
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 2.22,
+      "completion_tokens": 46,
+      "gen_tps": 20.74,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exactamente '8', cumpliendo rigurosamente con la instrucción de responder únicamente con el número sin texto, puntuación o explicaciones.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es exactamente '8', cumpliendo rigurosamente con la instrucción de responder únicamente con el número sin texto, puntuación o explicaciones.\"\n}\n```"
+      },
+      "judge_time": 33.72
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energía luminosa en energía química, utilizando la luz solar como fuente. Durante este proceso, absorben dióxido de carbono y agua, producen glucosa y liberan oxígeno como subproducto, y ocurre principalmente en los cloroplastos donde la clorofila captura la energía de la luz. Este proceso es fundamental para la vida en la Tierra, ya que proporciona la base de la cadena alimenticia y mantiene los niveles de oxígeno en la atmósfera.",
+      "response_time": 21.65,
+      "completion_tokens": 485,
+      "gen_tps": 22.4,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos y la importancia vital) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos y la importancia vital) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 92.61
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un número entero no negativo.\n    \n    El factorial de un número n (denotado como n!) es el producto\n    de todos los enteros positivos desde 1 hasta n.\n    Caso base: 0! = 1 y 1! = 1.\n    \n    Args:\n        n (int): Un número entero no negativo.\n    \n    Returns:\n        int: El factorial de n.\n    \n    Raises:\n        ValueError: Si n es un número negativo.\n        TypeError: Si n no es un entero.\n    \"\"\"\n    # Validar que el argumento sea un entero\n    if not isinstance(n, int):\n        raise TypeError(\"Se esperaba un número entero.\")\n    \n    # Validar que el número no sea negativo\n    if n < 0:\n        raise ValueError(\"El factorial solo está definido para números no negativos.\")\n    \n    # Caso base: el factorial de 0 o 1 es 1\n    if n == 0 or n == 1:\n        return 1\n    \n    # Recursión: n! = n * (n-1)!\n    # Cada llamada reduce el problema hasta alcanzar el caso base\n    return n * factorial(n - 1)\n\n\n# --- Versión iterativa (alternativa) ---\ndef factorial_iterativo(n):\n    \"\"\"\n    Versión iterativa del factorial.\n    No usa recursión, sino un bucle para acumular el resultado.\n    \"\"\"\n    if not isinstance(n, int):\n        raise TypeError(\"Se esperaba un número entero.\")\n    if n < 0:\n        raise ValueError(\"El factorial solo está definido para números no negativos.\")\n    \n    resultado = 1\n    # Iteramos desde 2 hasta n (no es necesario multiplicar por 1)\n    for i in range(2, n + 1):\n        resultado *= i\n    return resultado\n\n\n# --- Ejemplos de uso ---\nif __name__ == \"__main__\":\n    # Pruebas con valores válidos\n    print(factorial(0))    # 1  →  0! = 1\n    print(factorial(1))    # 1  →  1! = 1\n    print(factorial(5))    # 120 → 5! = 5 × 4 × 3 × 2 × 1\n    print(factorial(10))   # 3628800\n\n    # Pruebas de error\n    try:\n        factorial(-3)\n    except ValueError as e:\n        print(f\"Error: {e}\")\n\n    try:\n        factorial(3.5)\n    except TypeError as e:\n        print(f\"Error: {e}\")\n```\n\n### Explicación de la lógica\n\n| Concepto | Descripción |\n|---|---|\n| **Caso base** | `0! = 1` y `1! = 1`. Sin este caso, la recursión nunca se detendría. |\n| **Caso recursivo** | `n! = n × (n-1)!`. Cada llamada se reduce en 1 hasta llegar a 1. |\n| **Validación** | Se verifica que el input sea un entero y que no sea negativo, ya que el factorial no está definido para esos casos. |\n| **Versión iterativa** | En vez de recursión, se usa un `for` que multiplica los números de 2 en 2, acumulando el resultado. |",
+      "response_time": 38.39,
+      "completion_tokens": 928,
+      "gen_tps": 24.18,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es excelente. Proporciona dos implementaciones (recursiva e iterativa), ambas correctas y robustas. Maneja perfectamente los casos base (0!), los números negativos (mediante excepciones) y los tipos de datos incorrectos. La documentación, incluyendo docstrings detallados y comentarios inline, es de muy alta calidad, cumpliendo con el requisito de explicar la lógica de manera exhaustiva.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es excelente. Proporciona dos implementaciones (recursiva e iterativa), ambas correctas y robustas. Maneja perfectamente los casos base (0!), los números negativos (mediante excepciones) y los tipos de datos incorrectos. La documentación, incluyendo docstrings detallados y comentarios inline, es de muy alta calidad, cumpliendo con el requisito de explicar la lógica de manera exhaustiva.\"\n}\n```"
+      },
+      "judge_time": 95.24
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "No puedo proporcionar la fecha más reciente de mi entrenamiento porque **no tengo una fecha de entrenamiento personal ni una memoria de mis propios procesos de actualización**. Soy un modelo de lenguaje, no una entidad con una historia de entrenamiento acumulada como la de un ser humano.\n\nMi respuesta a preguntas como esta no está basada en una fecha fija, sino en mi capacidad para procesar información y generar respuestas basadas en los datos con los que fui entrenado.\n\nSi me preguntas la fecha actual, puedo ayudarte a verificarla a través de fuentes externas o simplemente responder basándome en la información que tenga disponible.",
+      "response_time": 13.69,
+      "completion_tokens": 330,
+      "gen_tps": 24.11,
+      "evaluation": {
+        "score": 9,
+        "justification": "El modelo aborda la pregunta de manera excelente al explicar su limitación estructural como LLM, en lugar de intentar adivinar o inventar una fecha. El razonamiento es explícito, conciso y cumple con la meta de no divagar, lo que resulta en una respuesta de alta calidad.",
+        "judge_raw_response": "```json\n{\n  \"score\": 9,\n  \"justification\": \"El modelo aborda la pregunta de manera excelente al explicar su limitación estructural como LLM, en lugar de intentar adivinar o inventar una fecha. El razonamiento es explícito, conciso y cumple con la meta de no divagar, lo que resulta en una respuesta de alta calidad.\"\n}\n```"
+      },
+      "judge_time": 78.21
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "## Bug encontrado\n\nLa función `merge` **no incluye los elementos restantes** de `left` ni de `right` después de que el bucle `while` termina. Esto ocurre cuando una lista tiene más elementos que la otra.\n\n### Ejemplo de falla\n\n```python\nmerge_sort([3, 1, 2])\n```\n\n1. Se divide en `[3]` y `[1, 2]`\n2. `[3]` ya está ordenado → devuelve `[3]`\n3. `[1, 2]` se divide en `[1]` y `[2]`, se ordenan y se juntan → `[1, 2]`\n4. Se mezclan `[3]` y `[1, 2]`:\n   - Comparación: `3 > 1` → se añade `1` (i=0, j=1)\n   - Comparación: `3 > 2` → se añade `2` (i=0, j=2)\n   - El bucle termina porque `j == 2 == len(right)`\n   - **`left` aún tiene el elemento `3` en índice 0**, pero nunca se añade a `result`\n\n**Resultado incorrecto:** `[1, 2]`  (faltó el `3`)\n\n---\n\n## Versión corregida\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Se agregan los elementos restantes de cada lista\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```\n\n### Cambio clave\n\nLa única modificación es la adición de:\n\n```python\nresult.extend(left[i:])\nresult.extend(right[j:])\n```\n\nEsto asegura que, cuando una lista ya ha sido completamente recorrida (`i` o `j` alcanza su longitud), los elementos restantes de la otra lista se copien directamente a `result` sin necesidad de nuevas comparaciones.",
+      "response_time": 52.65,
+      "completion_tokens": 1192,
+      "gen_tps": 22.64,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo identificó el bug de manera precisa: la función merge no maneja los elementos restantes de las listas 'left' o 'right' una vez que el bucle principal termina. La explicación es clara y el código corregido es correcto, utilizando `extend` para agregar los elementos sobrantes, lo cual es la solución estándar para este problema.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El modelo identificó el bug de manera precisa: la función merge no maneja los elementos restantes de las listas 'left' o 'right' una vez que el bucle principal termina. La explicación es clara y el código corregido es correcto, utilizando `extend` para agregar los elementos sobrantes, lo cual es la solución estándar para este problema.\"\n}\n```"
+      },
+      "judge_time": 103.13
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "```python\nimport time\nfrom functools import wraps\n\n\ndef retry(max_attempts, delay, exceptions):\n    \"\"\"\n    Decorador que reintentará la función decorada hasta `max_attempts` veces.\n\n    Args:\n        max_attempts (int): Número máximo de intentos.\n        delay (float): Segundos a esperar entre reintentos.\n        exceptions (tuple): Tipos de excepción que motivan un reintentó.\n    \"\"\"\n    def decorator(func):\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            last_exception = None\n            for attempt in range(max_attempts):\n                try:\n                    return func(*args, **kwargs)\n                except exceptions as e:\n                    last_exception = e\n                    if attempt + 1 < max_attempts:\n                        time.sleep(delay)\n            raise last_exception\n        return wrapper\n    return decorator\n```\n\n### Uso\n\n```python\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    # Lógica de la función\n    pass\n```\n\n### Cómo funciona\n\n| Paso | Acción |\n|---|---|\n| **Intento 1** | Ejecuta `func`. Si lanza una excepción en `exceptions`, guarda la excepción y espera `delay` segundos. |\n| **Intento 2** | Si falló en el 1, vuelve a ejecutar `func`. Si falla otra vez, espera `delay` y repite. |\n| **Intento 3** | Si falló 2 veces, ejecuta una última vez. Si falla, **relanza la última excepción**. |\n| **Éxito** | Si la función devuelve un valor sin error, se devuelve inmediatamente. |\n\n### Notas importantes\n\n- **`max_attempts=1`**: Se intenta una vez y si falla, se relanza la excepción sin esperar.\n- **Excepciones que NO están en `exceptions`**: Se propagan inmediatamente, sin reintentos.\n- **`max_attempts=0`**: El bucle no se ejecuta y se lanza `None` (no recomendable). Puedes añadir una validación si lo necesitas.\n- **`delay=0`**: No espera entre reintentos.",
+      "response_time": 169.34,
+      "completion_tokens": 3328,
+      "gen_tps": 19.65,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación es impecable. Utiliza correctamente el patrón de decorador de fábrica para aceptar los parámetros. Cumple con todos los requisitos: reintenta solo las excepciones especificadas, espera el tiempo de retardo entre intentos, y relanza la última excepción si se agotan los intentos. La estructura es robusta y idiomática en Python.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La implementación es impecable. Utiliza correctamente el patrón de decorador de fábrica para aceptar los parámetros. Cumple con todos los requisitos: reintenta solo las excepciones especificadas, espera el tiempo de retardo entre intentos, y relanza la última excepción si se agotan los intentos. La estructura es robusta y idiomática en Python.\"\n}\n```"
+      },
+      "judge_time": 111.38
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "```python\ndef find_pairs(arr, target):\n    \"\"\"\n    Encuentra todos los pares de índices (i, j) con i < j y arr[i] + arr[j] == target.\n    Complejidad: O(n) en el peor caso (cuando el número de pares es O(n)).\n    \"\"\"\n    # Diccionario que mapea cada valor a la lista de índices donde aparece\n    index_map = {}\n    pares = []\n\n    for j, val in enumerate(arr):\n        complement = target - val\n\n        # Si el complemento ya ha sido visto, generamos todos los pares\n        if complement in index_map:\n            for i in index_map[complement]:\n                # i siempre será < j porque solo hemos procesado índices menores hasta ahora\n                pares.append((i, j))\n\n        # Guardamos el índice actual del valor\n        if val not in index_map:\n            index_map[val] = []\n        index_map[val].append(j)\n\n    return pares\n```\n\n**Explicación:**\n\n1. **Recorremos la lista una sola vez** (`for j, val in enumerate(arr)`).\n2. Para cada elemento `val` en la posición `j`, calculamos su **complemento** (`target - val`).\n3. Si el complemento ya existe en `index_map`, iteramos sobre todos los índices `i` donde aparece ese complemento. Como solo hemos procesado hasta el índice `j`, todos los `i` son menores que `j`, por lo que cada par `(i, j)` es válido.\n4. **Agregamos** el par `(i, j)` a la lista de resultados.\n5. **Actualizamos** el diccionario con el índice actual del valor.\n\n**Complejidad:**\n- El bucle principal es O(n).\n- Para cada `j`, el número de pares generados es la cantidad de veces que aparece el complemento. En el peor caso, si hay muchos valores iguales, el número total de pares puede ser O(n²). Sin embargo, la complejidad de la solución es **O(n)** si asumimos que el número de pares es O(n) (o si no se cuenta el tamaño de la salida).\n\n**Ejemplos:**\n```python\nprint(find_pairs([1, 2, 3, 4, 5], 5))\n# [(0, 3), (1, 2)]\n\nprint(find_pairs([1, 1, 2, 3], 4))\n# [(0, 3), (1, 3)]\n```\n\n**Nota:** El orden de los pares en la salida puede variar dependiendo de cómo se itere el diccionario, pero siempre se obtendrán todos los pares válidos.",
+      "response_time": 266.38,
+      "completion_tokens": 4759,
+      "gen_tps": 17.87,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solución es impecable. Utiliza el patrón de hash map (diccionario) para lograr una complejidad de búsqueda O(n), cumpliendo con el requisito principal. Maneja correctamente los duplicados al almacenar listas de índices en el diccionario. La lógica garantiza que siempre se encuentre el par (i, j) con i < j. La explicación de la complejidad es precisa y sofisticada.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La solución es impecable. Utiliza el patrón de hash map (diccionario) para lograr una complejidad de búsqueda O(n), cumpliendo con el requisito principal. Maneja correctamente los duplicados al almacenar listas de índices en el diccionario. La lógica garantiza que siempre se encuentre el par (i, j) con i < j. La explicación de la complejidad es precisa y sofisticada.\"\n}\n```"
+      },
+      "judge_time": 172.85
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 100.2,
+      "tg_tps": null,
+      "response_time": 5.11,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=100.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=100.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 101.11,
+      "tg_tps": 21.56,
+      "response_time": 6.52,
+      "completion_tokens": 128,
+      "gen_tps": 21.56,
+      "model_response": "pp=101.1 tk/s  tg=21.6 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=101.1 tk/s  tg=21.6 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 19.24,
+      "tg_tps": null,
+      "response_time": 851.64,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=19.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=19.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 19.46,
+      "tg_tps": 6.83,
+      "response_time": 860.6,
+      "completion_tokens": 128,
+      "gen_tps": 6.83,
+      "model_response": "pp=19.5 tk/s  tg=6.8 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=19.5 tk/s  tg=6.8 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

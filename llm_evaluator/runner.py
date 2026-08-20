@@ -207,6 +207,7 @@ class Runner:
             messages=messages,
             model=model.get("model", "local"),
             max_tokens=model.get("max_tokens", 2048),
+            stop=model.get("stop"),
         )  # returns (content, usage)
 
     def _save_incremental(self):
