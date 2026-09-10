@@ -223,6 +223,19 @@ models:
     max_tokens: 12288
     stop: ["<|role_end|>"]
 
+  - name: "Ling-3.0-Tiny Q4_K_M (Remote pc1060 CUDA)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M"
+    port: 8082
+    exe: "~/Downloads/llama-b10507-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "q4_0"
+    ctv: "q4_0"
+    ctx_size: 32768
+    extra_args: ["-ngl", "99", "--jinja", "--reasoning", "on", "--reasoning-format", "deepseek", "--reasoning-budget", "4096"]
+    max_tokens: 12288
+    stop: ["<|role_end|>"]
+
 judge:
   name: "Juez"
   type: local
