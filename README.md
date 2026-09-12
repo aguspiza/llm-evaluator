@@ -91,9 +91,8 @@ A run uses one judge. Without `--judge`, the top-level `judge:` block is used. P
 ```yaml
 judge:                      # default judge
   name: "Juez"
-  type: local
-  hf_repo: "unsloth/gemma-4-E4B-it-GGUF:Q4_0"
-  port: 8081
+  provider: claude-code
+  model: "claude-opus-5"
   temperature: 0.1
 
 judges:
@@ -105,7 +104,7 @@ judges:
 
   claude-code:              # shells out to the `claude` CLI (no API key)
     provider: claude-code
-    model: "claude-sonnet-4-6"
+    model: "claude-opus-5"
 
   openrouter:               # any OpenAI-compatible API
     provider: openrouter
