@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-09-13T21:18:34.096074",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un número entero no negativo.\n    \n    Args:\n        n (int): Número entero no negativo (n >= 0).\n        \n    Returns:\n        int: El valor del factorial de n.\n        \n    Raises:\n        ValueError: Si n es menor que 0.\n    \"\"\"\n    if not isinstance(n, int) or n < 0:\n        raise ValueError(\"El número debe ser un entero no negativo.\")\n    \n    # Caso base: el factorial de 0 es 1\n    if n == 0:\n        return 1\n    \n    # Llamada recursiva iterativa (equivalente)\n    resultado = 1\n    for i in range(2, n + 1):\n        resultado *= i\n    \n    return resultado\n\n\n# Ejemplo de uso\nif __name__ == \"__main__\":\n    print(factorial(5))  # Salida: 120\n```",
+      "response_time": 8.42,
+      "completion_tokens": 401,
+      "gen_tps": 47.61,
+      "evaluation": {
+        "score": 8,
+        "justification": "El código calcula bien el factorial con un bucle. Cubre el caso base (0! = 1) y lanza ValueError si el número es negativo o no es entero. Tiene un docstring completo (Args, Returns, Raises) y un ejemplo de uso correcto (5! = 120). Resta puntos por tres motivos. Primero, el comentario 'Llamada recursiva iterativa (equivalente)' es confuso y engañoso, porque no hay recursión. Segundo, dentro del bucle no hay comentarios que expliquen la acumulación del producto, y la tarea pedía explicar la lógica. Tercero, detalles menores: el caso n == 0 sobra, porque el bucle ya devuelve 1, e isinstance acepta valores bool (True/False).",
+        "judge_raw_response": "{\"score\": 8, \"justification\": \"El código calcula bien el factorial con un bucle. Cubre el caso base (0! = 1) y lanza ValueError si el número es negativo o no es entero. Tiene un docstring completo (Args, Returns, Raises) y un ejemplo de uso correcto (5! = 120). Resta puntos por tres motivos. Primero, el comentario 'Llamada recursiva iterativa (equivalente)' es confuso y engañoso, porque no hay recursión. Segundo, dentro del bucle no hay comentarios que expliquen la acumulación del producto, y la tarea pedía explicar la lógica. Tercero, detalles menores: el caso n == 0 sobra, porque el bucle ya devuelve 1, e isinstance acepta valores bool (True/False).\"}"
+      },
+      "judge_time": 8.57
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-09-13T19:53:48.455273",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "",
+      "response_time": 525.21,
+      "completion_tokens": 24576,
+      "gen_tps": 46.79,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta del modelo está vacía. No señala el bug (merge no añade al resultado los elementos que quedan en left[i:] o right[j:] cuando una lista se agota antes que la otra), no da ninguna corrección y no explica nada. No cumple ninguno de los criterios de evaluación.",
+        "judge_raw_response": "{\"score\": 0, \"justification\": \"La respuesta del modelo está vacía. No señala el bug (merge no añade al resultado los elementos que quedan en left[i:] o right[j:] cuando una lista se agota antes que la otra), no da ninguna corrección y no explica nada. No cumple ninguno de los criterios de evaluación.\"}"
+      },
+      "judge_time": 5.1
+    }
+  ]
+}

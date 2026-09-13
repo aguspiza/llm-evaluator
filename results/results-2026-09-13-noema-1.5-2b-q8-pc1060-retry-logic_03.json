@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-09-13T19:44:35.846134",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "### Respuesta\n\nLa profesión de cada uno es la siguiente:\n\n*   **López:** Médico\n*   **García:** Abogado\n*   **Martínez:** Ingeniero\n\n### Razonamiento\n\nPara llegar a esta conclusión, se aplica la lógica deductiva basándose en las restricciones proporcionadas:\n\n1.  **Determinación de la profesión de López:**\n    Se nos indica que \"López nunca ha estudiado derecho ni ingeniería\". Dado que las profesiones disponibles son Médico, Abogado e Ingeniero, la única opción restante es que **López sea el Médico**.\n\n2.  **Determinación de la profesión de García:**\n    Se nos dice que \"García se graduó en la misma universidad que el médico\". Como ya establecemos que el médico es López, esto significa que García y López estudian en la misma universidad, pero son personas distintas.\n    *   Si **García fuera Ingeniero**, entonces el único profesional restante (Abogado) sería **Martínez**. Sin embargo, esto contradice la tercera restricción: \"Martínez no es abogado\". Por lo tanto, García no puede ser Ingeniero.\n    *   Si **García fuera Abogado**, entonces la restricción de la universidad se cumple (estudios legales en la misma universidad que el médico) y no contradice ningún dato.\n    *   Por consiguiente, **García es el Abogado**.\n\n3.  **Determinación de la profesión de Martínez:**\n    Al excluir a López (Médico) y a García (Abogado) como opciones para Martínez, queda exclusivamente la opción de **Ingeniero**.\n    *   Además, esto cumple con la restricción de que \"Martínez no es abogado\" (ya que es Ingeniero).\n\n### Verificación de las restricciones\n\n*   **López no estudió derecho ni ingeniería:** Cumple (es Médico).\n*   **García se graduó en la misma universidad que el médico:** Cumple (López y García están en la misma universidad, aunque sean profesionales distintos).\n*   **Martínez no es abogado:** Cumple (es Ingeniero).\n\nLa solución es lógica y consistente con todos los datos.",
+      "response_time": 101.3,
+      "completion_tokens": 4927,
+      "gen_tps": 48.64,
+      "evaluation": {
+        "score": 9,
+        "justification": "La solución es correcta: López es médico, García es abogado y Martínez es ingeniero. El razonamiento se sostiene. La primera pista deja a López solo como médico. Para García, el modelo prueba el caso de ingeniero, ve que obligaría a Martínez a ser abogado y lo descarta por contradecir la tercera pista. Por eso García es abogado y Martínez ingeniero. Además, comprueba las tres restricciones al final. Fallos menores: no dice que la segunda pista, por sí sola, ya indica que García no es el médico (lo deduce a partir de López). También añade un comentario irrelevante sobre 'estudios legales en la misma universidad' y usa mal un tiempo verbal ('establecemos', 'estudian'). No hay saltos lógicos importantes.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La solución es correcta: López es médico, García es abogado y Martínez es ingeniero. El razonamiento se sostiene. La primera pista deja a López solo como médico. Para García, el modelo prueba el caso de ingeniero, ve que obligaría a Martínez a ser abogado y lo descarta por contradecir la tercera pista. Por eso García es abogado y Martínez ingeniero. Además, comprueba las tres restricciones al final. Fallos menores: no dice que la segunda pista, por sí sola, ya indica que García no es el médico (lo deduce a partir de López). También añade un comentario irrelevante sobre 'estudios legales en la misma universidad' y usa mal un tiempo verbal ('establecemos', 'estudian'). No hay saltos lógicos importantes.\"}"
+      },
+      "judge_time": 8.81
+    }
+  ]
+}

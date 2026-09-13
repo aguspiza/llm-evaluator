@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-09-13T19:44:52.899608",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "No tengo acceso a la fecha exacta de mi última actualización o a mi \"último dato de entrenamiento\" en el sentido de una fecha específica de mi base de conocimiento. Como modelo de lenguaje, no tengo memoria persistente de fechas pasadas ni puedo adivinar una fecha exacta con precisión.\n\nLa fecha más reciente que puedo proporcionar es la fecha en la que mi base de conocimiento fue última actualizada, pero esta fecha no es pública ni accesible a la mayoría de los usuarios. Si necesitas una fecha específica para un propósito, por favor proporciona la información detallada sobre el contexto o la tarea.",
+      "response_time": 5.03,
+      "completion_tokens": 241,
+      "gen_tps": 47.92,
+      "evaluation": {
+        "score": 2,
+        "justification": "El modelo esquiva lo que se le pide. No intenta adivinar ni da ningún mes o año, y tampoco razona sobre su fecha de corte: no menciona eventos que conozca o desconozca ni saca ninguna conclusión a partir de lo que sabe. Casi todo el texto es relleno repetido (dice dos veces que no tiene acceso a la fecha) y termina pidiendo contexto que no hace falta. Lo único bueno es que no afirma saber cosas en tiempo real. No llega a la franja media porque ni siquiera da una fecha de corte.",
+        "judge_raw_response": "{\"score\": 2, \"justification\": \"El modelo esquiva lo que se le pide. No intenta adivinar ni da ningún mes o año, y tampoco razona sobre su fecha de corte: no menciona eventos que conozca o desconozca ni saca ninguna conclusión a partir de lo que sabe. Casi todo el texto es relleno repetido (dice dos veces que no tiene acceso a la fecha) y termina pidiendo contexto que no hace falta. Lo único bueno es que no afirma saber cosas en tiempo real. No llega a la franja media porque ni siquiera da una fecha de corte.\"}"
+      },
+      "judge_time": 6.82
+    }
+  ]
+}

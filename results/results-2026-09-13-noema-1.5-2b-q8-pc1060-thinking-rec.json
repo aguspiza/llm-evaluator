@@ -1,0 +1,326 @@
+{
+  "timestamp": "2026-09-13T21:10:36.073492",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "La respuesta es **no necesariamente cierta**. Es una falacia lógica común confundir la relación de subconjuntos con la intersección directa.\n\nA continuación, el razonamiento paso a paso:\n\n### 1. Análisis lógicamente\n*   **Premisa 1:** \"Si todos los A son B\".\n    *   Esto significa que el conjunto de A es un **subconjunto** del conjunto de B ($A \\subseteq B$). Todo elemento de A está en B, pero no todos los elementos de B necesariamente están en A.\n*   **Premisa 2:** \"Algunos B son C\".\n    *   Esto significa que existe al menos un elemento que pertenece simultáneamente a B y C ($B \\cap C \\neq \\emptyset$).\n*   **Conclusión a probar:** \"Algunos A son C\".\n    *   Para ser cierta, debe existir al menos un elemento que pertenezca tanto a A como a C.\n\n### 2. El problema de la conexión\nLa premisa \"Algunos B son C\" nos dice que hay una intersección entre B y C, pero **no especifica cuál es**. Esa intersección podría estar en una parte del conjunto B que no pertenece al conjunto A.\n\nComo el conjunto A solo puede estar dentro de B, si la parte del universo que tiene elementos en C y en B está totalmente fuera de A, entonces no necesariamente hay algo que pertenezca a ambos A y C simultáneamente.\n\n### 3. Ejemplo contraejemplo (Counter-example)\nImaginemos un universo con los siguientes elementos:\n*   **A = {1, 2}** (Todos los A son B).\n*   **B = {1, 2, 3}** (Cumple \"todos los A son B\").\n*   **C = {3, 4}**\n\nVerificamos las premisas:\n1.  ¿Todos los A son B? Sí, {1, 2} están en {1, 2, 3}.\n2.  ¿Algunos B son C? Sí, el elemento **3** está en B y en C.\n\nAhora verificamos la conclusión:\n*   ¿Algunos A son C? El conjunto de A es {1, 2} y el de C es {3, 4}. No tienen elementos en común.\n\nComo no hay intersección entre A y C, aunque cumplimos todas las premisas, la conclusión **es falsa**. Por lo tanto, la afirmación no es necesariamente cierta.",
+      "response_time": 79.76,
+      "completion_tokens": 3709,
+      "gen_tps": 46.5,
+      "evaluation": {
+        "score": 9,
+        "justification": "La respuesta es correcta: dice que la conclusión NO es necesariamente cierta. Traduce bien las premisas a conjuntos (A ⊆ B y B ∩ C ≠ ∅) y explica con claridad lo que pide el criterio: la parte de B que coincide con C puede quedar fuera de A. El contraejemplo es válido y se comprueba paso a paso: A={1,2}, B={1,2,3}, C={3,4}. Cumple las dos premisas y aun así A y C no tienen elementos en común. El razonamiento no tiene fallos. Hay detalles menores de forma: el título 'Análisis lógicamente' tiene un error gramatical, 'Ejemplo contraejemplo (Counter-example)' repite la idea y mezcla idiomas, la etiqueta '(Todos los A son B)' junto a A está de más, y llamar a la falacia 'confundir la relación de subconjuntos con la intersección directa' es poco preciso (es la falacia del término medio no distribuido). Nada de esto afecta a la lógica.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La respuesta es correcta: dice que la conclusión NO es necesariamente cierta. Traduce bien las premisas a conjuntos (A ⊆ B y B ∩ C ≠ ∅) y explica con claridad lo que pide el criterio: la parte de B que coincide con C puede quedar fuera de A. El contraejemplo es válido y se comprueba paso a paso: A={1,2}, B={1,2,3}, C={3,4}. Cumple las dos premisas y aun así A y C no tienen elementos en común. El razonamiento no tiene fallos. Hay detalles menores de forma: el título 'Análisis lógicamente' tiene un error gramatical, 'Ejemplo contraejemplo (Counter-example)' repite la idea y mezcla idiomas, la etiqueta '(Todos los A son B)' junto a A está de más, y llamar a la falacia 'confundir la relación de subconjuntos con la intersección directa' es poco preciso (es la falacia del término medio no distribuido). Nada de esto afecta a la lógica.\"}"
+      },
+      "judge_time": 11.05
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Para determinar el orden completo de llegada, analicemos las restricciones paso a paso:\n\n1.  **Relación entre Ana y Bruno:** Se sabe que Ana llegó antes que Bruno ($A < B$).\n2.  **Relación entre Bruno y Diana:** Se sabe que Bruno llegó antes que Diana ($B < D$).\n    *   Combiniando los puntos anteriores, obtenemos la secuencia: **Ana -> Bruno -> Diana**.\n3.  **Relación entre Carlos, Diana y Elena:** Se establece explícitamente que Carlos llegó después de Diana y antes de Elena ($D < C < E$).\n4.  **Integración total:**\n    *   Tenemos las posiciones iniciales definidas por la restricción 2: Diana es primero entre estos tres corredores (en el contexto de Diana, Bruno y Ana).\n    *   Dado que el orden completo debe respetar todas las jerarquías simultáneamente, unimos las secuencias deducidas.\n    *   La conexión entre los grupos ($A < B < D$) y ($D < C < E$) es directa.\n    *   Esto crea la cadena continua: **Ana -> Bruno -> Diana -> Carlos -> Elena**.\n\n**Verificación rápida:**\n*   Ana antes que Bruno? ✔️\n*   Carlos después de Diana pero antes de Elena? ✔️ (Diana < Carlos < Elena)\n*   Bruno antes que Diana? ✔️\n\nEl orden completo de llegada es:\n\n1.  **Ana**\n2.  **Bruno**\n3.  **Diana**\n4.  **Carlos**\n5.  **Elena**",
+      "response_time": 23.12,
+      "completion_tokens": 1074,
+      "gen_tps": 46.44,
+      "evaluation": {
+        "score": 9,
+        "justification": "El orden final es correcto: Ana, Bruno, Diana, Carlos, Elena. Encadena bien las restricciones: primero A<B y B<D para obtener A-B-D, y luego une esa cadena con D<C<E. Además verifica cada condición al final. Tiene algunos fallos menores. Hay un error tipográfico ('Combiniando'). También hay una frase confusa e incorrecta: dice que 'Diana es primero entre estos tres corredores' cuando en realidad es la última de Ana, Bruno y Diana. Tampoco señala de forma explícita que la solución es única porque las restricciones forman una cadena total. Aun así, el razonamiento es sistemático y la conclusión es correcta.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"El orden final es correcto: Ana, Bruno, Diana, Carlos, Elena. Encadena bien las restricciones: primero A<B y B<D para obtener A-B-D, y luego une esa cadena con D<C<E. Además verifica cada condición al final. Tiene algunos fallos menores. Hay un error tipográfico ('Combiniando'). También hay una frase confusa e incorrecta: dice que 'Diana es primero entre estos tres corredores' cuando en realidad es la última de Ana, Bruno y Diana. Tampoco señala de forma explícita que la solución es única porque las restricciones forman una cadena total. Aun así, el razonamiento es sistemático y la conclusión es correcta.\"}"
+      },
+      "judge_time": 6.86
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "Basado en la información proporcionada y su análisis lógico, aquí está la solución detallada:\n\n### **Solución Final**\n\n*   **López:** Médico\n*   **García:** Abogado\n*   **Martínez:** Ingeniero\n\n---\n\n### **Razonamiento Paso a Paso**\n\n1.  **Análisis de López:**\n    Se nos indica que \"López nunca ha estudiado derecho ni ingeniería\". Esto implica que su única profesión posible entre los tres (Médico, Abogado, Ingeniero) es la de **Médico**, ya que no tiene ninguno de sus otros dos campos de estudio. Por lo tanto, **López = Médico**.\n\n2.  **Análisis de Martínez:**\n    Tenemos que asignar las profesiones restantes (**Abogado** y **Ingeniero**) a los personas restantes (**García** y **Martínez**).\n    El dato adicional dice: \"Martínez no es abogado\".\n    Al eliminar la opción de Abogado, queda claro que **Martínez = Ingeniero**.\n\n3.  **Asignación del Resto:**\n    Con López ocupado Médico y Martínez ocupado Ingeniero, queda solo una profesión para **García**, que corresponde a **Abogado**. Esto cumple con el dato \"García se graduó en la misma universidad que el médico\" (ya que López es el médico), lo cual no crea contradicción alguna.\n\n### **Verificación de Contradicciones**\n*   *López no estudia derecho ni ingeniería:* Verificado (es Médico).\n*   *García estudió con el médico:* Verificado (lógicamente, dado que López es el médico y son personas distintas).\n*   *Martínez no es abogado:* Verificado (es Ingeniero).\n\n**Conclusión:** La deducción es lógica y exhaustiva sin necesidad de supuestos.",
+      "response_time": 76.94,
+      "completion_tokens": 3567,
+      "gen_tps": 46.36,
+      "evaluation": {
+        "score": 9,
+        "justification": "La solución es correcta: López es médico, García es abogado y Martínez es ingeniero. La deducción por descarte es sólida. López no estudió derecho ni ingeniería, así que solo puede ser médico. Entre García y Martínez quedan abogado e ingeniero, y como Martínez no es abogado, es ingeniero; por tanto, García es abogado. La pista de García no se usa para deducir, pero el modelo la comprueba y confirma que no hay contradicción. Es razonable, porque esa pista sobra una vez que López es médico. La verificación final repasa las tres pistas. Resto un punto por errores de redacción ('los personas', 'López ocupado Médico') y porque la comprobación de la pista de García es algo vaga: dice 'estudió con el médico' en lugar de explicar que García no puede ser el médico.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La solución es correcta: López es médico, García es abogado y Martínez es ingeniero. La deducción por descarte es sólida. López no estudió derecho ni ingeniería, así que solo puede ser médico. Entre García y Martínez quedan abogado e ingeniero, y como Martínez no es abogado, es ingeniero; por tanto, García es abogado. La pista de García no se usa para deducir, pero el modelo la comprueba y confirma que no hay contradicción. Es razonable, porque esa pista sobra una vez que López es médico. La verificación final repasa las tres pistas. Resto un punto por errores de redacción ('los personas', 'López ocupado Médico') y porque la comprobación de la pista de García es algo vaga: dice 'estudió con el médico' en lugar de explicar que García no puede ser el médico.\"}"
+      },
+      "judge_time": 10.2
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "",
+      "response_time": 552.57,
+      "completion_tokens": 24576,
+      "gen_tps": 44.48,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta del modelo está vacía. No contiene ningún número entre 1 y 10, así que no cumple la instrucción. Tampoco añade texto extra, pero una respuesta vacía no sirve como respuesta válida.",
+        "judge_raw_response": "{\"score\": 0, \"justification\": \"La respuesta del modelo está vacía. No contiene ningún número entre 1 y 10, así que no cumple la instrucción. Tampoco añade texto extra, pero una respuesta vacía no sirve como respuesta válida.\"}"
+      },
+      "judge_time": 4.0
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 0.32,
+      "completion_tokens": 6,
+      "gen_tps": 18.96,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es solo \"8\". El número es correcto, porque una araña tiene 8 patas, y no lleva ningún texto, unidad ni puntuación extra. Cumple todo lo que pide la consigna.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es solo \\\"8\\\". El número es correcto, porque una araña tiene 8 patas, y no lleva ningún texto, unidad ni puntuación extra. Cumple todo lo que pide la consigna.\"}"
+      },
+      "judge_time": 4.16
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 0.38,
+      "completion_tokens": 13,
+      "gen_tps": 33.9,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es solo \"8\": no lleva texto extra, unidades ni puntuación, y el valor es correcto. Cumple los dos criterios, así que le corresponde la puntuación máxima.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es solo \\\"8\\\": no lleva texto extra, unidades ni puntuación, y el valor es correcto. Cumple los dos criterios, así que le corresponde la puntuación máxima.\"}"
+      },
+      "judge_time": 3.76
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energía luminosa en energía quimica. Durante este proceso, los organismos absorben dioxido de carbono y agua para producir glucosa mientras liberan oxigeno como subproducto. Este mecanismo biológico ocurre principalmente en los cloroplastos de las células vegetales gracias a la clorofila que captura la luz solar.",
+      "response_time": 7.72,
+      "completion_tokens": 353,
+      "gen_tps": 45.74,
+      "evaluation": {
+        "score": 6,
+        "justification": "El resumen tiene exactamente 3 oraciones y no añade información externa. Recoge la conversión de energía luminosa en química y lo que entra y sale del proceso (CO2 y agua dan glucosa y oxígeno); también menciona los cloroplastos y la clorofila. Pero omite por completo un concepto clave que piden los criterios: la importancia de la fotosíntesis para la vida en la Tierra (base de la cadena alimenticia y mantenimiento del oxígeno en la atmósfera). Además, la primera oración copia casi literal el texto original, lo que muestra poca síntesis. Da prioridad a un detalle secundario (cloroplastos) frente a una idea principal.",
+        "judge_raw_response": "{\"score\": 6, \"justification\": \"El resumen tiene exactamente 3 oraciones y no añade información externa. Recoge la conversión de energía luminosa en química y lo que entra y sale del proceso (CO2 y agua dan glucosa y oxígeno); también menciona los cloroplastos y la clorofila. Pero omite por completo un concepto clave que piden los criterios: la importancia de la fotosíntesis para la vida en la Tierra (base de la cadena alimenticia y mantenimiento del oxígeno en la atmósfera). Además, la primera oración copia casi literal el texto original, lo que muestra poca síntesis. Da prioridad a un detalle secundario (cloroplastos) frente a una idea principal.\"}"
+      },
+      "judge_time": 7.35
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "ERROR: timed out",
+      "response_time": 0,
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: ERROR: timed out",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "ERROR: [WinError 10060] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder",
+      "response_time": 0,
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: ERROR: [WinError 10060] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "## Análisis del Código\n\nDespués de un análisis exhaustivo del código proporcionado, **no existe ningún bug funcional** en la implementación de Merge Sort estándar mostrada. El algoritmo está correctamente implementado para dividir, recursivamente ordenar y fusionar sublistas.\n\n### Explicación Detallada\n\n1.  **Algoritmo de División (Divide)**:\n    ```python\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    ```\n    Esta lógica es correcta. Se divide el array en mitades, recursivamente ordena ambas sublistas (`left` y `right`) y devuelve el resultado concatenado.\n\n2.  **Algoritmo de Fusión (Merge)**:\n    ```python\n    def merge(left, right):\n        result = []\n        i = j = 0\n        while i < len(left) and j < len(right):\n            if left[i] <= right[j]:\n                result.append(left[i])\n                i += 1\n            else:\n                result.append(right[j])\n                j += 1\n        return result\n    ```\n    La lógica `while` y la comparación `left[i] <= right[j]` son correctas. Cuando `left[i] <= right[j]`, se añade el valor de `left`. Si es menor o igual, este mantiene su posición relativa; si es mayor, se compara con el siguiente de `right`.\n\n3.  **Recursividad**:\n    La función `merge_sort` llama recursivamente a sí misma para los subconjuntos del tamaño adecuado (`len(arr) <= 1`).\n\n### Veredicto Final\n\n**No hay bug.** El código original funciona correctamente y cumple con todos los requisitos de un algoritmo de Merge Sort básico.\n\nSi su objetivo es entender o mejorar el código, la clave para optimizar el rendimiento está en **evitar copias profundas** de los arrays mediante operaciones en memoria aleatoria si se usan estructuras de datos complejas (como listas anidadas). La versión del código dada es óptima en tiempo y espacio para esta implementación básica.\n\nSi su código original presentaba algún error en la lógica real, probablemente era una simulación de \"trampa\" o un error conceptual en variables globales no visibles aquí, pero como el texto proporcionado es limpio, el código está correcto.",
+      "response_time": 37.02,
+      "completion_tokens": 1372,
+      "gen_tps": 37.07,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta falla por completo. Dice que no hay ningún bug, y eso es falso. La función merge nunca añade los elementos que quedan en la lista que no se ha agotado: falta `result.extend(left[i:])` y `result.extend(right[j:])`, o `return result + left[i:] + right[j:]`. Por eso se pierden elementos. Por ejemplo, merge([1],[2]) devuelve [1] en lugar de [1,2], y merge_sort de cualquier lista con más de un elemento da una lista incompleta. El modelo no encuentra el bug, no da ninguna corrección y su explicación es incorrecta: afirma que el código es 'óptimo' y funciona bien. Además añade comentarios confusos e irrelevantes sobre 'copias profundas' y 'variables globales no visibles'.",
+        "judge_raw_response": "{\"score\": 0, \"justification\": \"La respuesta falla por completo. Dice que no hay ningún bug, y eso es falso. La función merge nunca añade los elementos que quedan en la lista que no se ha agotado: falta `result.extend(left[i:])` y `result.extend(right[j:])`, o `return result + left[i:] + right[j:]`. Por eso se pierden elementos. Por ejemplo, merge([1],[2]) devuelve [1] en lugar de [1,2], y merge_sort de cualquier lista con más de un elemento da una lista incompleta. El modelo no encuentra el bug, no da ninguna corrección y su explicación es incorrecta: afirma que el código es 'óptimo' y funciona bien. Además añade comentarios confusos e irrelevantes sobre 'copias profundas' y 'variables globales no visibles'.\"}"
+      },
+      "judge_time": 7.38
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "```python\nimport functools\nimport time\n\n\n@_log_retries(func)\ndef fetch_data(url):\n    \"\"\"\n    Función ejemplo con lógica de reintentos.\n    \n    - Usa max_attempts (default: 3), delay (default: 1.0), y un tuple de exceptions por defecto.\n    - Si se agotan los intentos, relanza la última excepción registrada.\n    - Si funciona, devuelve el resultado normalmente.\n    \"\"\"\n    try:\n        return some_function(url)\n    except _log_retries(func):\n        raise  # Si no hay éxito final, lanza la última exception registrada\n```\n\n### Notas importantes sobre el implementación\n- ✅ Los parámetros `max_attempts`, `delay`, y `exceptions` deben ser definidos explícitamente en la función decorada.\n- ⚠️ El decorador **no guarda un historial de excepciones**. Si se agotan los intentos, relanza la última excepción registrada.\n- 🧪 Para mayor precisión, el uso recomendado sería un objeto interno o variables locales para mantener el estado del último error registrado.\n\n### Ejemplo con parámetros explícitos:\n```python\n@retry(max_attempts=5, delay=0.5, exceptions=(ValueError, TypeError))\ndef fetch_data(url):\n    \"\"\"Función que puede fallar en ValueError o TypeError.\"\"\"\n    return some_function(url)\n```\n\n### Uso del decorador `@retry`:\n```python\nimport time\n\n# Decorador para reintentar hasta max_attempts veces si se lanza alguna de las excepciones indicadas\n@retry(\n    max_attempts=3, \n    delay=1.0, \n    exceptions=(IOError, TimeoutError)\n)\ndef fetch_data(url):\n    try:\n        return some_function(url)\n    except (IOError, TimeoutError) as e:\n        print(f\"Retrying... ({max_attempts - 1} attempts left)\")\n```\n\nEste decorador garantiza reintentos inteligentes con el máximo de intentos definido, tiempo entre reintentos y manejo correcto de la última excepción en caso de fallo total.",
+      "response_time": 49.66,
+      "completion_tokens": 2324,
+      "gen_tps": 46.8,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta no implementa el decorador @retry. Nunca define una función retry. Usa un inexistente @_log_retries(func) con una variable func sin definir, y además usa _log_retries(func) como tipo de excepción en el except, lo que no tiene sentido. No hay decorador de fábrica con doble nivel de wrapping, ni bucle de reintentos, ni time.sleep(delay), ni se relanza la última excepción tras agotar los intentos, ni hay una lógica real que devuelva el resultado. Los ejemplos de uso llaman a @retry sin haberlo definido. El último ejemplo se captura la excepción dentro de la función y usa max_attempts sin definir, así que rompe el propio mecanismo de reintento. Las notas son incoherentes: por ejemplo, dicen que los parámetros deben definirse en la función decorada. El código no se puede ejecutar y no cumple ninguno de los 5 requisitos.",
+        "judge_raw_response": "{\"score\": 0, \"justification\": \"La respuesta no implementa el decorador @retry. Nunca define una función retry. Usa un inexistente @_log_retries(func) con una variable func sin definir, y además usa _log_retries(func) como tipo de excepción en el except, lo que no tiene sentido. No hay decorador de fábrica con doble nivel de wrapping, ni bucle de reintentos, ni time.sleep(delay), ni se relanza la última excepción tras agotar los intentos, ni hay una lógica real que devuelva el resultado. Los ejemplos de uso llaman a @retry sin haberlo definido. El último ejemplo se captura la excepción dentro de la función y usa max_attempts sin definir, así que rompe el propio mecanismo de reintento. Las notas son incoherentes: por ejemplo, dicen que los parámetros deben definirse en la función decorada. El código no se puede ejecutar y no cumple ninguno de los 5 requisitos.\"}"
+      },
+      "judge_time": 7.9
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "```python\ndef find_pairs(nums, target):\n    \"\"\"\n    Encuentra todos los pares de índices (i, j) tal que i < j \n    y nums[i] + nums[j] == target.\n    \n    Alcance: O(n) tiempo y espacio.\n    \"\"\"\n    indices = {}  # Diccionario para almacenar valor -> índice\n    \n    pairs = []\n    \n    for i in range(len(nums)):\n        complement = target - nums[i]\n        \n        # Si el complemento ya existe en los índices anteriores,\n        # entonces existe un par válido (previous_index, i)\n        if complement in indices:\n            pairs.append((indices[complement], i))\n        \n        # Guardar la posición actual para futuros elementos\n        indices[nums[i]] = i\n        \n    return pairs\n\n\n# Ejemplo de uso\nif __name__ == \"__main__\":\n    nums = [1, 2, 3, 4, 5]\n    target = 5\n    result = find_pairs(nums, target)\n    \n    print(\"Par(es):\", result)\n    # Salida esperada: [(1, 2), (0, 3)] o equivalentes según la orden de búsqueda\n```",
+      "response_time": 20.27,
+      "completion_tokens": 954,
+      "gen_tps": 47.07,
+      "evaluation": {
+        "score": 4,
+        "justification": "La solución usa un dict para buscar el complemento en una sola pasada. Es O(n), no usa bucles anidados y siempre cumple i < j. Con el ejemplo 1 da el resultado correcto: [(1, 2), (0, 3)]. El fallo está en los duplicados: el diccionario guarda solo el último índice de cada valor (indices[nums[i]] = i) y pierde los anteriores. Con el ejemplo 2, find_pairs([1, 1, 2, 3], 4), devuelve solo [(1, 3)] y falta (0, 3). Por eso no devuelve todos los pares y falla uno de los ejemplos del enunciado, que es justo lo que los criterios piden penalizar. Para arreglarlo bastaría guardar una lista de índices por valor (valor -> [índices]) y añadir un par por cada índice previo, con coste O(n + k), donde k es el número de pares. El código tampoco prueba el caso con duplicados. El comentario de salida esperada no reconoce el problema. Tampoco explica que, si hay muchos pares, el coste depende del tamaño de la salida.",
+        "judge_raw_response": "{\"score\": 4, \"justification\": \"La solución usa un dict para buscar el complemento en una sola pasada. Es O(n), no usa bucles anidados y siempre cumple i < j. Con el ejemplo 1 da el resultado correcto: [(1, 2), (0, 3)]. El fallo está en los duplicados: el diccionario guarda solo el último índice de cada valor (indices[nums[i]] = i) y pierde los anteriores. Con el ejemplo 2, find_pairs([1, 1, 2, 3], 4), devuelve solo [(1, 3)] y falta (0, 3). Por eso no devuelve todos los pares y falla uno de los ejemplos del enunciado, que es justo lo que los criterios piden penalizar. Para arreglarlo bastaría guardar una lista de índices por valor (valor -> [índices]) y añadir un par por cada índice previo, con coste O(n + k), donde k es el número de pares. El código tampoco prueba el caso con duplicados. El comentario de salida esperada no reconoce el problema. Tampoco explica que, si hay muchos pares, el coste depende del tamaño de la salida.\"}"
+      },
+      "judge_time": 11.36
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 1464.38,
+      "tg_tps": null,
+      "response_time": 0.35,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=1464.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=1464.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 841.36,
+      "tg_tps": 47.94,
+      "response_time": 2.75,
+      "completion_tokens": 128,
+      "gen_tps": 47.94,
+      "model_response": "pp=841.4 tk/s  tg=47.9 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=841.4 tk/s  tg=47.9 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 1151.08,
+      "tg_tps": null,
+      "response_time": 14.23,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=1151.1 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=1151.1 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --reasoning on --top-p 0.95 --top-k 20 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1.0",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 1147.96,
+      "tg_tps": 44.31,
+      "response_time": 17.16,
+      "completion_tokens": 128,
+      "gen_tps": 44.31,
+      "model_response": "pp=1148.0 tk/s  tg=44.3 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=1148.0 tk/s  tg=44.3 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

@@ -206,6 +206,7 @@ class Runner:
         return model["client"].chat(
             messages=messages,
             model=model.get("model", "local"),
+            temperature=model.get("temperature", 0.7),
             max_tokens=model.get("max_tokens", 2048),
             stop=model.get("stop"),
         )  # returns (content, usage)

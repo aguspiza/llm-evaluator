@@ -221,6 +221,65 @@ models:
     api_key: "${OPENROUTER_API_KEY}"
     max_tokens: 16384
 
+  - name: "Noema-2B Q8_0 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "NoemaAI-labs/Noema-2B-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-latest/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    extra_args: ["-ngl", "99", "--jinja"]
+    max_tokens: 24576
+
+  # LICENCIA: Noema-1.5-2B es open-weight, NO opensource. La ficha dice "no
+  # open-source license is granted with this repository at this time": pesos
+  # descargables pero sin licencia de uso. Valido solo como prueba interna.
+  # Noema-2B (julio) si es Apache-2.0.
+  - name: "Noema-1.5-2B Q8_0 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-latest/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    extra_args: ["-ngl", "99", "--jinja"]
+    max_tokens: 24576
+
+  # Presets recomendados en la ficha del GGUF de Noema-1.5-2B (misma nota de
+  # LICENCIA que arriba: open-weight sin licencia opensource).
+  - name: "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-latest/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "--jinja", "--reasoning", "on",
+                 "--top-p", "0.95", "--top-k", "20", "--min-p", "0",
+                 "--presence-penalty", "1.5", "--repeat-penalty", "1.0"]
+    max_tokens: 24576
+
+  - name: "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "NoemaAI-labs/Noema-1.5-2B-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-latest/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    temperature: 0
+    extra_args: ["-ngl", "99", "--jinja", "--reasoning", "off",
+                 "--top-p", "1.0", "--top-k", "0"]
+    max_tokens: 24576
+
   - name: "Ling-3.0-Tiny Q4_K_M (Local ryzen7)"
     type: local
     hf_repo: "bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M"
