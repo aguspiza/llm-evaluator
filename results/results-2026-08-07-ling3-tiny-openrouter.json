@@ -1,0 +1,322 @@
+{
+  "timestamp": "2026-08-07T16:18:57.351903",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**Respuesta:** No, no es necesariamente cierto. \n\nA continuación, te explico el razonamiento paso a paso:\n\n**Paso 1: Entender las premisas**\n*   **\"Todos los A son B\"**: En lógica de conjuntos, esto significa que el conjunto A está completamente contenido dentro del conjunto B. Todo elemento que pertenece a A también pertenece a B.\n*   **\"Algunos B son C\"**: Esto significa que la intersección entre el conjunto B y el conjunto C no es vacía. Hay al menos un elemento que pertenece tanto a B como a C.\n\n**Paso 2: Analizar la conclusión**\nLa conclusión es: **\"Algunos A son C\"**, lo que significa que la intersección entre el conjunto A y el conjunto C no es vacía.\n\n**Paso 3: Verificar si la conclusión sigue necesariamente de las premisas**\nPara que la conclusión sea cierta, **todos** los elementos que están en la intersección de B y C deben tener que estar también en A. Pero la premisa 2 solo dice que *algunos* elementos de B están en C; no dice que *todos* los elementos de B que están en C estén en A.\n\n**Paso 4: Demostrarlo con un ejemplo (Contraejemplo)**\nImagina tres grupos de personas:\n*   **A**: Los hombres.\n*   **B**: Las personas.\n*   **C**: Las mujeres.\n\nAhora apliquemos las premisas:\n1.  *Todos los A son B*: Todos los hombres son personas. (Cierto)\n2.  *Algunos B son C*: Algunas personas son mujeres. (Cierto, porque hay mujeres)\n\nAhora evaluemos la conclusión:\n*   *Algunos A son C*: Algunos hombres son mujeres. (Falso, porque los hombres y las mujeres no se superponen)\n\nEn este escenario, las dos premisas son verdaderas, pero la conclusión es falsa. Por lo tanto, la conclusión no es necesariamente cierta.\n\n**Paso 5: Explicación visual (Diagrama de Venn)**\nSi dibujamos tres círculos (A, B, C) en un papel:\n*   El círculo A está completamente dentro del círculo B.\n*   El círculo B y el círculo C se superponen (algunos B son C).\n*   Es posible que la superposición entre B y C esté **fuera** del círculo A. En ese caso, ningún A está en C.\n\n**Conclusión lógica**\nEste es un ejemplo clásico de un **syllogismo inválido** (específicamente, una falacia lógica). Solo se puede inferir que *algunos B son C* y que *todos los A son B*, pero no se puede deducir que *algunos A son C*, porque la intersección entre B y C podría estar completamente fuera del conjunto A.",
+      "response_time": 5.6,
+      "completion_tokens": 1917,
+      "gen_tps": 342.49,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente la falacia lógica y demuestra de manera exhaustiva por qué la conclusión no es necesariamente cierta. El uso de un contraejemplo (hombres/mujeres) y la explicación mediante diagramas de Venn son métodos de prueba perfectos, lo que garantiza una comprensión completa del problema.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es impecable. Identifica correctamente la falacia lógica y demuestra de manera exhaustiva por qué la conclusión no es necesariamente cierta. El uso de un contraejemplo (hombres/mujeres) y la explicación mediante diagramas de Venn son métodos de prueba perfectos, lo que garantiza una comprensión completa del problema.\"\n}\n```"
+      },
+      "judge_time": 89.8
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "El orden completo de llegada es: **Ana, Bruno, Diana, Carlos, Elena**.\n\n**Razonamiento paso a paso:**\n\n1. De la primera condición: Ana llegó antes que Bruno → Ana < Bruno.\n2. De la tercera condición: Bruno llegó antes que Diana → Bruno < Diana.\n3. De la segunda condición: Carlos llegó después de Diana pero antes que Elena → Diana < Carlos < Elena.\n4. Al unir las desigualdades en orden:  \n   Ana < Bruno < Diana < Carlos < Elena.\n5. Este orden cumple con todos los datos dados.",
+      "response_time": 2.01,
+      "completion_tokens": 492,
+      "gen_tps": 244.99,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo dedujo el orden correcto de manera impecable. Siguió un proceso lógico sistemático, encadenando correctamente las restricciones (Ana < Bruno < Diana < Carlos < Elena) para llegar a la solución final.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo dedujo el orden correcto de manera impecable. Siguió un proceso lógico sistemático, encadenando correctamente las restricciones (Ana < Bruno < Diana < Carlos < Elena) para llegar a la solución final.\"\n}\n```"
+      },
+      "judge_time": 82.66
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "- **López** es médico.  \n- **García** es abogado.  \n- **Martínez** es ingeniero.\n\n**Razonamiento:**\n\n1. López nunca ha estudiado derecho ni ingeniería, así que su profesión debe ser médica.\n2. Martínez no es abogado, y como López ya es médico, Martínez no puede ser médico (las profesiones son distintas), por lo que debe ser ingeniero.\n3. García es la única que queda, y su profesión es abogado.\n\nEl dato \"García se graduó en la misma universidad que el médico\" se cumple porque el médico es López, y García (abogado) se graduó en esa misma universidad, lo cual es perfectamente posible.",
+      "response_time": 2.23,
+      "completion_tokens": 599,
+      "gen_tps": 268.61,
+      "evaluation": {
+        "score": 10,
+        "justification": "La conclusión es totalmente correcta y el razonamiento es impecable. El modelo aplica la lógica de eliminación de manera rigurosa: López debe ser médico (por descarte), Martínez no puede ser abogado y tampoco médico, por lo que es ingeniero, dejando a García como abogado. El manejo de la pista secundaria (la universidad) también confirma la coherencia de la solución.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La conclusión es totalmente correcta y el razonamiento es impecable. El modelo aplica la lógica de eliminación de manera rigurosa: López debe ser médico (por descarte), Martínez no puede ser abogado y tampoco médico, por lo que es ingeniero, dejando a García como abogado. El manejo de la pista secundaria (la universidad) también confirma la coherencia de la solución.\"\n}\n```"
+      },
+      "judge_time": 76.58
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "5",
+      "response_time": 1.71,
+      "completion_tokens": 172,
+      "gen_tps": 100.37,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta cumple estrictamente con la instrucción, proporcionando únicamente un número entre 1 y 10 sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta cumple estrictamente con la instrucción, proporcionando únicamente un número entre 1 y 10 sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 34.78
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 0.8,
+      "completion_tokens": 46,
+      "gen_tps": 57.38,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 36.58
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 0.92,
+      "completion_tokens": 44,
+      "gen_tps": 47.89,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin texto adicional, puntuación o explicaciones.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin texto adicional, puntuación o explicaciones.\"\n}\n```"
+      },
+      "judge_time": 33.62
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual las plantas y algunas bacterias convierten la energía luminosa en energía química. Durante este proceso, absorben dióxido de carbono y agua, utilizando la luz solar para producir glucosa y liberar oxígeno como subproducto. Este proceso ocurre en los cloroplastos y es fundamental para la vida en la Tierra, ya que proporciona la base de la cadena alimenticia y mantiene los niveles de oxígeno en la atmósfera.",
+      "response_time": 4.13,
+      "completion_tokens": 1445,
+      "gen_tps": 349.47,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos, importancia para la vida) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos, importancia para la vida) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 87.85
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un número entero no negativo.\n\n    Parámetros:\n        n (int): Número entero no negativo (0, 1, 2, ...).\n\n    Retorna:\n        int: El factorial de n (n!).\n\n    Lógica:\n        El factorial de n (n!) se define como el producto de todos los\n        enteros del 1 hasta n. Por ejemplo:\n            5! = 5 × 4 × 3 × 2 × 1 = 120\n        Caso base: 0! = 1 (por definición matemática).\n    \"\"\"\n\n    # Caso base: el factorial de 0 es 1 (por definición)\n    if n == 0:\n        return 1\n\n    # Inicializamos el resultado en 1 (multiplicador por defecto)\n    resultado = 1\n\n    # Iteramos desde 1 hasta n, multiplicando cada número\n    for i in range(1, n + 1):\n        resultado *= i  # resultado = resultado * i\n\n    return resultado\n\n\n# Ejemplo de uso\nif __name__ == \"__main__\":\n    # Probamos con algunos valores\n    for num in [0, 1, 5, 10]:\n        print(f\"{num}! = {factorial(num)}\")\n```\n\n**Salida esperada:**\n```\n0! = 1\n1! = 1\n5! = 120\n10! = 3628800\n```\n\n### Explicación del funcionamiento:\n\n| Paso | Descripción |\n|------|-------------|\n| 1 | Se verifica el **caso base**: `0! = 1` |\n| 2 | Se inicializa `resultado = 1` (porque multiplicar por 1 no cambia el valor) |\n| 3 | Se recorre cada número desde `1` hasta `n` usando un `for` |\n| 4 | En cada iteración se multiplica `resultado * i` |\n| 5 | Se retorna el resultado final |\n\n### Alternativa recursiva:\n\nSi prefieres una implementación recursiva, aquí está:\n\n```python\ndef factorial_recursivo(n):\n    \"\"\"\n    Calcula el factorial de n de forma recursiva.\n    \"\"\"\n    if n == 0:\n        return 1\n    return n * factorial_recursivo(n - 1)\n```\n\n> **Nota:** La versión iterativa es más eficiente en términos de memoria y evita el riesgo de desbordamiento de pila (stack overflow) que podría ocurrir con la versión recursiva para valores muy grandes de `n`.",
+      "response_time": 3.09,
+      "completion_tokens": 787,
+      "gen_tps": 254.47,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es excelente. El código es perfectamente funcional, calcula el factorial correctamente para números no negativos, y maneja el caso base (0! = 1). La documentación es sobresaliente, incluyendo docstrings detallados, comentarios inline claros y una explicación completa de la lógica. Además, la inclusión de una alternativa recursiva y la nota sobre la eficiencia de la versión iterativa demuestran un conocimiento profundo del tema.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es excelente. El código es perfectamente funcional, calcula el factorial correctamente para números no negativos, y maneja el caso base (0! = 1). La documentación es sobresaliente, incluyendo docstrings detallados, comentarios inline claros y una explicación completa de la lógica. Además, la inclusión de una alternativa recursiva y la nota sobre la eficiencia de la versión iterativa demuestran un conocimiento profundo del tema.\"\n}\n```"
+      },
+      "judge_time": 105.76
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "ERROR: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "response_time": 0,
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: ERROR: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "ERROR: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "response_time": 0,
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: ERROR: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "ERROR: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "response_time": 0,
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: ERROR: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "ERROR: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "response_time": 0,
+      "evaluation": {
+        "score": 0,
+        "justification": "Test failed: ERROR: Client error '429 Too Many Requests' for url 'https://openrouter.ai/api/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

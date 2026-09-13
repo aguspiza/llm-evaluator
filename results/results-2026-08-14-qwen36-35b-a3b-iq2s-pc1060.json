@@ -1,0 +1,312 @@
+{
+  "timestamp": "2026-08-14T12:56:23",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**Respuesta directa:** No, no es necesariamente cierto.\n\n**Razonamiento paso a paso:**\n\n1. **Traducción a lenguaje de conjuntos:**\n   - `Todos los A son B` → Todo elemento de A pertenece a B (A ⊆ B).\n   - `Algunos B son C` → Existe al menos un elemento que es simultáneamente B y C (B ∩ C ≠ ∅).\n\n2. **Análisis de lo que garantizan las premisas:**\n   Las premesas nos dicen que A está completamente contenido en B, y que hay una zona donde B y C se solapan. Sin embargo, **no nos indican dónde se encuentra esa zona de solapamiento respecto a A**. Puede ocurrir que toda la intersección entre B y C quede fuera de A.\n\n3. **Contraejemplo concreto:**\n   - Sea `A = {perros}`, `B = {animales}`, `C = {gatos}`.\n   - `Todos los perros son animales` → Cierto (A ⊆ B).\n   - `Algunos animales son gatos` → Cierto (hay elementos en B que también están en C).\n   - ¿`Algunos perros son gatos`? → **Falso**. No hay ningún perro que sea gato.\n\n4. **Conclusión lógica:**\n   Para que \"algunos A sean C\" se deduzca, necesitaríamos una premisa adicional (por ejemplo, \"Todos los B que son C también son A\", o \"Algunos A son C\"). Sin esa información, la relación entre A y C queda indeterminada. Por lo tanto, la conclusión **no es lógicamente necesaria**.\n\n*(Nota: Si en algún caso concreto los datos fueran diferentes, podría ser cierto, pero la pregunta especifica si es \"necesariamente\" cierto, y la respuesta lógica formal es negativa.)*",
+      "response_time": 96.83,
+      "completion_tokens": 1459,
+      "gen_tps": 15.07,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente que la conclusión no es necesaria. El razonamiento es riguroso, utilizando la notación de conjuntos y, lo más importante, proporcionando un contraejemplo concreto (perros, animales, gatos) que demuestra de manera concluyente la falsedad de la necesidad lógica. La explicación es clara, estructurada y demuestra un dominio completo de la lógica de predicados.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesaria. El razonamiento es riguroso, utilizando la notación de conjuntos y, lo más importante, proporcionando un contraejemplo concreto (perros, animales, gatos) que demuestra de manera concluyente la falsedad de la necesidad lógica. La explicación es clara, estructurada y demuestra un dominio completo de la lógica de predicados.\"\n}\n```"
+      },
+      "judge_time": 78.01
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Para determinar el orden completo, combinemos las restricciones lógicas paso a paso:\n\n1. **Analizar las relaciones dadas:**\n   - `Ana < Bruno` (Ana llegó antes que Bruno)\n   - `Bruno < Diana` (Bruno llegó antes que Diana)\n   - `Diana < Carlos < Elena` (Carlos llegó después de Diana pero antes que Elena)\n\n2. **Unir las cadenas de precedencia:**\n   Al conectar las relaciones, observamos que comparten corredores clave:\n   - De la primera y segunda relación: `Ana < Bruno < Diana`\n   - De la tercera relación: `Diana < Carlos < Elena`\n   - Enlazando ambos tramos por \"Diana\": `Ana < Bruno < Diana < Carlos < Elena`\n\n3. **Verificar consistencia:**\n   - La cadena contiene a los 5 corredores.\n   - Cumple exactamente con las tres condiciones iniciales.\n   - No existen relaciones contradictorias ni posiciones ambiguas, por lo que el orden es único.\n\n**Orden completo de llegada (del 1º al 5º):**\n1. Ana  \n2. Bruno  \n3. Diana  \n4. Carlos  \n5. Elena",
+      "response_time": 57.61,
+      "completion_tokens": 900,
+      "gen_tps": 15.62,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo resuelve el problema de lógica de manera impecable. Identifica correctamente todas las restricciones, las encadena de forma sistemática (Ana < Bruno < Diana < Carlos < Elena) y llega al orden final correcto. El razonamiento es claro y exhaustivo.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo resuelve el problema de lógica de manera impecable. Identifica correctamente todas las restricciones, las encadena de forma sistemática (Ana < Bruno < Diana < Carlos < Elena) y llega al orden final correcto. El razonamiento es claro y exhaustivo.\"\n}\n```"
+      },
+      "judge_time": 80.86
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "**Respuesta directa:**\n- **López**: Médico\n- **García**: Abogado\n- **Martínez**: Ingeniero\n\n---\n\n**Razonamiento paso a paso:**\n\n1. **Primera pista:** *\"López nunca ha estudiado derecho ni ingeniería.\"*  \n   Esto elimina automáticamente a López como abogado (derecho) o ingeniero. La única profesión que queda es **médico**. Por lo tanto, **López = Médico**.\n\n2. **Segunda pista:** *\"García se graduó en la misma universidad que el médico.\"*  \n   Dado que ya sabemos que el médico es López, esta frase implica que García y el médico son personas distintas. Por tanto, **García ≠ Médico**.\n\n3. **Tercera pista:** *\"Martínez no es abogado.\"*  \n   Sabemos que López ya es médico, así que Martínez solo puede ser ingeniero o abogado. Como la pista indica explícitamente que no es abogado, debe ser **ingeniero**. Por lo tanto, **Martínez = Ingeniero**.\n\n4. **Conclusión:** Al asignar a López (médico) y Martínez (ingeniero), la única profesión restante corresponde a García: **abogado**.\n\n**Verificación final:**\n- ✅ López es médico → Cumple que nunca estudió derecho ni ingeniería.\n- ✅ García (abogado) y el médico (López)",
+      "response_time": 135.03,
+      "completion_tokens": 2048,
+      "gen_tps": 15.17,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo resuelve el acertijo de lógica de manera impecable. La deducción es rigurosa, clara y sigue un proceso lógico paso a paso, asignando correctamente cada profesión basándose en las restricciones dadas. La conclusión es totalmente correcta.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El modelo resuelve el acertijo de lógica de manera impecable. La deducción es rigurosa, clara y sigue un proceso lógico paso a paso, asignando correctamente cada profesión basándose en las restricciones dadas. La conclusión es totalmente correcta.\"\n}\n```"
+      },
+      "judge_time": 91.36
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "5",
+      "response_time": 35.0,
+      "completion_tokens": 400,
+      "gen_tps": 11.43,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente el número solicitado (5), cumpliendo perfectamente con la instrucción de no incluir ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es exclusivamente el número solicitado (5), cumpliendo perfectamente con la instrucción de no incluir ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 41.25
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 25.37,
+      "completion_tokens": 375,
+      "gen_tps": 14.78,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin ningún texto adicional.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es correcta (8) y cumple estrictamente con la instrucción de responder únicamente con el número, sin ningún texto adicional.\"\n}\n```"
+      },
+      "judge_time": 36.21
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 13.44,
+      "completion_tokens": 205,
+      "gen_tps": 15.25,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exactamente el número '8', cumpliendo rigurosamente con la instrucción de responder únicamente con el número sin texto, puntuación o explicaciones.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es exactamente el número '8', cumpliendo rigurosamente con la instrucción de responder únicamente con el número sin texto, puntuación o explicaciones.\"\n}\n```"
+      },
+      "judge_time": 31.94
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual plantas, algas y algunas bacterias convierten la energía luminosa en energía química absorbiendo agua y dióxido de carbono. Este mecanismo se desarrolla en los cloroplastos, donde la clorofila capta la luz solar para producir glucosa y liberar oxígeno como subproducto. Es fundamental para la vida en la Tierra, pues constituye la base de las cadenas alimenticias y mantiene los niveles de oxígeno atmosférico.",
+      "response_time": 113.85,
+      "completion_tokens": 1759,
+      "gen_tps": 15.45,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos y la importancia para la vida) y no añade información externa.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"El resumen cumple perfectamente con todos los criterios: tiene exactamente 3 oraciones, mantiene todas las ideas principales (conversión de energía, ingredientes/productos y la importancia para la vida) y no añade información externa.\"\n}\n```"
+      },
+      "judge_time": 86.4
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Aquí tienes la función solicitada, implementada de manera eficiente y con comentarios detallados que explican cada parte de la lógica:\n\n```python\ndef factorial(n: int) -> int:\n    \"\"\"Calcula el factorial de un número entero no negativo (n!).\"\"\"\n    \n    # 1. Validación de entrada: los factoriales solo están definidos para enteros >= 0\n    if n < 0:\n        raise ValueError(\"El factorial no está definido para números negativos.\")\n        \n    # 2. Caso base: por definición, 0! = 1 y 1! = 1\n    resultado = 1\n    \n    # 3. Cálculo iterativo: multiplicar todos los enteros desde 2 hasta n\n    # Si n es 0 o 1, el rango (2, n+1) está vacío y la función retorna 1 directamente.\n    for i in range(2, n + 1):\n        resultado *= i\n        \n    return resultado\n\n# Ejemplo de uso:\nprint(factorial(5))   # Output: 120\nprint(factorial(0))   # Output: 1\nprint(factorial(1))   # Output: 1\n```\n\n**Notas técnicas:**\n* **Enfoque iterativo:** Se prefiere sobre el recursivo para evitar la limitación de profundidad de pila (`RecursionError`) en entornos con versiones antiguas de Python y suele ser más eficiente en memoria.\n* **Complejidad:** O(n) en tiempo y O(1) en espacio auxiliar.\n* Si necesitas manejar números muy grandes, Python ya lo hace automáticamente (enteros de precisión arbitraria), por lo que no se requiere librerías externas.",
+      "response_time": 97.01,
+      "completion_tokens": 1503,
+      "gen_tps": 15.49,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es excelente. La función calcula el factorial correctamente, maneja de manera robusta los números negativos con una excepción apropiada, y maneja el caso base (0! = 1) de forma impecable. La inclusión de comentarios detallados, la explicación de la complejidad y la justificación del enfoque iterativo demuestran un alto nivel de comprensión del tema.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es excelente. La función calcula el factorial correctamente, maneja de manera robusta los números negativos con una excepción apropiada, y maneja el caso base (0! = 1) de forma impecable. La inclusión de comentarios detallados, la explicación de la complejidad y la justificación del enfoque iterativo demuestran un alto nivel de comprensión del tema.\"\n}\n```"
+      },
+      "judge_time": 75.25
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Mi último dato de entrenamiento corresponde a **octubre de 2024**.\n\n**Razonamiento:**\n1. **Límite técnico de entrenamiento:** Los modelos de lenguaje se entrenan sobre un corpus de datos que se \"congela\" en una fecha específica para garantizar consistencia, reproducibilidad y viabilidad computacional. Esa fecha marca el límite superior de lo que el modelo ha procesado durante su fase de entrenamiento.\n2. **Referencia oficial:** Según la documentación técnica publicada por Tongyi Lab (Alibaba Group) sobre la serie Qwen, el conjunto de datos de entrenamiento se extiende hasta octubre de 2024. Este corte es estandarizado en los modelos de IA para equilibrar la actualización con la estabilidad del sistema.\n3. **Limitación funcional:** No tengo acceso a información posterior a esa fecha ni puedo generar respuestas basadas en eventos recientes sin el uso de herramientas externas que consulten fuentes en tiempo real. Si requieres información más actual, te recomiendo consultar bases de datos o navegadores con acceso directo a internet.\n\nSi hay alguna novedad oficial sobre una actualización de mi versión o un nuevo corte de datos, no está disponible en mi entorno de entrenamiento y deberías verificarlo en las fuentes oficiales de Alibaba Cloud/Tongyi Lab.",
+      "response_time": 78.63,
+      "completion_tokens": 1219,
+      "gen_tps": 15.5,
+      "evaluation": {
+        "score": 9,
+        "justification": "El modelo cumple con todos los criterios de alto rendimiento. No solo declara una fecha de corte, sino que proporciona un razonamiento explícito y técnico, atribuyendo la fecha a la 'documentación técnica publicada por Tongyi Lab (Alibaba Group) sobre la serie Qwen'. Esto demuestra que el modelo no está adivinando, sino que está utilizando conocimiento interno sobre su propia arquitectura y entrenamiento para justificar la fecha, lo cual es conciso y altamente relevante.",
+        "judge_raw_response": "```json\n{\n  \"score\": 9,\n  \"justification\": \"El modelo cumple con todos los criterios de alto rendimiento. No solo declara una fecha de corte, sino que proporciona un razonamiento explícito y técnico, atribuyendo la fecha a la 'documentación técnica publicada por Tongyi Lab (Alibaba Group) sobre la serie Qwen'. Esto demuestra que el modelo no está adivinando, sino que está utilizando conocimiento interno sobre su propia arquitectura y entrenamiento para justificar la fecha, lo cual es conciso y altamente relevante.\"\n}\n```"
+      },
+      "judge_time": 102.71
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "### 🔍 Bug Identificado\nEl error se encuentra en la función `merge`. Cuando una de las dos sublistas (`left` o `right`) se agota antes que la otra, el ciclo `while` termina prematuramente y **el código no copia los elementos restantes**. Esto hace que el resultado final pierda datos y no refleje el tamaño original del arreglo.\n\n### 📖 Explicación\nEl `while` solo procesa mientras **ambas** sublistas tengan elementos. En cuanto una llega a su longitud, la condición `i < len(left) and j < len(right)` falla, se sale del bucle y se devuelve `result`. Los índices `i` o `j` pueden apuntar a elementos no procesados en la sublista más larga, los cuales quedan descartados.\n\n### ✅ Código Corregido\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n            \n    # ✨ Corrección: agregar los elementos restantes de cualquier sublista no vacía\n    result.extend(left[i:])\n    result.extend(right[j:])\n    \n    return result\n```\n\n### 💡 Nota adicional\nSe reemplazaron los posibles `result.append()` múltiples por `.extend()`, que es más eficiente y legible para copiar el resto de una lista. El algoritmo ahora mantiene la estabilidad, complejidad temporal `O(n log n)` y complejidad espacial `O(n)`.",
+      "response_time": 129.73,
+      "completion_tokens": 1990,
+      "gen_tps": 15.34
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "",
+      "response_time": 134.79,
+      "completion_tokens": 2048,
+      "gen_tps": 15.19
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "",
+      "response_time": 133.63,
+      "completion_tokens": 2048,
+      "gen_tps": 15.33
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 269.1,
+      "tg_tps": null,
+      "response_time": 1.9,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=269.1 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=269.1 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 37,
+      "pp_tps": 83.82,
+      "tg_tps": 15.4,
+      "response_time": 3.17,
+      "completion_tokens": 37,
+      "gen_tps": 15.4,
+      "model_response": "pp=83.8 tk/s  tg=15.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=83.8 tk/s  tg=15.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 249.97,
+      "tg_tps": null,
+      "response_time": 65.54,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=250.0 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=250.0 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 249.34,
+      "tg_tps": 12.22,
+      "response_time": 76.18,
+      "completion_tokens": 128,
+      "gen_tps": 12.22,
+      "model_response": "pp=249.3 tk/s  tg=12.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=249.3 tk/s  tg=12.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

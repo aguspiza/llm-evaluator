@@ -1,0 +1,102 @@
+{
+  "timestamp": "2026-08-14T13:15:10.315458",
+  "total_tests": 4,
+  "results": [
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S kv-q8 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 2048 -ub 1024 -t 12 -np 1 --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 182.31,
+      "tg_tps": null,
+      "response_time": 2.81,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=182.3 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=182.3 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S kv-q8 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 2048 -ub 1024 -t 12 -np 1 --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 89.21,
+      "tg_tps": 19.37,
+      "response_time": 7.33,
+      "completion_tokens": 128,
+      "gen_tps": 19.37,
+      "model_response": "pp=89.2 tk/s  tg=19.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=89.2 tk/s  tg=19.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S kv-q8 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 2048 -ub 1024 -t 12 -np 1 --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 320.02,
+      "tg_tps": null,
+      "response_time": 51.2,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=320.0 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=320.0 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S kv-q8 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk q8_0 -ctv q8_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja -b 2048 -ub 1024 -t 12 -np 1 --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 320.91,
+      "tg_tps": 17.2,
+      "response_time": 58.5,
+      "completion_tokens": 128,
+      "gen_tps": 17.2,
+      "model_response": "pp=320.9 tk/s  tg=17.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=320.9 tk/s  tg=17.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

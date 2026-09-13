@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-08-20T08:58:51.043464",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Ling-3.0-Tiny Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf bloomer010/Ling-3.0-tiny-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja --reasoning on --reasoning-format deepseek --reasoning-budget 4096",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "No, no es necesariamente cierto que \"algunos A son C\". A continuación se explica paso a paso:\n\n1. **Premisa 1:** \"Todos los A son B\"  \n   Esto significa que todo elemento del conjunto A pertenece al conjunto B.  \n   En términos lógicos: ∀x (A(x) → B(x)).\n\n2. **Premisa 2:** \"Algunos B son C\"  \n   Esto significa que existe al menos un elemento que pertenece tanto al conjunto B como al conjunto C.  \n   En términos lógicos: ∃x (B(x) ∧ C(x)).\n\n3. **Conclusión que se desea verificar:** \"Algunos A son C\"  \n   Esto significaría que existe al menos un elemento que pertenece tanto al conjunto A como al conjunto C: ∃x (A(x) ∧ C(x)).\n\n4. **Razonamiento:**  \n   De la premisa 1, sabemos que A ⊆ B (el conjunto A es subconjunto del conjunto B).  \n   De la premisa 2, sabemos que B y C tienen al menos un elemento en común.  \n   Sin embargo, ese elemento en común entre B y C no necesariamente pertenece a A.  \n   Es decir, el conjunto B puede tener elementos que no están en A (porque B puede ser un conjunto más grande que contiene a A y otros elementos).  \n   Por lo tanto, es posible que los elementos que están en B y C no estén en A.\n\n5. **Contraejemplo:**  \n   Sea el universo: {x, y}  \n   A = {x}  \n   B = {x, y}  \n   C = {y}  \n   Verificación:  \n   - Todos los A son B: x está en B → cierto.  \n   - Algunos B son C: y está en B y en C → cierto.  \n   - Algunos A son C: x no está en C → falso.  \n   Este ejemplo es consistente con ambas premisas, pero no satisface \"algunos A son C\".\n\n6. **Conclusión:**  \n   Las premisas dadas no implican necesariamente que algunos A sean C. La existencia de una intersección entre B y C no garantiza que dicha intersección contenga elementos de A.",
+      "response_time": 107.89,
+      "completion_tokens": 2319,
+      "gen_tps": 21.5,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es riguroso, utilizando tanto la lógica de predicados como un contraejemplo claro y efectivo que demuestra la falsedad de la conclusión. La explicación es completa y de alta calidad.",
+        "judge_raw_response": "```json\n{\n\"score\": 10,\n\"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesariamente cierta. El razonamiento es riguroso, utilizando tanto la lógica de predicados como un contraejemplo claro y efectivo que demuestra la falsedad de la conclusión. La explicación es completa y de alta calidad.\"\n}\n```"
+      },
+      "judge_time": 86.79
+    }
+  ]
+}

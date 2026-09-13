@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-08-07T19:55:45.942060",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "```python\ndef find_pairs(nums, target):\n    \"\"\"\n    Encuentra todos los pares de índices (i, j) con i < j tal que nums[i] + nums[j] == target.\n    La solución es O(n) en el número de elementos de la lista (el tamaño de la salida\n    puede ser mayor, pero no está acotado por el análisis de tiempo).\n    \"\"\"\n    indices_map = {}  # valor -> lista de índices donde aparece\n    result = []\n\n    for j, num in enumerate(nums):\n        complement = target - num\n\n        # Si ya hemos visto algún índice con el valor complementario,\n        # formamos pares (i, j) con todos esos índices i.\n        if complement in indices_map:\n            for i in indices_map[complement]:\n                result.append((i, j))\n\n        # Guardamos el índice actual para futuras comprobaciones.\n        if num not in indices_map:\n            indices_map[num] = []\n        indices_map[num].append(j)\n\n    return result\n```\n\n**Explicación breve:**\n\n- Se recorre la lista una sola vez (`j` es el índice actual).\n- Para cada elemento `nums[j]`, se calcula el complemento (`target - nums[j]`).\n- Si ese complemento ya está en el diccionario, se añaden pares `(i, j)` para **todos** los índices `i` guardados para ese complemento (asegurando `i < j` porque `i` fue registrado antes que `j`).\n- Luego se añade `j` a la lista de índices de `nums[j]` en el diccionario.\n- La complejidad temporal es O(n) en el número de elementos procesados; el coste adicional de los pares de salida es proporcional al tamaño de la salida, que es inevitablemente O(n²) en el peor caso (cuando hay muchas pares).",
+      "response_time": 335.98,
+      "completion_tokens": 5686,
+      "gen_tps": 16.92,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solución es impecable. Utiliza el enfoque de mapa hash (diccionario) para lograr una complejidad de tiempo O(n) en la búsqueda, cumpliendo con el requisito principal. Maneja correctamente los duplicados y garantiza que se encuentren todos los pares, respetando la condición i < j. La explicación es precisa y demuestra una comprensión profunda de la complejidad algorítmica.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La solución es impecable. Utiliza el enfoque de mapa hash (diccionario) para lograr una complejidad de tiempo O(n) en la búsqueda, cumpliendo con el requisito principal. Maneja correctamente los duplicados y garantiza que se encuentren todos los pares, respetando la condición i < j. La explicación es precisa y demuestra una comprensión profunda de la complejidad algorítmica.\"\n}\n```"
+      },
+      "judge_time": 154.97
+    }
+  ]
+}

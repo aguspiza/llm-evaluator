@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-09-10T21:00:57.700758",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "No, no es necesariamente cierto. A continuación, un razonamiento paso a paso:\n\n1. **Interpretación de las afirmaciones**:  \n   - \"Todos los A son B\" significa que el conjunto A es un subconjunto de B (A ⊆ B).  \n   - \"Algunos B son C\" significa que existe al menos un elemento que está tanto en B como en C (B ∩ C ≠ ∅).\n\n2. **Pregunta**: ¿Es obligatorio que algunos A sean C? Es decir, ¿se deduce que A ∩ C ≠ ∅?\n\n3. **Proposición de un contraejemplo**:  \n   - Sea B = {b₁, b₂}.  \n   - Sea A = {a₁}, donde a₁ ∈ B (para que \"todos los A son B\" se cumpla).  \n   - Sea C = {b₂}.  \n   - Entonces:  \n     - Todos los A son B: a₁ ∈ B. ✔  \n     - Algunos B son C: b₂ ∈ B y b₂ ∈ C. ✔  \n     - Pero A ∩ C = ∅, ya que a₁ no está en C. ✘  \n\n4. **Conclusión**: El hecho de que todos los A sean B y que algunos B sean C no implica que algunos A sean C. Por lo tanto, la afirmación no es necesariamente cierta.",
+      "response_time": 54.24,
+      "completion_tokens": 827,
+      "gen_tps": 15.25,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente que la conclusión no es necesaria y utiliza un contraejemplo (set theory) perfectamente construido para demostrarlo. La explicación es lógica, clara y sigue el proceso de razonamiento solicitado.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión no es necesaria y utiliza un contraejemplo (set theory) perfectamente construido para demostrarlo. La explicación es lógica, clara y sigue el proceso de razonamiento solicitado.\"\n}\n```"
+      },
+      "judge_time": 89.25
+    }
+  ]
+}

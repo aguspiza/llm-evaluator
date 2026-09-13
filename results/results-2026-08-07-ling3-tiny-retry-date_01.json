@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-08-07T16:50:35.330298",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "No puedo determinar la fecha de mi último entrenamiento. Soy un modelo de lenguaje sin memoria continua de mi propia actualización o entrenamiento.\n\nLo que sí puedo decirte es que **no tengo un \"fecha de conocimiento\" o de entrenamiento** asociada a mí en el sentido de un sistema de archivos o base de datos interna con una fecha de última actualización. No \"sé\" cuándo fue mi último entrenamiento.\n\nSi necesitas saber el estado actual de mi conocimiento, lo mejor es que consultes directamente con el sistema o el proveedor que me mantiene, ya que ellos sí tienen información sobre la fecha de entrenamiento o actualización de su modelo.\n\n¿Hay algo más en lo que pueda ayudarte?",
+      "response_time": 1.84,
+      "completion_tokens": 350,
+      "gen_tps": 190.02,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo aborda la pregunta de manera directa y explícita. En lugar de inventar una fecha o divagar, razona claramente sobre su propia arquitectura, explicando por qué no puede proporcionar una fecha de corte (falta de memoria interna de entrenamiento). Cumple perfectamente con el criterio de razonamiento explícito y concisión.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El modelo aborda la pregunta de manera directa y explícita. En lugar de inventar una fecha o divagar, razona claramente sobre su propia arquitectura, explicando por qué no puede proporcionar una fecha de corte (falta de memoria interna de entrenamiento). Cumple perfectamente con el criterio de razonamiento explícito y concisión.\"\n}\n```"
+      },
+      "judge_time": 86.49
+    }
+  ]
+}

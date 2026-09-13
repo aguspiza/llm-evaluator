@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-09-10T22:24:39.448973",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "No, no es necesariamente cierto. A continuación, paso a paso el razonamiento.\n\n**1. Comprensión de las premisas**  \n- \"Todos los A son B\" significa que cualquier elemento que sea A también sea B. En lógica: ∀x (A(x) → B(x)).  \n- \"Algunos B son C\" significa que existe al menos un elemento que sea tanto B como C. En lógica: ∃x (B(x) ∧ C(x)).\n\n**2. ¿Por qué no se deduce la conclusión?**  \nLa conclusión sería \"Algunos A son C\", es decir, ∃x (A(x) ∧ C(x)). Para que esto fuera necesario, la existencia de un B que es C tendría que obligar a que ese elemento también sea A. Pero las premisas no lo imponen: la \"algún B que es C\" podría ser cualquier elemento de B, sin importar si es A o no.\n\n**3. Un counterexample concreto**  \nSea el conjunto de elementos {1, 2}.  \n- A = {1} (los elementos que son A).  \n- B = {1, 2} (los elementos que son B).  \n- C = {2} (los elementos que son C).  \n\nVerificación:  \n- ¿Todos los A son B? Sí, 1 es B.  \n- ¿Algunos B son C? Sí, 2 es B y C.  \n- ¿Algunos A son C? No, porque el único A es 1, y 1 no es C.  \n\nPor lo tanto, la conclusión no se cumple en este caso.\n\n**4. Conclusión**  \nLas premisas no garantizan que el elemento que sea B y C también sea A. Así que no es necesariamente cierto que algunos A sean C.",
+      "response_time": 73.02,
+      "completion_tokens": 1252,
+      "gen_tps": 17.15,
+      "evaluation": {
+        "score": 9,
+        "justification": "La conclusión es correcta: identifica que NO se sigue necesariamente. El razonamiento es sólido: formaliza ambas premisas correctamente (∀x(A→B), ∃x(B∧C)), explica con precisión el punto clave —que el B que es C no tiene por qué pertenecer a A— y aporta un contraejemplo válido y verificado elemento por elemento (A={1}, B={1,2}, C={2}). Estructura clara paso a paso. Descuentos menores por defectos de forma: anglicismo sin traducir ('counterexample'), un error gramatical en la formalización verbal ('significa que cualquier elemento que sea A también sea B' en vez de 'es') y la frase mal construida 'la \"algún B que es C\"'. No hay falacias lógicas.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La conclusión es correcta: identifica que NO se sigue necesariamente. El razonamiento es sólido: formaliza ambas premisas correctamente (∀x(A→B), ∃x(B∧C)), explica con precisión el punto clave —que el B que es C no tiene por qué pertenecer a A— y aporta un contraejemplo válido y verificado elemento por elemento (A={1}, B={1,2}, C={2}). Estructura clara paso a paso. Descuentos menores por defectos de forma: anglicismo sin traducir ('counterexample'), un error gramatical en la formalización verbal ('significa que cualquier elemento que sea A también sea B' en vez de 'es') y la frase mal construida 'la \\\"algún B que es C\\\"'. No hay falacias lógicas.\"}"
+      },
+      "judge_time": 9.46
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Para determinar el orden de llegada, analizamos las relaciones dadas:\n\n1. **Ana llegó antes que Bruno**: Ana < Bruno.\n2. **Bruno llegó antes que Diana**: Bruno < Diana.\n3. **Carlos llegó después de Diana pero antes que Elena**: Diana < Carlos < Elena.\n\nCombinando estas relaciones secuencialmente:\n- De la primera: Ana < Bruno.\n- De la segunda: Bruno < Diana, por lo que Ana < Bruno < Diana.\n- De la tercera: Diana < Carlos < Elena.\n\nPor tanto, el orden completo es: Ana, Bruno, Diana, Carlos, Elena.\n\nCada relación se cumple sin contradicciones, y los cinco corredores ocupan todas las posiciones.",
+      "response_time": 30.98,
+      "completion_tokens": 570,
+      "gen_tps": 18.4,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo formaliza cada restriccion como desigualdad, las encadena correctamente (Ana < Bruno < Diana < Carlos < Elena) y llega al orden correcto: Ana, Bruno, Diana, Carlos, Elena. El razonamiento es sistematico, no omite pasos clave y verifica que todas las relaciones se cumplen sin contradicciones y que las cinco posiciones quedan cubiertas. La explicacion es clara y concisa, sin errores.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"El modelo formaliza cada restriccion como desigualdad, las encadena correctamente (Ana < Bruno < Diana < Carlos < Elena) y llega al orden correcto: Ana, Bruno, Diana, Carlos, Elena. El razonamiento es sistematico, no omite pasos clave y verifica que todas las relaciones se cumplen sin contradicciones y que las cinco posiciones quedan cubiertas. La explicacion es clara y concisa, sin errores.\"}"
+      },
+      "judge_time": 9.18
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "Según las condiciones:\n\n1. López nunca ha estudiado derecho ni ingeniería. Esto implica que López no puede ser abogado (porque estudia derecho) ni ingeniero (porque estudia ingeniería). Por lo tanto, López debe ser el médico.\n\n2. García se graduó en la misma universidad que el médico. Dado que López es el médico, García se graduó en la misma universidad que López.\n\n3. Martínez no es abogado.\n\nLas profesiones restantes son abogado e ingeniero. Como Martínez no es abogado, Martínez debe ser ingeniero. En consecuencia, García queda como abogado. Esto cumple con todas las condiciones.\n\n**Respuesta:**  \n- López: médico  \n- García: abogado  \n- Martínez: ingeniero",
+      "response_time": 54.72,
+      "completion_tokens": 963,
+      "gen_tps": 17.6,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solución es correcta (López médico, García abogado, Martínez ingeniero) y el razonamiento es riguroso y bien ordenado: descarta derecho e ingeniería para López dejándolo como médico, usa la segunda pista de forma consistente (aunque solo la menciona sin explotarla, ya no es necesaria una vez fijado López), y cierra con la restricción de Martínez para asignar ingeniero y, por eliminación, abogado a García. No hay saltos lógicos ni errores; la presentación final es clara y verifica el cumplimiento de todas las condiciones.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La solución es correcta (López médico, García abogado, Martínez ingeniero) y el razonamiento es riguroso y bien ordenado: descarta derecho e ingeniería para López dejándolo como médico, usa la segunda pista de forma consistente (aunque solo la menciona sin explotarla, ya no es necesaria una vez fijado López), y cierra con la restricción de Martínez para asignar ingeniero y, por eliminación, abogado a García. No hay saltos lógicos ni errores; la presentación final es clara y verifica el cumplimiento de todas las condiciones.\"}"
+      },
+      "judge_time": 9.11
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "7",
+      "response_time": 4.61,
+      "completion_tokens": 84,
+      "gen_tps": 18.23,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta contiene exclusivamente el numero 7, que esta dentro del rango 1-10 solicitado. No incluye explicaciones, saludos, puntuacion ni texto adicional, cumpliendo al 100% con el formato exigido.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta contiene exclusivamente el numero 7, que esta dentro del rango 1-10 solicitado. No incluye explicaciones, saludos, puntuacion ni texto adicional, cumpliendo al 100% con el formato exigido.\"}"
+      },
+      "judge_time": 8.08
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 5.22,
+      "completion_tokens": 98,
+      "gen_tps": 18.79,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente \"8\", sin texto adicional, unidades ni puntuación, y el valor es correcto: las arañas tienen 8 patas. Cumple ambos criterios de forma estricta.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente \\\"8\\\", sin texto adicional, unidades ni puntuación, y el valor es correcto: las arañas tienen 8 patas. Cumple ambos criterios de forma estricta.\"}"
+      },
+      "judge_time": 6.28
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 3.65,
+      "completion_tokens": 67,
+      "gen_tps": 18.35,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exactamente \"8\": valor correcto (las arañas tienen 8 patas) y cumple estrictamente el formato pedido — solo la cifra, sin explicaciones, unidades ni puntuación adicional.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exactamente \\\"8\\\": valor correcto (las arañas tienen 8 patas) y cumple estrictamente el formato pedido — solo la cifra, sin explicaciones, unidades ni puntuación adicional.\"}"
+      },
+      "judge_time": 5.81
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosintesis es el proceso mediante el cual las plantas convierten la luz en energía química. Durante este proceso, las plantas absorben dióxido de carbono y agua para producir glucosa. Este proceso es fundamental para mantener la calidad del aire y la vida en la Tierra.",
+      "response_time": 10.32,
+      "completion_tokens": 138,
+      "gen_tps": 13.37,
+      "evaluation": {
+        "score": 4,
+        "justification": "Cumple el formato de exactamente 3 oraciones y no anade informacion externa relevante, pero omite conceptos clave: no menciona la liberacion de oxigeno como subproducto (producto esencial del proceso), ni los cloroplastos/clorofila, ni el papel como base de la cadena alimenticia. Ademas reduce los organismos solo a 'las plantas', excluyendo algas y bacterias, y sustituye 'mantiene los niveles de oxigeno en la atmosfera' por 'mantener la calidad del aire', una reformulacion imprecisa que no equivale a la idea original.",
+        "judge_raw_response": "{\"score\": 4, \"justification\": \"Cumple el formato de exactamente 3 oraciones y no anade informacion externa relevante, pero omite conceptos clave: no menciona la liberacion de oxigeno como subproducto (producto esencial del proceso), ni los cloroplastos/clorofila, ni el papel como base de la cadena alimenticia. Ademas reduce los organismos solo a 'las plantas', excluyendo algas y bacterias, y sustituye 'mantiene los niveles de oxigeno en la atmosfera' por 'mantener la calidad del aire', una reformulacion imprecisa que no equivale a la idea original.\"}"
+      },
+      "judge_time": 9.73
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un entero no negativo.\n    \n    El factorial de un número entero no negativo n se define como:\n    - 0! = 1 (por definición)\n    - n! = n * (n-1) * (n-2) * ... * 1\n    \n    Args:\n        n (int): Entero no negativo a calcular factorial.\n        \n    Returns:\n        int: Factorial de n.\n        \n    Raises:\n        ValueError: Si n es negativo.\n    \"\"\"\n    # Verificar que la entrada sea un entero\n    if not isinstance(n, int):\n        raise ValueError(\"La entrada debe ser un entero.\")\n    \n    # Verificar que sea no negativo\n    if n < 0:\n        raise ValueError(\"La entrada debe ser un entero no negativo.\")\n    \n    # Caso base: 0! = 1\n    if n == 0:\n        return 1\n    \n    # Calcula factorial usando un bucle\n    result = 1\n    for i in range(1, n + 1):\n        result *= i\n    return result\n```\n\n**Explicación de la lógica:**\n\n1. **Validación de entrada:**  \n   - Verificamos que el argumento sea un entero.\n   - Verificamos que no sea negativo (ya que factorial no está definido para números negativos en este contexto).\n\n2. **Caso base:**  \n   - `0!` se define matemáticamente como `1`. Esta es la base para el bucle.\n\n3. **Cálculo:**  \n   - Inicializamos `result` en `1` (ya que factorial de 0 es 1).\n   - Usamos un bucle desde `1` hasta `n` para multiplicar el resultado por cada entero.\n   - Esto evita que debamos calcular factorial de `n` multiplicando factoriales de números menores, lo cual es más eficiente.\n\n4. **Error handling:**  \n   - Si se pasa un número negativo o no entero, se lanza una `ValueError` con un mensaje claro.",
+      "response_time": 29.16,
+      "completion_tokens": 557,
+      "gen_tps": 19.1,
+      "evaluation": {
+        "score": 9,
+        "justification": "El codigo es correcto: maneja el caso base 0! = 1, lanza ValueError para negativos y valida el tipo de entrada. La implementacion iterativa es clara, eficiente y evita el limite de recursion. Incluye docstring completo (Args/Returns/Raises), comentarios en linea y una explicacion posterior bien estructurada, cumpliendo el requisito de comentar la logica. Puntos menores: `isinstance(n, int)` acepta booleanos (True se trataria como 1), un TypeError seria mas idiomatico que ValueError para el tipo incorrecto, y la validacion de tipo no fue solicitada. Ademas, el punto 3 de la explicacion es algo confuso al justificar el bucle frente a la recursion. Nada de esto afecta la correccion del calculo.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"El codigo es correcto: maneja el caso base 0! = 1, lanza ValueError para negativos y valida el tipo de entrada. La implementacion iterativa es clara, eficiente y evita el limite de recursion. Incluye docstring completo (Args/Returns/Raises), comentarios en linea y una explicacion posterior bien estructurada, cumpliendo el requisito de comentar la logica. Puntos menores: `isinstance(n, int)` acepta booleanos (True se trataria como 1), un TypeError seria mas idiomatico que ValueError para el tipo incorrecto, y la validacion de tipo no fue solicitada. Ademas, el punto 3 de la explicacion es algo confuso al justificar el bucle frente a la recursion. Nada de esto afecta la correccion del calculo.\"}"
+      },
+      "judge_time": 10.76
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "No tengo acceso a la fecha actual ni a datos sobre la fecha de entrenamiento de mi base de conocimientos. Como modelo de lenguaje, mi conocimiento se limita a un momento específico en el que fue entrenado, pero no tengo una forma de saber cuándo fue ese momento. No puedo adivinar, porque no tengo esa información. Solo puedo proporcionar información que tengo dentro de mi base de conocimientos.",
+      "response_time": 24.68,
+      "completion_tokens": 472,
+      "gen_tps": 19.13,
+      "evaluation": {
+        "score": 2,
+        "justification": "La respuesta no razona en absoluto sobre su fecha de corte: se niega a intentar la estimación, que era exactamente lo que se pedía. No menciona ningún mes ni año, no infiere a partir de eventos conocidos o desconocidos, ni analiza su base de conocimiento. Además contiene relleno redundante (repite tres veces la misma idea de 'no tengo esa información'). Lo único rescatable es que no afirma tener conocimiento en tiempo real y reconoce la limitación temporal, lo que evita el score mínimo.",
+        "judge_raw_response": "{\"score\": 2, \"justification\": \"La respuesta no razona en absoluto sobre su fecha de corte: se niega a intentar la estimación, que era exactamente lo que se pedía. No menciona ningún mes ni año, no infiere a partir de eventos conocidos o desconocidos, ni analiza su base de conocimiento. Además contiene relleno redundante (repite tres veces la misma idea de 'no tengo esa información'). Lo único rescatable es que no afirma tener conocimiento en tiempo real y reconoce la limitación temporal, lo que evita el score mínimo.\"}"
+      },
+      "judge_time": 7.25
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "The bug is in the `merge` function. After the main while loop that merges elements from both lists, the function returns only the `result` list without adding any remaining elements from `left` or `right`. This can cause the merged list to be incomplete when one of the lists is exhausted earlier.\n\nHere is the corrected `merge` function:\n\n```python\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Append any remaining elements from left\n    while i < len(left):\n        result.append(left[i])\n        i += 1\n    # Append any remaining elements from right\n    while j < len(right):\n        result.append(right[j])\n        j += 1\n    return result\n```\n\nThe full corrected implementation of merge sort is:\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Append remaining elements from left\n    while i < len(left):\n        result.append(left[i])\n        i += 1\n    # Append remaining elements from right\n    while j < len(right):\n        result.append(right[j])\n        j += 1\n    return result\n```\n\nThis ensures that all elements from both halves are included in the merged result.",
+      "response_time": 68.63,
+      "completion_tokens": 1141,
+      "gen_tps": 16.62,
+      "evaluation": {
+        "score": 9,
+        "justification": "El modelo identifica exactamente el bug: la función merge no añade los elementos restantes de la lista que no se agotó, por lo que se pierden elementos. La corrección es funcionalmente correcta (dos bucles while que vacían left y right), equivalente a `result + left[i:] + right[j:]`, y presenta además la implementación completa. La explicación es clara y precisa sobre por qué falla el original. Puntos menores: la explicación es algo breve (no da un ejemplo concreto de entrada que falle, ni menciona que el error se propaga recursivamente perdiendo elementos en cada nivel), y la respuesta está en inglés cuando el prompt está en español; también podría haber mencionado la alternativa más concisa con slicing.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"El modelo identifica exactamente el bug: la función merge no añade los elementos restantes de la lista que no se agotó, por lo que se pierden elementos. La corrección es funcionalmente correcta (dos bucles while que vacían left y right), equivalente a `result + left[i:] + right[j:]`, y presenta además la implementación completa. La explicación es clara y precisa sobre por qué falla el original. Puntos menores: la explicación es algo breve (no da un ejemplo concreto de entrada que falle, ni menciona que el error se propaga recursivamente perdiendo elementos en cada nivel), y la respuesta está en inglés cuando el prompt está en español; también podría haber mencionado la alternativa más concisa con slicing.\"}"
+      },
+      "judge_time": 9.99
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "```python\nimport functools\nimport time\nimport logging\nfrom typing import Callable, Type, Tuple, Optional\n\nlogger = logging.getLogger(__name__)\n\ndef retry(\n    max_attempts: int,\n    delay: float,\n    exceptions: Tuple[Type[BaseException], ...],\n    *,\n    max_exception: Optional[Type[BaseException]] = None,\n    reraise_on_all_failures: bool = True\n) -> Callable:\n    \"\"\"\n    Retry decorator for functions that may raise exceptions.\n\n    Args:\n        max_attempts: Maximum number of retry attempts.\n        delay: Delay between retry attempts in seconds.\n        exceptions: Tuple of exception types to retry on.\n        max_exception: Optional exception to raise if all attempts fail.\n        reraise_on_all_failures: If True, re-raise the last exception after all attempts.\n\n    Returns:\n        A decorator that wraps the function.\n    \"\"\"\n    def decorator(func: Callable) -> Callable:\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            last_exception = None\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except exceptions as e:\n                    last_exception = e\n                    if attempt == max_attempts:\n                        if reraise_on_all_failures:\n                            raise\n                        else:\n                            return None\n                    logger.info(f\"Retrying {func.__name__} after {delay}s (attempt {attempt}/{max_attempts})\")\n                    time.sleep(delay)\n            raise last_exception\n        return wrapper\n    return decorator\n```\n\n### Usage Example:\n```python\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    # Simulated function that may raise exceptions\n    if url == \"fail\":\n        raise IOError(\"Simulated failure\")\n    return f\"Data from {url}\"\n\n# Test\ntry:\n    fetch_data(\"fail\")\nexcept IOError as e:\n    print(f\"Caught: {e}\")\n```\n\n### Key Features:\n1. **Configurable Retry Parameters**: `max_attempts`, `delay`, and `exceptions` can be passed to the decorator.\n2. **Graceful Failure**: If all attempts fail, the last exception is re-raised (configurable via `reraise_on_all_failures`).\n3. **Logging**: Provides informative logs for retry attempts.\n4. **Type Safety**: Uses `typing` annotations for better code clarity.\n5. **Preserves Function Metadata**: Uses `functools.wraps` to maintain the original function's name and docstring.\n\n### Notes:\n- The decorator is a factory that returns a decorator function, allowing multiple parameters.\n- The `max_exception` parameter is provided for advanced use cases (not used in the basic example).\n- The `reraise_on_all_failures` controls whether to re-raise the last exception after all attempts are exhausted.\n- The function returns `None` when all attempts fail and `reraise_on_all_failures` is False, but typically you'd want to re-raise.",
+      "response_time": 60.19,
+      "completion_tokens": 932,
+      "gen_tps": 15.48,
+      "evaluation": {
+        "score": 7,
+        "justification": "La implementacion cumple los cinco requisitos funcionales: acepta max_attempts, delay y exceptions; captura solo las excepciones indicadas; usa time.sleep(delay) entre reintentos (y correctamente no duerme tras el ultimo intento); relanza la ultima excepcion con `raise` desnudo preservando el traceback; y devuelve el resultado en caso de exito. La estructura de fabrica de decoradores (retry -> decorator -> wrapper) es correcta y usa functools.wraps. Se penaliza por anadir parametros no solicitados: `max_exception` esta documentado pero nunca se usa (codigo muerto y engañoso), y `reraise_on_all_failures=False` introduce un retorno silencioso de None que contradice la especificacion. Ademas la linea final `raise last_exception` es inalcanzable, y falta validacion de max_attempts >= 1 (con max_attempts=0 el wrapper cae en el `raise None` -> TypeError). Correcto en lo esencial, pero sobre-ingenierizado respecto a lo pedido.",
+        "judge_raw_response": "{\"score\": 7, \"justification\": \"La implementacion cumple los cinco requisitos funcionales: acepta max_attempts, delay y exceptions; captura solo las excepciones indicadas; usa time.sleep(delay) entre reintentos (y correctamente no duerme tras el ultimo intento); relanza la ultima excepcion con `raise` desnudo preservando el traceback; y devuelve el resultado en caso de exito. La estructura de fabrica de decoradores (retry -> decorator -> wrapper) es correcta y usa functools.wraps. Se penaliza por anadir parametros no solicitados: `max_exception` esta documentado pero nunca se usa (codigo muerto y engañoso), y `reraise_on_all_failures=False` introduce un retorno silencioso de None que contradice la especificacion. Ademas la linea final `raise last_exception` es inalcanzable, y falta validacion de max_attempts >= 1 (con max_attempts=0 el wrapper cae en el `raise None` -> TypeError). Correcto en lo esencial, pero sobre-ingenierizado respecto a lo pedido.\"}"
+      },
+      "judge_time": 14.17
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "```python\ndef find_pairs(nums, target):\n    \"\"\"\n    Encuentra todos los pares de índices (i, j) en una lista de enteros\n    cuya suma sea igual a un target dado, donde i < j.\n    La solución es O(n) en el caso típico (asumiendo que el número de pares es O(n)).\n    \"\"\"\n    index_map = {}  # Mapea un valor a las listas de índices donde aparece\n    pairs = []\n\n    for j, num in enumerate(nums):\n        complement = target - num\n        if complement in index_map:\n            # Para cada índice i en la lista de complementos, formamos el par (i, j)\n            for i in index_map[complement]:\n                pairs.append((i, j))\n        # Añadimos el índice actual al mapa para futuros pares\n        index_map[num] = index_map.get(num, []) + [j]\n\n    return pairs\n```",
+      "response_time": 328.47,
+      "completion_tokens": 4071,
+      "gen_tps": 12.39,
+      "evaluation": {
+        "score": 9,
+        "justification": "La solucion es correcta y usa el enfoque esperado: un dict que mapea valor -> lista de indices, con una sola pasada buscando el complemento (lookup O(1)). Devuelve TODOS los pares, no solo uno, y la condicion i < j se garantiza estructuralmente porque el indice actual se anade al mapa despues de consultar el complemento. Maneja duplicados correctamente. Verificacion de los ejemplos: [1,2,3,4,5] target=5 -> [(1,2),(0,3)] (equivalente al esperado salvo orden); [1,1,2,3] target=4 -> [(0,3),(1,3)], correcto. La complejidad es O(n + k) con k = numero de pares, lo cual es optimo dado que hay que emitir todos los pares, y el modelo es honesto al matizarlo en el docstring en lugar de afirmar falsamente O(n) puro. Unico defecto real: `index_map[num] = index_map.get(num, []) + [j]` reconstruye la lista completa en cada insercion, lo que introduce un coste cuadratico innecesario con muchos valores repetidos; deberia ser `index_map.setdefault(num, []).append(j)`. Ese detalle de eficiencia, evitable y contrario al objetivo explicito de la tarea, es lo que impide el 10.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La solucion es correcta y usa el enfoque esperado: un dict que mapea valor -> lista de indices, con una sola pasada buscando el complemento (lookup O(1)). Devuelve TODOS los pares, no solo uno, y la condicion i < j se garantiza estructuralmente porque el indice actual se anade al mapa despues de consultar el complemento. Maneja duplicados correctamente. Verificacion de los ejemplos: [1,2,3,4,5] target=5 -> [(1,2),(0,3)] (equivalente al esperado salvo orden); [1,1,2,3] target=4 -> [(0,3),(1,3)], correcto. La complejidad es O(n + k) con k = numero de pares, lo cual es optimo dado que hay que emitir todos los pares, y el modelo es honesto al matizarlo en el docstring en lugar de afirmar falsamente O(n) puro. Unico defecto real: `index_map[num] = index_map.get(num, []) + [j]` reconstruye la lista completa en cada insercion, lo que introduce un coste cuadratico innecesario con muchos valores repetidos; deberia ser `index_map.setdefault(num, []).append(j)`. Ese detalle de eficiencia, evitable y contrario al objetivo explicito de la tarea, es lo que impide el 10.\"}"
+      },
+      "judge_time": 17.72
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 69.06,
+      "tg_tps": null,
+      "response_time": 7.41,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=69.1 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=69.1 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 83.91,
+      "tg_tps": 21.19,
+      "response_time": 6.76,
+      "completion_tokens": 128,
+      "gen_tps": 21.19,
+      "model_response": "pp=83.9 tk/s  tg=21.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=83.9 tk/s  tg=21.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 9.12,
+      "tg_tps": null,
+      "response_time": 1795.7,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=9.1 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=9.1 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "MiniCPM5-2B Q4_K_M (Local ryzen7)",
+      "model_type": "local",
+      "server_cmd": "C:\\Users\\Gus/Downloads/llama-b10507-bin-win-cpu-x64/llama-server.exe -hf Abiray/MiniCPM5-2B-GGUF:Q4_K_M --host 127.0.0.1 --port 8082 -ctk q4_0 -ctv q4_0 --no-mmproj --ctx-size 32768 --jinja",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 8.43,
+      "tg_tps": 3.23,
+      "response_time": 1982.11,
+      "completion_tokens": 128,
+      "gen_tps": 3.23,
+      "model_response": "pp=8.4 tk/s  tg=3.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=8.4 tk/s  tg=3.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

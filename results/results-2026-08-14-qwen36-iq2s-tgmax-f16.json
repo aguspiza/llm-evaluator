@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-08-14T13:44:23",
+  "total_tests": 2,
+  "results": [
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S tgmax-f16 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 22 --jinja -b 256 -ub 256 -t 14 --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 29.98,
+      "tg_tps": null,
+      "response_time": 17.08,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=30.0 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=30.0 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B IQ2_S tgmax-f16 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf byteshape/Qwen3.6-35B-A3B-GGUF:Qwen3.6-35B-A3B-IQ2_S-2.17bpw --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 22 --jinja -b 256 -ub 256 -t 14 --top-k 20 --top-p 0.95 --min-p 0 --presence-penalty 1.5 --repeat-penalty 1",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 23,
+      "pp_tps": 21.87,
+      "tg_tps": 4.77,
+      "response_time": 7.75,
+      "completion_tokens": 23,
+      "gen_tps": 4.77,
+      "model_response": "pp=21.9 tk/s  tg=4.8 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=21.9 tk/s  tg=4.8 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

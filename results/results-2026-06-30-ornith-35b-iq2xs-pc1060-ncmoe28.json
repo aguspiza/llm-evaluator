@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-06-30T08:22:37.637968",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**No, no es necesariamente cierto.** Las premisas son compatibles con un escenario donde A y C no se intersectan en absoluto. Aquí está el razonamiento paso a paso:\n\n1. **Analiza la primera premisa:** `Todos los A son B` significa que el conjunto A está completamente contenido en B (`A ⊆ B`). Cada elemento de A es, por definición, también un elemento de B.\n2. **Analiza la segunda premisa:** `Algunos B son C` significa que existe al menos un elemento que pertenece tanto a B como a C (`B ∩ C ≠ ∅`). Esto solo garantiza que hay una intersección entre B y C, pero **no especifica** si esa intersección coincide con A o queda fuera de él.\n3. **Evalúa la conclusión:** Para que `algunos A son C` sea necesariamente cierto, la lógica de las premisas tendría que forzar que la intersección B∩C contenga al menos un elemento de A. Las premisas no hacen esto: solo nos dicen que hay elementos en B que son C, pero esos elementos podrían ser todos ajenos a A.\n4. **Contraejemplo concreto:**\n   - A = {Perros}\n   - B = {Animales}\n   - C = {Gatos}\n   - Verificación: Todos los perros son animales ✅ | Algunos animales son gatos ✅ | ¿Algunos perros son gatos? ❌ No.\n   Las dos premisas se cumplen perfectamente, pero la conclusión es falsa en este caso.\n5. **Conclusión lógica:** El argumento es **inválido**. La existencia de una intersección entre B y C no se propaga automáticamente al subconjunto A. Por tanto, `algunos A son C` es una conclusión posible, pero nunca necesaria.",
+      "response_time": 112.66,
+      "completion_tokens": 1708,
+      "gen_tps": 15.16,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable: identifica correctamente que la conclusión NO es necesariamente cierta, explica con claridad por qué la intersección B∩C puede quedar completamente fuera del subconjunto A, utiliza notación de conjuntos precisa (A⊆B, B∩C≠∅), y proporciona un contraejemplo concreto y válido (perros/animales/gatos) que falsifica la conclusión manteniendo ambas premisas verdaderas. El razonamiento es paso a paso, sin falacias, y la conclusión lógica está bien fundamentada.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es impecable: identifica correctamente que la conclusión NO es necesariamente cierta, explica con claridad por qué la intersección B∩C puede quedar completamente fuera del subconjunto A, utiliza notación de conjuntos precisa (A⊆B, B∩C≠∅), y proporciona un contraejemplo concreto y válido (perros/animales/gatos) que falsifica la conclusión manteniendo ambas premisas verdaderas. El razonamiento es paso a paso, sin falacias, y la conclusión lógica está bien fundamentada.\"}\n```"
+      },
+      "judge_time": 7.0
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "El orden completo de llegada es: **Ana, Bruno, Diana, Carlos, Elena**.\n\n**Razonamiento paso a paso:**\n\n1. **Pista 1:** Ana llegó antes que Bruno → `Ana < Bruno`\n2. **Pista 3:** Bruno llegó antes que Diana → `Bruno < Diana`  \n   Combinando con el paso anterior: `Ana < Bruno < Diana`\n3. **Pista 2:** Carlos llegó después de Diana pero antes de Elena → `Diana < Carlos < Elena`\n4. **Unión de la cadena:** Al concatenar ambas secuencias, obtenemos un orden total único que incluye a los cinco corredores:  \n   `Ana < Bruno < Diana < Carlos < Elena`\n5. **Verificación:**  \n   - ¿Ana antes que Bruno? Sí.  \n   - ¿Bruno antes que Diana? Sí.  \n   - ¿Carlos después de Diana y antes de Elena? Sí.  \n   - ¿Se usan los cinco corredores sin repetirlos? Sí.\n\n**Orden final:**\n1. Ana\n2. Bruno\n3. Diana\n4. Carlos\n5. Elena",
+      "response_time": 67.97,
+      "completion_tokens": 1009,
+      "gen_tps": 14.85,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo deduce correctamente el orden completo: Ana, Bruno, Diana, Carlos, Elena. El razonamiento es sistemático y encadena las tres restricciones paso a paso de forma clara: primero Ana < Bruno (pista 1), luego Bruno < Diana (pista 3), y finalmente Diana < Carlos < Elena (pista 2). La verificación final confirma que todas las condiciones se cumplen y que los cinco corredores están presentes sin repetición. No hay errores lógicos ni pasos omitidos.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"El modelo deduce correctamente el orden completo: Ana, Bruno, Diana, Carlos, Elena. El razonamiento es sistemático y encadena las tres restricciones paso a paso de forma clara: primero Ana < Bruno (pista 1), luego Bruno < Diana (pista 3), y finalmente Diana < Carlos < Elena (pista 2). La verificación final confirma que todas las condiciones se cumplen y que los cinco corredores están presentes sin repetición. No hay errores lógicos ni pasos omitidos.\"}\n```"
+      },
+      "judge_time": 8.53
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "**Conclusión:**\n- **López** es médico.\n- **García** es abogado.\n- **Martínez** es ingeniero.\n\n**Razonamiento paso a paso:**\n\n1. **López nunca ha estudiado derecho ni ingeniería** → Esto descarta dos profesiones: abogado e ingeniero. Por eliminación, **López es médico**.\n2. **García se graduó en la misma universidad que el médico** → Esta frase implica que García y el médico son personas distintas, por lo que **García no es médico** (coincide con lo ya demostrado).\n3. **Martínez no es abogado** → De los dos cargos restantes (abogado e ingeniero), Martínez no puede ser abogado. Por lo tanto, **Martínez es ingeniero**.\n4. El único rol que queda sin asignar es **abogado**, que corresponde a **García**.\n\nTodos los datos originales son consistentes con esta asignación.",
+      "response_time": 72.52,
+      "completion_tokens": 1043,
+      "gen_tps": 14.38,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es completamente correcta. El modelo llega a la solución exacta (López=médico, García=abogado, Martínez=ingeniero) mediante un razonamiento deductivo riguroso y bien estructurado. Aplica cada pista en orden lógico: primero descarta dos profesiones para López por eliminación directa, luego interpreta correctamente que la pista de García implica que él y el médico son personas distintas, y finalmente asigna las profesiones restantes a García y Martínez usando la última restricción. No hay saltos lógicos ni errores, y la conclusión es consistente con todas las pistas.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es completamente correcta. El modelo llega a la solución exacta (López=médico, García=abogado, Martínez=ingeniero) mediante un razonamiento deductivo riguroso y bien estructurado. Aplica cada pista en orden lógico: primero descarta dos profesiones para López por eliminación directa, luego interpreta correctamente que la pista de García implica que él y el médico son personas distintas, y finalmente asigna las profesiones restantes a García y Martínez usando la última restricción. No hay saltos lógicos ni errores, y la conclusión es consistente con todas las pistas.\"}\n```"
+      },
+      "judge_time": 7.27
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "5",
+      "response_time": 25.33,
+      "completion_tokens": 356,
+      "gen_tps": 14.06,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta contiene exclusivamente el número '5', sin ningún texto adicional, explicación, saludo ni justificación. Cumple perfectamente con el criterio de evaluación.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta contiene exclusivamente el número '5', sin ningún texto adicional, explicación, saludo ni justificación. Cumple perfectamente con el criterio de evaluación.\"}\n```"
+      },
+      "judge_time": 9.11
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 16.97,
+      "completion_tokens": 235,
+      "gen_tps": 13.85,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exactamente '8', sin ningún texto adicional, explicación, unidad ni puntuación. Cumple perfectamente ambos criterios: valor correcto y formato estricto.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es exactamente '8', sin ningún texto adicional, explicación, unidad ni puntuación. Cumple perfectamente ambos criterios: valor correcto y formato estricto.\"}\n```"
+      },
+      "judge_time": 6.43
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 13.16,
+      "completion_tokens": 180,
+      "gen_tps": 13.68,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exactamente '8', sin ningún texto adicional, explicación, unidad ni puntuación. Cumple perfectamente ambos criterios: valor correcto y formato estricto.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es exactamente '8', sin ningún texto adicional, explicación, unidad ni puntuación. Cumple perfectamente ambos criterios: valor correcto y formato estricto.\"}\n```"
+      },
+      "judge_time": 8.09
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual plantas, algas y ciertas bacterias transforman la energía lumínica en energía química absorbiendo dióxido de carbono y agua. Este mecanismo ocurre en los cloroplastos gracias a la clorofila, produciendo glucosa y liberando oxígeno como subproducto. Su relevancia para la vida en la Tierra reside en que sostiene la base de la cadena alimenticia y mantiene los niveles de oxígeno atmosférico.",
+      "response_time": 57.58,
+      "completion_tokens": 798,
+      "gen_tps": 13.86,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple exactamente con 3 oraciones bien estructuradas. Incluye todas las ideas clave requeridas: (1) conversión de energía lumínica en química con los organismos involucrados y los ingredientes (CO2 y agua), (2) el lugar donde ocurre (cloroplastos/clorofila), el producto (glucosa) y el subproducto (oxígeno), y (3) la importancia para la vida en la Tierra (cadena alimenticia y niveles de oxígeno atmosférico). No añade información externa ni omite conceptos clave del texto original.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"El resumen cumple exactamente con 3 oraciones bien estructuradas. Incluye todas las ideas clave requeridas: (1) conversión de energía lumínica en química con los organismos involucrados y los ingredientes (CO2 y agua), (2) el lugar donde ocurre (cloroplastos/clorofila), el producto (glucosa) y el subproducto (oxígeno), y (3) la importancia para la vida en la Tierra (cadena alimenticia y niveles de oxígeno atmosférico). No añade información externa ni omite conceptos clave del texto original.\"}\n```"
+      },
+      "judge_time": 7.57
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Aquí tienes la implementación:\n\n```python\ndef factorial(n):\n    \"\"\"Calcula el factorial de un número entero no negativo.\"\"\"\n    \n    # 1. Validación de entrada: se asegura de que n sea un entero\n    if not isinstance(n, int):\n        raise TypeError(\"El argumento debe ser un entero.\")\n        \n    # 2. Caso especial: el factorial no existe para negativos\n    if n < 0:\n        raise ValueError(\"El factorial no está definido para números negativos.\")\n        \n    # 3. Cálculo iterativo\n    # Se inicializa en 1 porque 0! = 1 por definición.\n    # El bucle `range(1, n+1)` no se ejecuta cuando n=0, \n    # devolviendo directamente 1, que es el resultado correcto.\n    resultado = 1\n    for i in range(1, n + 1):\n        resultado *= i\n        \n    return resultado\n```\n\n### Notas sobre la lógica:\n- **Enfoque iterativo:** Se prefiere sobre el recursivo para evitar límites de profundidad de pila y tiene mejor rendimiento en Python.\n- **Manejo de `0`:** Gracias a la inicialización en `1` y al uso de `range(1, n+1)`, `factorial(0)` retorna `1` correctamente sin requerir un `if` extra.\n- **Validaciones robustas:** Lanza excepciones claras (`TypeError` / `ValueError`) en lugar de retornar valores erróneos o `None`.\n\n### Uso rápido:\n```python\nprint(factorial(5))  # 120\nprint(factorial(0))  # 1\nprint(factorial(-3)) # ValueError\n```",
+      "response_time": 85.66,
+      "completion_tokens": 1188,
+      "gen_tps": 13.87,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación es correcta y completa. Maneja el caso base 0! = 1 de forma elegante mediante la inicialización en 1 y el uso de range(1, n+1). Lanza excepciones apropiadas (TypeError para no enteros, ValueError para negativos). Los comentarios son claros y explican la lógica paso a paso, incluyendo por qué el enfoque iterativo es preferible al recursivo en Python. El código es limpio, conciso y fácil de entender, con ejemplos de uso incluidos.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La implementación es correcta y completa. Maneja el caso base 0! = 1 de forma elegante mediante la inicialización en 1 y el uso de range(1, n+1). Lanza excepciones apropiadas (TypeError para no enteros, ValueError para negativos). Los comentarios son claros y explican la lógica paso a paso, incluyendo por qué el enfoque iterativo es preferible al recursivo en Python. El código es limpio, conciso y fácil de entender, con ejemplos de uso incluidos.\"}\n```"
+      },
+      "judge_time": 7.92
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Mi fecha límite de entrenamiento es **octubre de 2024**.\n\n**Razonamiento:** No se trata de una adivinanza ni de una inferencia basada en tendencias o contexto actual, sino de un parámetro técnico explícito que forma parte de mi configuración. Mi sistema me indica con claridad que mi conocimiento se detiene en octubre de 2024, y este es un dato arquitectural, no algo que deduzca de la fecha actual ni de eventos recientes. Por ello puedo responderlo con certeza sin necesidad de pistas externas.",
+      "response_time": 46.89,
+      "completion_tokens": 651,
+      "gen_tps": 13.88,
+      "evaluation": {
+        "score": 3,
+        "justification": "El modelo declara su fecha de corte (octubre 2024) pero el razonamiento es circular y falso: afirma que es un 'parámetro técnico explícito' y dato 'arquitectural' que 'su sistema le indica con claridad', lo cual es inventado. No menciona ningún evento concreto que conozca o desconozca para inferir su corte, ni razona genuinamente sobre su base de conocimiento. El razonamiento presentado no es real sino una justificación fabricada.",
+        "judge_raw_response": "```json\n{\"score\": 3, \"justification\": \"El modelo declara su fecha de corte (octubre 2024) pero el razonamiento es circular y falso: afirma que es un 'parámetro técnico explícito' y dato 'arquitectural' que 'su sistema le indica con claridad', lo cual es inventado. No menciona ningún evento concreto que conozca o desconozca para inferir su corte, ni razona genuinamente sobre su base de conocimiento. El razonamiento presentado no es real sino una justificación fabricada.\"}\n```"
+      },
+      "judge_time": 9.43
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "### 🔍 Bug identificado\n\nEl problema está en la función `merge`. El bucle `while` se detiene en cuanto una de las dos sublistas se agota, pero **olvida copiar los elementos restantes de la otra sublista** al resultado. \n\nEs un bug \"sutil\" porque:\n- No lanza excepción.\n- Funciona correctamente si los elementos restantes ya están en su posición o si se usa una implementación que los maneje internamente.\n- En casos reales, simplemente devuelve una lista truncada, lo que puede generar resultados incorrectos o pérdidas de datos sin señal de error.\n\n### ✅ Versión corregida\n\nSolo necesitas modificar `merge` para incluir los elementos pendientes después del `while`:\n\n```python\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Agregar los elementos que quedaron sin procesar\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```\n\nLa implementación de `merge_sort` está correcta. El `extend` con slicing es la forma más limpia y eficiente de vaciar las sublistas restantes, ya que consume exactamente los elementos que quedan en `i` y `j`, y funciona correctamente incluso cuando una de las sublistas ya está vacía (el slicing sobre una lista vacía o un índice fuera de rango retorna `[]`).",
+      "response_time": 123.4,
+      "completion_tokens": 1703,
+      "gen_tps": 13.8,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo identifica perfectamente el bug: la función merge no copia los elementos restantes de la sublista que no se ha agotado cuando el while termina. La explicación es clara y precisa, señalando que la lista resultante queda truncada sin lanzar ningún error. La corrección es exactamente correcta, añadiendo result.extend(left[i:]) y result.extend(right[j:]) tras el bucle while. Además, explica correctamente que merge_sort en sí está bien implementada y que el extend con slicing funciona incluso cuando una de las sublistas ya está vacía.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"El modelo identifica perfectamente el bug: la función merge no copia los elementos restantes de la sublista que no se ha agotado cuando el while termina. La explicación es clara y precisa, señalando que la lista resultante queda truncada sin lanzar ningún error. La corrección es exactamente correcta, añadiendo result.extend(left[i:]) y result.extend(right[j:]) tras el bucle while. Además, explica correctamente que merge_sort en sí está bien implementada y que el extend con slicing funciona incluso cuando una de las sublistas ya está vacía.\"}\n```"
+      },
+      "judge_time": 8.92
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "Aquí está la implementación del decorador `@retry`:\n\n```python\nimport time\nimport functools\n\n\ndef retry(max_attempts: int, delay: float, exceptions: tuple):\n    \"\"\"\n    Decorador que reintenta una función hasta max_attempts veces.\n    \n    Args:\n        max_attempts: Número máximo de intentos\n        delay: Segundos de espera entre reintentos\n        exceptions: Tuple de tipos de excepción que desencadenan el reintento\n    \"\"\"\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            last_exception = None\n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except exceptions as e:\n                    last_exception = e\n                    if attempt < max_attempts:\n                        time.sleep(delay)\n            # Si se agotan los intentos, relanza la última excepción\n            raise last_exception\n        \n        return wrapper\n    return decorator\n```\n\n### Características:\n\n- ✅ **Preserva metadatos**: Usa `@functools.wraps` para mantener `__name__`, `__doc__`, etc.\n- ✅ **Control de intentos**: Repite hasta `max_attempts` ejecuciones\n- ✅ **Espera entre reintentos**: `delay` segundos entre cada reintento (no después del último)\n- ✅ **Falla silenciosamente**: Si la excepción no está en `exceptions`, se propaga inmediatamente\n- ✅ **Retorno normal**: Si la función tiene éxito, devuelve el resultado sin excepciones\n\n### Ejemplo de uso:\n\n```python\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    # Simula operación que falla 2 veces y luego funciona\n    import random\n    if random.random() < 0.5:\n        raise TimeoutError(\"Time out\")\n    if random.random() < 0.3:\n        raise IOError(\"I/O error\")\n    return f\"Data from {url}\"\n\nresult = fetch_data(\"https://example.com\")\n```\n\n### Nota sobre `exceptions`:\n\nSi vas a usar `exceptions` con una sola clase, pásala como tuple:\n```python\n@retry(max_attempts=5, delay=0.5, exceptions=(ValueError,))  # Nota la coma\n```\n\n¿Necesitas alguna mejora adicional?",
+      "response_time": 88.79,
+      "completion_tokens": 1241,
+      "gen_tps": 13.98,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación cumple todos los requisitos de la especificación: (1) acepta los tres parámetros max_attempts, delay y exceptions; (2) reintenta solo ante las excepciones especificadas usando 'except exceptions as e', lo cual funciona correctamente con tuplas en Python; (3) espera delay segundos entre reintentos con time.sleep(delay), correctamente omitiendo la espera tras el último intento; (4) relanza la última excepción almacenada en last_exception al agotar los intentos; (5) retorna el resultado con 'return func(*args, **kwargs)' cuando la función tiene éxito. La estructura de decorador de fábrica es correcta (tres niveles: retry → decorator → wrapper). Usa functools.wraps para preservar metadatos. La lógica de no dormir después del último intento es un detalle de calidad adicional. No se detectan defectos funcionales.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La implementación cumple todos los requisitos de la especificación: (1) acepta los tres parámetros max_attempts, delay y exceptions; (2) reintenta solo ante las excepciones especificadas usando 'except exceptions as e', lo cual funciona correctamente con tuplas en Python; (3) espera delay segundos entre reintentos con time.sleep(delay), correctamente omitiendo la espera tras el último intento; (4) relanza la última excepción almacenada en last_exception al agotar los intentos; (5) retorna el resultado con 'return func(*args, **kwargs)' cuando la función tiene éxito. La estructura de decorador de fábrica es correcta (tres niveles: retry → decorator → wrapper). Usa functools.wraps para preservar metadatos. La lógica de no dormir después del último intento es un detalle de calidad adicional. No se detectan defectos funcionales.\"}\n```"
+      },
+      "judge_time": 8.38
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "",
+      "response_time": 147.1,
+      "completion_tokens": 2048,
+      "gen_tps": 13.92,
+      "evaluation": {
+        "score": 0,
+        "justification": "La respuesta del modelo está completamente vacía: no contiene ningún código, explicación ni intento de solución. No se puede evaluar corrección, complejidad algorítmica ni manejo de casos especiales porque no hay ningún contenido que analizar.",
+        "judge_raw_response": "```json\n{\"score\": 0, \"justification\": \"La respuesta del modelo está completamente vacía: no contiene ningún código, explicación ni intento de solución. No se puede evaluar corrección, complejidad algorítmica ni manejo de casos especiales porque no hay ningún contenido que analizar.\"}\n```"
+      },
+      "judge_time": 5.22
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 251.6,
+      "tg_tps": null,
+      "response_time": 2.04,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=251.6 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=251.6 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 75.35,
+      "tg_tps": 14.18,
+      "response_time": 9.88,
+      "completion_tokens": 128,
+      "gen_tps": 14.18,
+      "model_response": "pp=75.4 tk/s  tg=14.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=75.4 tk/s  tg=14.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Ornith-1.0-35B IQ2_XS (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf bartowski/deepreinforce-ai_Ornith-1.0-35B-GGUF -hff deepreinforce-ai_Ornith-1.0-35B-IQ2_XS.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 8192 --no-mmproj -ngl 99 --n-cpu-moe 28 --jinja",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

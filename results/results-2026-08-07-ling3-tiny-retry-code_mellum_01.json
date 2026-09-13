@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-08-07T16:52:39.646828",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "## Bug Found\n\nThe `merge` function is **missing the append of remaining elements** after the main `while` loop terminates.\n\n### Why it's a bug\n\nWhen the `while` loop exits, one of the two lists (`left` or `right`) may still have unprocessed elements. These leftover elements are simply discarded — they are never appended to `result`.\n\n**Example:**\n```python\nmerge([1, 3], [2])\n```\n- Iteration 1: `1 <= 2` → append `1`, `i = 1`\n- Iteration 2: `3 > 2` → append `2`, `j = 1`\n- `j` reaches `len(right)` → loop exits\n- **Result: `[1, 2]`** — but the element `3` from `left` was never appended!\n\n### The Fix\n\nAdd two lines after the `while` loop to append the remaining elements from both lists:\n\n```python\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    result.extend(left[i:])   # ← append remaining elements from left\n    result.extend(right[j:])  # ← append remaining elements from right\n    return result\n```\n\n### Full corrected code\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```\n\nThe `extend()` calls ensure that all remaining elements from the two lists are correctly appended to the result, giving us a fully sorted output.",
+      "response_time": 3.27,
+      "completion_tokens": 1027,
+      "gen_tps": 314.03,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo identificó el bug sutil de manera precisa: la función merge no maneja los elementos restantes de las listas 'left' o 'right' una vez que el bucle principal termina. La explicación es clara, utiliza un ejemplo funcional para demostrar el fallo, y la corrección propuesta (usando result.extend(left[i:]) y result.extend(right[j:])) es la solución estándar y correcta para este algoritmo. La respuesta es completa y excelente.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"El modelo identificó el bug sutil de manera precisa: la función merge no maneja los elementos restantes de las listas 'left' o 'right' una vez que el bucle principal termina. La explicación es clara, utiliza un ejemplo funcional para demostrar el fallo, y la corrección propuesta (usando result.extend(left[i:]) y result.extend(right[j:])) es la solución estándar y correcta para este algoritmo. La respuesta es completa y excelente.\"\n}\n```"
+      },
+      "judge_time": 94.77
+    }
+  ]
+}

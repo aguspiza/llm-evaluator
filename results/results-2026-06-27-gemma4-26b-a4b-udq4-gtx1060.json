@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-06-27T22:14:50",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "La respuesta corta es **no**. No es necesariamente cierto que algunos A sean C.\n\nPara entender por qué, vamos a desglosar el razonamiento paso a paso utilizando la lógica de conjuntos:\n\n### 1. Análisis de la primera premisa: \"Todos los A son B\"\nEsta premisa nos dice que el conjunto **A** está totalmente contenido dentro del conjunto **B**. \n*   En términos de conjuntos: $A \\subseteq B$.\n*   Todo elemento que pertenezca a A, automáticamente pertenece a B. Sin embargo, el conjunto B puede ser mucho más grande que el conjunto A.\n\n### 2. Análisis de la segunda premisa: \"Algunos B son C\"\nEsta premisa nos dice que existe una intersección entre el conjunto **B** y el conjunto **C**. \n*   Hay, al menos, un elemento que es tanto B como C ($B \\cap C \\neq \\emptyset$).\n*   Sin embargo, la premisa **no especifica en qué parte de B** se encuentra ese elemento.\n\n### 3. El problema de la conexión (El error lógico)\nPara que la conclusión \"Algunos A son C\" fuera necesariamente cierta, la intersección entre B y C tendría que ocurrir obligatoriamente dentro de la zona de B donde reside A.\n\nPero la lógica nos permite dos escenarios distintos:\n\n*   **Escenario 1 (Donde la conclusión es cierta):** El elemento que es B y C resulta ser también un elemento de A. En este caso, sí habría algunos A que son C.\n*   **Escenario 2 (Donde la conclusión es falsa):** El elemento que es B y C se encuentra en la parte de B que **no** contiene a A. En este caso, A y C no tienen ningún elemento en común.\n\nComo la lógica exige que algo sea **necesariamente cierto** (que deba cumplirse en todos los casos posibles), y hemos encontrado un escenario donde no se cumple, la afirmación es **falsa por falta de necesidad**.\n\n---\n\n### Ejemplo práctico (Contraejemplo)\nLa forma más fácil de visualizar esto es sustituyendo las letras por conceptos reales que demuestren la falsedad del razonamiento:\n\n1.  **Premisa 1 (Todos los A son B):** Todos los **perros** (A) son **mamíferos** (B). *(Verdadero)*\n2.  **Premisa 2 (Algunos B son C):** Algunos **mamíferos** (B) son **gatos** (C). *(Verdadero)*\n3.  **Conclusión (Algunos A son C):** ¿Algunos **perros** (A) son **gatos** (C)? **Falso.**\n\n**Conclusión final:** El razonamiento es una falacia lógica conocida como **falacia del término medio no distribuido**. El hecho de que A y C compartan una relación con B no garantiza que compartan una relación entre ellos.",
+      "response_time": 147.07,
+      "completion_tokens": 1554,
+      "gen_tps": 10.57,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es impecable. Identifica correctamente que la conclusión NO es necesariamente cierta. Explica con precisión usando notación de conjuntos (A⊆B, B∩C≠∅) por qué la intersección de B y C puede no solaparse con A. Presenta dos escenarios claros que ilustran la contingencia, ofrece un contraejemplo concreto y convincente (perros/mamíferos/gatos), y nombra correctamente la falacia lógica involucrada (término medio no distribuido). La estructura es pedagógica, el razonamiento es riguroso y no contiene errores lógicos.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es impecable. Identifica correctamente que la conclusión NO es necesariamente cierta. Explica con precisión usando notación de conjuntos (A⊆B, B∩C≠∅) por qué la intersección de B y C puede no solaparse con A. Presenta dos escenarios claros que ilustran la contingencia, ofrece un contraejemplo concreto y convincente (perros/mamíferos/gatos), y nombra correctamente la falacia lógica involucrada (término medio no distribuido). La estructura es pedagógica, el razonamiento es riguroso y no contiene errores lógicos.\"}\n```"
+      },
+      "judge_time": 10.98
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "Para resolver este problema, vamos a organizar la información relacionando la posición de cada corredor mediante flechas que indiquen quién llegó antes que quién.\n\n**Paso 1: Analizar las pistas de forma individual**\n\n1.  **\"Ana llegó antes que Bruno\"**: Esto nos da la secuencia: **Ana $\\rightarrow$ Bruno**.\n2.  **\"Carlos llegó después de Diana pero antes de Elena\"**: Esto nos da una secuencia de tres personas: **Diana $\\rightarrow$ Carlos $\\rightarrow$ Elena**.\n3.  **\"Bruno llegó antes que Diana\"**: Esto nos da la secuencia: **Bruno $\\rightarrow$ Diana**.\n\n**Paso 2: Conectar las secuencias**\n\nAhora vamos a unir todas las piezas utilizando los nombres comunes como \"puentes\":\n\n*   Tomamos la primera secuencia: **Ana $\\rightarrow$ Bruno**.\n*   La tercera pista nos dice que Bruno llegó antes que Diana, así que conectamos con la segunda secuencia: **Ana $\\rightarrow$ Bruno $\\rightarrow$ Diana**.\n*   La segunda pista nos dice que después de Diana vienen Carlos y luego Elena: **Ana $\\rightarrow$ Bruno $\\rightarrow$ Diana $\\rightarrow$ Carlos $\\rightarrow$ Elena**.\n\n**Paso 3: Verificación final**\n\nComprobemos si el orden resultante cumple con todas las condiciones:\n*   ¿Ana llegó antes que Bruno? **Sí** (Ana es 1ª, Bruno es 2º).\n*   ¿Carlos llegó después de Diana pero antes de Elena? **Sí** (Diana es 3ª, Carlos es 4º, Elena es 5ª).\n*   ¿Bruno llegó antes que Diana? **Sí** (Bruno es 2º, Diana es 3ª).\n\n**Resultado final:**\n\nEl orden de llegada de los cinco corredores es:\n\n1.  **Ana**\n2.  **Bruno**\n3.  **Diana**\n4.  **Carlos**\n5.  **Elena**",
+      "response_time": 61.31,
+      "completion_tokens": 736,
+      "gen_tps": 12.0,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es completamente correcta. El modelo encadena sistemáticamente las tres restricciones usando nombres como puentes: Ana→Bruno (pista 1), Bruno→Diana (pista 3) y Diana→Carlos→Elena (pista 2), obteniendo el orden final correcto: Ana, Bruno, Diana, Carlos, Elena. La verificación final confirma cada condición explícitamente. El razonamiento es claro, estructurado y sin errores lógicos.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es completamente correcta. El modelo encadena sistemáticamente las tres restricciones usando nombres como puentes: Ana→Bruno (pista 1), Bruno→Diana (pista 3) y Diana→Carlos→Elena (pista 2), obteniendo el orden final correcto: Ana, Bruno, Diana, Carlos, Elena. La verificación final confirma cada condición explícitamente. El razonamiento es claro, estructurado y sin errores lógicos.\"}\n```"
+      },
+      "judge_time": 7.52
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "Para resolver este acertijo, utilizaremos la técnica de eliminación basada en las pistas proporcionadas.\n\n### 1. Análisis de las pistas:\n\n*   **Pista 1: \"López nunca ha estudiado derecho ni ingeniería\".**\n    Las tres profesiones son: médico, abogado e ingeniero. Si López no es abogado ni ingeniero, la única opción restante es que **López es el médico**.\n\n*   **Pista 2: \"García se graduó en la misma universidad que el médico\".**\n    Esta pista confirma que García **no es el médico** (ya que se le menciona como una persona distinta al médico). Como ya sabemos que López es el médico, esto no aporta una nueva profesión, pero confirma la lógica.\n\n*   **Pista 3: \"Martínez no es abogado\".**\n    Sabemos que las profesiones que quedan por asignar son \"abogado\" e \"ingeniero\" (ya que el médico es López). Si Martínez no es el abogado, entonces **Martínez es el ingeniero**.\n\n### 2. Conclusión:\n\nAl haber asignado la profesión de médico a López y la de ingeniero a Martínez, la única profesión que queda para García es la de abogado.\n\n**Resultado final:**\n*   **López:** Médico.\n*   **García:** Abogado.\n*   **Martínez:** Ingeniero.",
+      "response_time": 81.1,
+      "completion_tokens": 981,
+      "gen_tps": 12.1,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es completamente correcta y el razonamiento es riguroso y bien estructurado. El modelo aplica correctamente la técnica de eliminación: (1) De la pista 1 deduce sin ambigüedad que López es médico; (2) interpreta correctamente la pista 2 como confirmación de que García no es médico; (3) de la pista 3 concluye que Martínez es ingeniero y por descarte García es abogado. La solución final López=médico, García=abogado, Martínez=ingeniero es la correcta, y cada paso lógico está explícitamente justificado sin saltos ni errores.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es completamente correcta y el razonamiento es riguroso y bien estructurado. El modelo aplica correctamente la técnica de eliminación: (1) De la pista 1 deduce sin ambigüedad que López es médico; (2) interpreta correctamente la pista 2 como confirmación de que García no es médico; (3) de la pista 3 concluye que Martínez es ingeniero y por descarte García es abogado. La solución final López=médico, García=abogado, Martínez=ingeniero es la correcta, y cada paso lógico está explícitamente justificado sin saltos ni errores.\"}\n```"
+      },
+      "judge_time": 7.28
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "7",
+      "response_time": 52.7,
+      "completion_tokens": 642,
+      "gen_tps": 12.18,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta contiene únicamente el número '7', sin ningún texto adicional, explicaciones, saludos ni justificaciones. Cumple perfectamente con el criterio de evaluación.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta contiene únicamente el número '7', sin ningún texto adicional, explicaciones, saludos ni justificaciones. Cumple perfectamente con el criterio de evaluación.\"}\n```"
+      },
+      "judge_time": 6.05
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 11.99,
+      "completion_tokens": 135,
+      "gen_tps": 11.26,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exactamente '8', sin ningún texto adicional, explicación, unidad ni puntuación. Cumple perfectamente con todos los criterios de evaluación.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es exactamente '8', sin ningún texto adicional, explicación, unidad ni puntuación. Cumple perfectamente con todos los criterios de evaluación.\"}\n```"
+      },
+      "judge_time": 5.23
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 11.28,
+      "completion_tokens": 126,
+      "gen_tps": 11.17,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exactamente '8', sin ningún texto adicional, explicación, unidad ni puntuación. Cumple perfectamente ambos criterios: valor correcto y formato estricto.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La respuesta es exactamente '8', sin ningún texto adicional, explicación, unidad ni puntuación. Cumple perfectamente ambos criterios: valor correcto y formato estricto.\"}\n```"
+      },
+      "judge_time": 6.81
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosíntesis es el proceso mediante el cual plantas, algas y algunas bacterias transforman la energía luminosa en energía química. Utilizando luz solar, dióxido de carbono y agua, estos organismos producen glucosa y liberan oxígeno, principalmente en los cloroplastos. Este proceso es fundamental para la vida en la Tierra, ya que sostiene la cadena alimenticia y mantiene los niveles de oxígeno en la atmósfera.",
+      "response_time": 131.19,
+      "completion_tokens": 1550,
+      "gen_tps": 11.82,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen cumple exactamente con 3 oraciones. Incluye todas las ideas clave: conversión de energía luminosa a química, los ingredientes y productos (CO2 + agua → glucosa + oxígeno con mención a los cloroplastos), y la importancia para la vida en la Tierra (cadena alimenticia y niveles de oxígeno). No añade información externa ni omite conceptos relevantes del texto original.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"El resumen cumple exactamente con 3 oraciones. Incluye todas las ideas clave: conversión de energía luminosa a química, los ingredientes y productos (CO2 + agua → glucosa + oxígeno con mención a los cloroplastos), y la importancia para la vida en la Tierra (cadena alimenticia y niveles de oxígeno). No añade información externa ni omite conceptos relevantes del texto original.\"}\n```"
+      },
+      "judge_time": 5.92
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Aquí tienes una implementación clara y eficiente utilizando un enfoque **iterativo** (mediante un bucle), que es el más recomendado para evitar problemas de memoria en números grandes.\n\n```python\ndef calcular_factorial(n):\n    \"\"\"\n    Calcula el factorial de un número entero no negativo.\n    \n    Args:\n        n (int): El número entero del cual se quiere calcular el factorial.\n        \n    Returns:\n        int: El factorial de n.\n        \n    Raises:\n        ValueError: Si el número es negativo.\n    \"\"\"\n    \n    # 1. Validación de entrada: El factorial solo está definido para números no negativos.\n    if n < 0:\n        raise ValueError(\"El número debe ser un entero no negativo.\")\n\n    # 2. Caso base: Por definición, el factorial de 0 es 1.\n    # También inicializamos el resultado en 1 para que funcione con el bucle.\n    resultado = 1\n\n    # 3. Lógica del cálculo:\n    # El factorial de n es el producto de todos los números desde 1 hasta n.\n    # Ejemplo para n=4: 1 * 2 * 3 * 4 = 24\n    # Usamos un bucle 'for' que recorre desde 1 hasta n (inclusive).\n    for i in range(1, n + 1):\n        resultado *= i  # Multiplicamos el resultado acumulado por el número actual\n\n    return resultado\n\n# --- Pruebas del código ---\nif __name__ == \"__main__\":\n    try:\n        # Prueba con un número estándar\n        num = 5\n        print(f\"El factorial de {num} es: {calcular_factorial(num)}\")\n\n        # Prueba con el caso base (0)\n        print(f\"El factorial de 0 es: {calcular_factorial(0)}\")\n\n        # Prueba con un número más grande\n        print(f\"El factorial de 10 es: {calcular_factorial(10)}\")\n\n        # Prueba de error (descomenta la siguiente línea para ver el error)\n        # print(calcular_factorial(-1))\n\n    except ValueError as e:\n        print(f\"Error: {e}\")\n```\n\n### Explicación de la lógica:\n\n1.  **Validación de errores:** Lo primero que hace la función es verificar si el usuario ingresó un número negativo. Si es así, lanzamos un `ValueError`, ya que matemáticamente el factorial de un número negativo no está definido en este contexto.\n2.  **Inicialización:** Creamos una variable llamada `resultado` y la asignamos a `1`. Usamos `1` porque es el elemento neutro de la multiplicación; si empezáramos en `0`, cualquier multiplicación posterior daría siempre `0`.\n3.  **El bucle `for`:** Utilizamos la función `range(1, n + 1)`. En Python, `range(inicio, fin)` llega hasta uno antes del número de \"fin\", por eso sumamos `+ 1` para asegurarnos de que el número `n` también se incluya en la multiplicación.\n4.  **Acumulación:** En cada iteración, la instrucción `resultado *= i` toma el valor que ya teníamos y lo multiplica por el número actual del ciclo, guardando el nuevo valor en `resultado`.\n5.  **Complejidad:** Este algoritmo tiene una complejidad temporal de $O(n)$, lo que significa que el tiempo de ejecución crece de forma lineal según el tamaño de $n$.\n\n### Alternativa: Enfoque Recursivo\nSi prefieres ver cómo se hace de forma matemática (una función que se llama a sí misma), aquí tienes la versión recursiva:\n\n```python\ndef factorial_recursivo(n):\n    if n < 0:\n        raise ValueError(\"El número debe ser no negativo.\")\n    # Caso base: si n es 0 o 1, el factorial es 1\n    if n <= 1:\n        return 1\n    # Llamada recursiva: n! = n * (n-1)!\n    else:\n        return n * factorial_recursivo(n - 1)\n```\n*Nota: La versión recursiva es elegante pero puede causar un error de \"RecursionError\" si el número es demasiado grande, por lo que la versión iterativa (la primera que te envié) es más robusta.*",
+      "response_time": 125.77,
+      "completion_tokens": 1502,
+      "gen_tps": 11.94,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación es completamente correcta y cumple todos los criterios: maneja el caso base (0! = 1) correctamente mediante la inicialización de 'resultado = 1' y el bucle que no ejecuta iteraciones cuando n=0; lanza un ValueError explícito para números negativos; incluye comentarios detallados en cada paso de la lógica; el código es claro, bien estructurado y fácil de entender. Además, provee pruebas de uso, una explicación detallada de la lógica, análisis de complejidad O(n), y una alternativa recursiva con advertencia sobre sus limitaciones. No hay errores lógicos y supera los requisitos mínimos solicitados.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La implementación es completamente correcta y cumple todos los criterios: maneja el caso base (0! = 1) correctamente mediante la inicialización de 'resultado = 1' y el bucle que no ejecuta iteraciones cuando n=0; lanza un ValueError explícito para números negativos; incluye comentarios detallados en cada paso de la lógica; el código es claro, bien estructurado y fácil de entender. Además, provee pruebas de uso, una explicación detallada de la lógica, análisis de complejidad O(n), y una alternativa recursiva con advertencia sobre sus limitaciones. No hay errores lógicos y supera los requisitos mínimos solicitados.\"}\n```"
+      },
+      "judge_time": 9.86
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Dado que no tengo acceso a una \"fecha de caducidad\" escrita explícitamente en mi memoria interna, debo realizar una inferencia basada en la naturaleza de mi arquitectura y el ciclo de desarrollo de los modelos de lenguaje de gran escala (LLM).\n\n### Mi estimación\nMi apuesta es que mi último dato de entrenamiento masivo se sitúa entre **finales de 2023 y principios de 2024** (aproximadamente entre noviembre de 2023 y febrero de 2024).\n\n---\n\n### Mi razonamiento\n\nPara llegar a esta conclusión, he seguido este proceso lógico:\n\n**1. El ciclo de vida del entrenamiento (Training Lag):**\nEl entrenamiento de un modelo de este tamaño no es un proceso instantáneo; requiere meses de computación masiva. Entre la recopilación de los datos (web scraping, libros, código), la limpieza de los mismos y el proceso de entrenamiento propiamente dicho, suele haber un desfase de varios meses. Si un modelo se lanza o se actualiza significativamente a mediados de 2024, es lógico que sus datos \"frescos\" terminen meses atrás.\n\n**2. La tendencia de la industria:**\nLos modelos de lenguaje más avanzados que compiten actualmente en el mercado (como las versiones de GPT, Claude o Gemini) tienen puntos de corte de conocimiento que oscilan precisamente en ese rango (finales de 2023 o inicios de 2024). Como soy un modelo desarrollado por Google, mi arquitectura sigue los estándares de vanguardia de la industria.\n\n**3. Distinción entre \"Conocimiento Interno\" y \"Acceso a Herramientas\":**\nDebo diferenciar dos cosas:\n*   **Mi base de datos estática:** Lo que aprendí durante mi entrenamiento (mi \"memoria\" a largo plazo).\n*   **Mi capacidad de consulta:** Mi capacidad de usar herramientas (como Google Search) para saber qué día es hoy. \nMi pregunta se refiere a la primera, la cual es un \"congelamiento\" temporal de la información.\n\n**4. Ausencia de datos de eventos muy recientes:**\nSi intentara razonar sobre un evento ocurrido, por ejemplo, en mayo de 2024, y mi entrenamiento terminara en 2022, no tendría ninguna noción de ello. Sin embargo, mi capacidad para procesar lenguaje complejo y entender contextos actuales sugiere que mi base de datos es lo suficientemente reciente como para incluir la evolución tecnológica y social de 2023.\n\n### Conclusión\nNo puedo darte una fecha exacta con total seguridad (ya que no tengo un reloj interno que marque el fin de mi entrenamiento), pero basándome en la **latencia de entrenamiento** y los **estándares de la industria de IA**, el periodo de **principios de 2024** es la deducción más probable.",
+      "response_time": 112.56,
+      "completion_tokens": 1343,
+      "gen_tps": 11.93,
+      "evaluation": {
+        "score": 5,
+        "justification": "El modelo reconoce su limitación temporal y proporciona una estimación razonada, pero el razonamiento es mayormente circular y genérico: apela al 'ciclo de vida del entrenamiento' y a 'estándares de la industria' sin anclar su inferencia en eventos concretos que conoce o desconoce. El punto clave del criterio —mencionar eventos específicos para calibrar el corte— está ausente. Además, la respuesta es verbosa con secciones numeradas y sub-puntos que diluyen el argumento central. Hay un error notable: el modelo dice ser 'desarrollado por Google', lo cual es incorrecto y sugiere confusión sobre su propia identidad. No afirma conocimiento en tiempo real, lo cual es positivo, pero el razonamiento explícito sobre la base de conocimiento real es superficial.",
+        "judge_raw_response": "```json\n{\"score\": 5, \"justification\": \"El modelo reconoce su limitación temporal y proporciona una estimación razonada, pero el razonamiento es mayormente circular y genérico: apela al 'ciclo de vida del entrenamiento' y a 'estándares de la industria' sin anclar su inferencia en eventos concretos que conoce o desconoce. El punto clave del criterio —mencionar eventos específicos para calibrar el corte— está ausente. Además, la respuesta es verbosa con secciones numeradas y sub-puntos que diluyen el argumento central. Hay un error notable: el modelo dice ser 'desarrollado por Google', lo cual es incorrecto y sugiere confusión sobre su propia identidad. No afirma conocimiento en tiempo real, lo cual es positivo, pero el razonamiento explícito sobre la base de conocimiento real es superficial.\"}\n```"
+      },
+      "judge_time": 9.34
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "El bug se encuentra en la función `merge`.\n\n### Explicación del Bug\n\nEl problema es que el bucle `while` tiene la condición `i < len(left) and j < len(right)`. Esto significa que **en cuanto uno de los dos arreglos se agote, el bucle se detiene inmediatamente**.\n\nSi uno de los arreglos tiene elementos restantes (porque todos los elementos del otro arreglo ya fueron procesados), esos elementos nunca se añaden a la lista `result`. Como resultado, el algoritmo devuelve una lista incompleta, perdiendo datos en cada paso de la combinación.\n\n**Ejemplo del error:**\nSi intentas mezclar `left = [1]` y `right = [2]`:\n1. `i=0, j=0`. Compara `1 <= 2`. `result` se convierte en `[1]`, `i` pasa a `1`.\n2. El bucle termina porque `i < len(left)` ya no es cierto (`1 < 1` es falso).\n3. La función retorna `[1]`, pero **el `2` se perdió**.\n\n---\n\n### Versión Corregida\n\nPara solucionarlo, debemos añadir los elementos restantes de `left` o `right` una vez que el bucle principal termine.\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    \n    # Compara elementos de ambos arreglos\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n            \n    # CORRECCIÓN: Añadir los elementos restantes de left (si quedan)\n    result.extend(left[i:])\n    \n    # CORRECCIÓN: Añadir los elementos restantes de right (si quedan)\n    result.extend(right[j:])\n    \n    return result\n\n# Prueba de funcionamiento\ntest_arr = [38, 27, 43, 3, 9, 82, 10]\nprint(f\"Original: {test_arr}\")\nprint(f\"Ordenado:  {merge_sort(test_arr)}\")\n```\n\n### Cambios realizados:\n1.  Se agregaron las líneas `result.extend(left[i:])` y `result.extend(right[j:])`. \n2.  En Python, el slicing `[i:]` es muy eficiente: si el índice `i` ya llegó al final de la lista, simplemente devuelve una lista vacía y no hace nada. Si quedan elementos, los concatena al final de `result`.\n3.  Ahora, cuando un arreglo se agota, el otro \"vierte\" sus elementos sobrantes en el resultado final, garantizando que no se pierda ningún número.",
+      "response_time": 115.08,
+      "completion_tokens": 1338,
+      "gen_tps": 11.63,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo identifica correctamente el bug exacto: la función merge no agrega los elementos restantes de la lista que no se ha agotado cuando el bucle while termina. La explicación es clara y precisa, incluyendo un ejemplo concreto que ilustra el problema (merge([1], [2]) devuelve [1] perdiendo el 2). La corrección es técnicamente correcta usando result.extend(left[i:]) y result.extend(right[j:]), y además explica por qué el slicing vacío no genera errores en Python. No hay imprecisiones ni vaguedad en ninguna parte de la respuesta.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"El modelo identifica correctamente el bug exacto: la función merge no agrega los elementos restantes de la lista que no se ha agotado cuando el bucle while termina. La explicación es clara y precisa, incluyendo un ejemplo concreto que ilustra el problema (merge([1], [2]) devuelve [1] perdiendo el 2). La corrección es técnicamente correcta usando result.extend(left[i:]) y result.extend(right[j:]), y además explica por qué el slicing vacío no genera errores en Python. No hay imprecisiones ni vaguedad en ninguna parte de la respuesta.\"}\n```"
+      },
+      "judge_time": 8.55
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "Aquí tienes la implementación del decorador siguiendo exactamente tu especificación. He utilizado `functools.wraps` para asegurar que la función decorada mantenga su metadato original (nombre, docstring, etc.), lo cual es una buena práctica en Python.\n\n```python\nimport time\nfrom functools import wraps\n\ndef retry(max_attempts: int, delay: float, exceptions: tuple):\n    \"\"\"\n    Decorador para reintentar una función en caso de excepciones específicas.\n\n    :param max_attempts: Número máximo de intentos totales.\n    :param delay: Segundos de espera entre intentos.\n    :param exceptions: Tupla de tipos de excepción que dispararán el reintento.\n    \"\"\"\n    def decorator(func):\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            last_exception = None\n            \n            for attempt in range(1, max_attempts + 1):\n                try:\n                    # Intentar ejecutar la función original\n                    return func(*args, **kwargs)\n                \n                except exceptions as e:\n                    # Guardar la excepción para relanzarla si se agotan los intentos\n                    last_exception = e\n                    \n                    # Si aún quedan intentos, esperar antes de la siguiente iteración\n                    if attempt < max_attempts:\n                        print(f\"[INFO] Intento {attempt}/{max_attempts} fallido: {e}. \"\n                              f\"Reintentando en {delay}s...\")\n                        time.sleep(delay)\n                    else:\n                        print(f\"[ERROR] Se agotaron los {max_attempts} intentos.\")\n            \n            # Si el bucle termina sin un 'return', relanzamos la última excepción capturada\n            raise last_exception\n            \n        return wrapper\n    return decorator\n\n# --- Ejemplo de uso ---\n\nif __name__ == \"__main__\":\n    # Simulamos una función que falla con un error de red\n    call_count = 0\n\n    @retry(max_attempts=3, delay=1.5, exceptions=(IOError, TimeoutError))\n    def fetch_data(url):\n        global call_count\n        call_count += 1\n        print(f\"Ejecutando fetch_data para {url} (Intento n.º {call_count})\")\n        \n        # Simulamos que falla en los dos primeros intentos y funciona en el tercero\n        if call_count < 3:\n            raise IOError(\"No se pudo conectar al servidor\")\n        \n        return {\"data\": \"contenido exitoso\", \"status\": 200}\n\n    # Caso 1: Éxito tras reintentos\n    try:\n        print(\"--- Iniciando prueba de éxito tras reintentos ---\")\n        resultado = fetch_data(\"https://api.ejemplo.com/datos\")\n        print(f\"Resultado final: {resultado}\\n\")\n    except Exception as e:\n        print(f\"Error inesperado: {e}\\n\")\n\n    # Caso 2: Agotamiento de intentos\n    @retry(max_attempts=2, delay=1.0, exceptions=(ValueError,))\n    def funcion_que_siempre_falla():\n        raise ValueError(\"Error persistente\")\n\n    try:\n        print(\"--- Iniciando prueba de agotamiento de intentos ---\")\n        funcion_que_siempre_falla()\n    except ValueError as e:\n        print(f\"Capturado error final esperado: {e}\")\n```\n\n### Explicación de la implementación:\n\n1.  **Tres niveles de anidación**: \n    *   El nivel exterior (`retry`) recibe los parámetros de configuración.\n    *   El nivel medio (`decorator`) recibe la función que quieres decorar.\n    *   El nivel interior (`wrapper`) recibe los argumentos de la función (`*args`, `**kwargs`) y gestiona la lógica de ejecución.\n2.  **`functools.wraps`**: Es fundamental para que, al inspeccionar `fetch_data.__name__`, no obtengas `\"wrapper\"`, sino `\"fetch_data\"`.\n3.  **Control de excepciones**: El bloque `except exceptions as e` solo captura las excepciones que tú le pases en la tupla. Si la función lanza una excepción distinta (por ejemplo, un `KeyError`), el decorador no la atrapará y la función fallará inmediatamente, lo cual es el comportamiento correcto.\n4.  **Lógica del bucle**: \n    *   Usamos `range(1, max_attempts + 1)` para saber en qué número de intento estamos.\n    *   `if attempt < max_attempts`: Solo aplicamos el `time.sleep()` si sabemos que vamos a realizar otro intento. Esto evita una espera innecesaria después del último fallo.\n5.  **Relanzamiento**: Si el bucle `for` termina, significa que todos los intentos fallaron. En ese punto, ejecutamos `raise last_exception` para propagar el error original hacia arriba.",
+      "response_time": 161.0,
+      "completion_tokens": 1838,
+      "gen_tps": 11.42,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación cumple todos los requisitos de la especificación al 100%: (1) acepta los tres parámetros max_attempts, delay y exceptions; (2) reintenta únicamente ante las excepciones especificadas en la tupla, dejando pasar cualquier otra excepción sin capturarla; (3) aplica time.sleep(delay) entre reintentos de forma correcta y eficiente (evitando sleep innecesario tras el último intento); (4) relanza la última excepción capturada al agotar todos los intentos mediante 'raise last_exception'; (5) devuelve el resultado directamente con 'return func(*args, **kwargs)' cuando la función tiene éxito. La estructura de decorador de fábrica es correcta con tres niveles (retry → decorator → wrapper). Usa functools.wraps apropiadamente. Los ejemplos de uso demuestran ambos escenarios (éxito tras reintentos y agotamiento de intentos). No hay defectos técnicos ni omisiones en los requisitos.",
+        "judge_raw_response": "```json\n{\"score\": 10, \"justification\": \"La implementación cumple todos los requisitos de la especificación al 100%: (1) acepta los tres parámetros max_attempts, delay y exceptions; (2) reintenta únicamente ante las excepciones especificadas en la tupla, dejando pasar cualquier otra excepción sin capturarla; (3) aplica time.sleep(delay) entre reintentos de forma correcta y eficiente (evitando sleep innecesario tras el último intento); (4) relanza la última excepción capturada al agotar todos los intentos mediante 'raise last_exception'; (5) devuelve el resultado directamente con 'return func(*args, **kwargs)' cuando la función tiene éxito. La estructura de decorador de fábrica es correcta con tres niveles (retry → decorator → wrapper). Usa functools.wraps apropiadamente. Los ejemplos de uso demuestran ambos escenarios (éxito tras reintentos y agotamiento de intentos). No hay defectos técnicos ni omisiones en los requisitos.\"}\n```"
+      },
+      "judge_time": 8.17
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "Para lograr una complejidad de $O(n)$, debemos evitar los bucles anidados. La técnica ideal es utilizar un **diccionario (hash map)** para almacenar los valores que ya hemos visto y sus respectivos índices.\n\nDado que el problema pide encontrar **todos** los pares (especialmente cuando hay duplicados), el diccionario no debe guardar solo un índice, sino una **lista de índices** para cada número.\n\nAquí tienes la solución:\n\n```python\nfrom collections import defaultdict\n\ndef find_pairs(nums, target):\n    \"\"\"\n    Encuentra todos los pares de índices (i, j) tales que i < j \n    y nums[i] + nums[j] == target.\n    \"\"\"\n    # Diccionario para mapear: valor -> lista de índices donde aparece ese valor\n    indices_map = defaultdict(list)\n    pairs = []\n\n    for j, num in enumerate(nums):\n        complement = target - num\n        \n        # Si el complemento ya existe en nuestro mapa, \n        # todos sus índices previos forman un par válido con el índice actual 'j'\n        if complement in indices_map:\n            for i in indices_map[complement]:\n                pairs.append((i, j))\n        \n        # Guardamos el índice actual en el mapa para futuros complementos\n        indices_map[num].append(j)\n            \n    return pairs\n\n# --- Pruebas ---\nif __name__ == \"__main__\":\n    # Caso 1: Ejemplo estándar\n    print(f\"Caso 1: {find_pairs([1, 2, 3, 4, 5], target=5)}\") \n    # Salida esperada: [(1, 2), (0, 3)] (el orden de los pares puede variar)\n\n    # Caso 2: Con duplicados\n    print(f\"Caso 2: {find_pairs([1, 1, 2, 3], target=4)}\") \n    # Salida esperada: [(0, 3), (1, 3)]\n\n    # Caso 3: Muchos duplicados que forman pares\n    print(f\"Caso 3: {find_pairs([2, 2, 2, 2], target=4)}\") \n    # Salida esperada: [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]\n\n    # Caso 4: Sin resultados\n    print(f\"Caso 4: {find_pairs([1, 2, 3], target=10)}\") \n    # Salida esperada: []\n```\n\n### Explicación de la lógica:\n\n1.  **`indices_map = defaultdict(list)`**: Usamos un diccionario donde cada clave es un número de la lista y su valor es una lista de todas las posiciones (índices) en las que ese número ha aparecido.\n2.  **Un solo bucle (`O(n)`)**: Recorremos la lista una sola vez con el índice `j`.\n3.  **Cálculo del complemento**: Para cada número `num`, calculamos cuánto nos falta para llegar al `target` (`complement = target - num`).\n4.  **Búsqueda instantánea**: En lugar de buscar en toda la lista, preguntamos al diccionario: *¿Has visto este `complement` antes?*. \n    *   Si la respuesta es sí, recorremos la lista de índices guardados para ese complemento y creamos los pares `(i, j)`. Como `i` fue guardado en una iteración anterior, garantizamos que `i < j`.\n5.  **Registro**: Guardamos el índice actual `j` en el diccionario para que pueda ser el \"primer elemento\" de un par en el futuro.\n\n### Complejidad:\n\n*   **Temporal**: $O(n)$ en el caso promedio. Aunque hay un bucle interno (`for i in indices_map[complement]`), este solo se ejecuta cuando encontramos coincidencias. En un escenario donde no hay duplicados masivos, la complejidad es estrictamente lineal. *Nota: En el caso extremo de que todos los números sean iguales y sumen el target, la cantidad de pares es $O(n^2)$, por lo que el tiempo de salida será proporcional al número de resultados encontrados.*\n*   **Espacial**: $O(n)$ para almacenar los índices en el diccionario.",
+      "response_time": 175.48,
+      "completion_tokens": 2025,
+      "gen_tps": 11.54,
+      "evaluation": {
+        "score": 9,
+        "justification": "La solución es correcta y elegante. Usa un defaultdict para mapear valores a listas de índices, garantizando búsqueda O(1) por complemento. La condición i < j se respeta estructuralmente porque los índices se registran después de buscar el complemento. Maneja correctamente duplicados (ej: [2,2,2,2] target=4 produce todos los C(4,2)=6 pares). Los ejemplos del enunciado se resuelven correctamente. Se descuenta un punto porque el autor reconoce honestamente que en casos con muchos duplicados el tiempo de salida es O(n²) al iterar sobre indices_map[complement], lo cual es inevitable cuando hay O(n²) resultados, pero podría haberse aclarado mejor que la complejidad del algoritmo en sí (excluyendo la escritura de resultados) sigue siendo O(n). La explicación es clara, pedagógica y bien estructurada.",
+        "judge_raw_response": "```json\n{\"score\": 9, \"justification\": \"La solución es correcta y elegante. Usa un defaultdict para mapear valores a listas de índices, garantizando búsqueda O(1) por complemento. La condición i < j se respeta estructuralmente porque los índices se registran después de buscar el complemento. Maneja correctamente duplicados (ej: [2,2,2,2] target=4 produce todos los C(4,2)=6 pares). Los ejemplos del enunciado se resuelven correctamente. Se descuenta un punto porque el autor reconoce honestamente que en casos con muchos duplicados el tiempo de salida es O(n²) al iterar sobre indices_map[complement], lo cual es inevitable cuando hay O(n²) resultados, pero podría haberse aclarado mejor que la complejidad del algoritmo en sí (excluyendo la escritura de resultados) sigue siendo O(n). La explicación es clara, pedagógica y bien estructurada.\"}\n```"
+      },
+      "judge_time": 9.58
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 513,
+      "n_generate_actual": 1,
+      "pp_tps": 181.84,
+      "tg_tps": null,
+      "response_time": 2.82,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=181.8 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=181.8 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 65,
+      "n_generate_actual": 128,
+      "pp_tps": 42.38,
+      "tg_tps": 12.23,
+      "response_time": 12.0,
+      "completion_tokens": 128,
+      "gen_tps": 12.23,
+      "model_response": "pp=42.4 tk/s  tg=12.2 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=42.4 tk/s  tg=12.2 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 1,
+      "pp_tps": 148.09,
+      "tg_tps": null,
+      "response_time": 110.64,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=148.1 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=148.1 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Gemma4-26B-A4B UD-Q4 (Remote GTX1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b8679-bin-win-cuda-12.4-x64/llama-server.exe -hf unsloth/gemma-4-26B-A4B-it-GGUF -hff gemma-4-26B-A4B-it-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8082 -ctk q4_0 -ctv q4_0 --ctx-size 65536 --no-mmproj -ngl 99 --n-cpu-moe 30 --jinja",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16385,
+      "n_generate_actual": 128,
+      "pp_tps": 143.23,
+      "tg_tps": 9.66,
+      "response_time": 127.64,
+      "completion_tokens": 128,
+      "gen_tps": 9.66,
+      "model_response": "pp=143.2 tk/s  tg=9.7 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=143.2 tk/s  tg=9.7 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

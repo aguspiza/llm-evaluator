@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-08-07T16:55:24.200139",
+  "total_tests": 1,
+  "results": [
+    {
+      "model_name": "Ling-3.0-Tiny (OpenRouter)",
+      "model_type": "openrouter",
+      "server_cmd": null,
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "```python\nimport time\nimport functools\n\ndef retry(max_attempts: int, delay: float, exceptions: tuple):\n    \"\"\"\n    Decorador que reintentará una función hasta max_attempts veces si lanza excepciones especificadas.\n    \n    Args:\n        max_attempts: Número máximo de intentos (incluyendo el inicial)\n        delay: Tiempo en segundos entre reintentos\n        exceptions: Tuple de tipos de excepción a capturar\n    \"\"\"\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            last_exception = None\n            \n            for attempt in range(1, max_attempts + 1):\n                try:\n                    return func(*args, **kwargs)\n                except exceptions as e:\n                    last_exception = e\n                    if attempt < max_attempts:\n                        time.sleep(delay)\n            \n            # Si se agotaron los intentos, relanza la última excepción\n            raise last_exception\n        \n        return wrapper\n    return decorator\n```\n\n**Uso ejemplo:**\n```python\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    # Simulación de una operación que puede fallar\n    if \"error\" in url:\n        raise TimeoutError(f\"Timeout en {url}\")\n    return f\"Datos de {url}\"\n\n# Pruebas\ntry:\n    result = fetch_data(\"http://example.com\")\n    print(f\"Éxito: {result}\")\nexcept TimeoutError as e:\n    print(f\"Falló después de 3 intentos: {e}\")\n```\n\n**Características principales:**\n1. **Máximo de intentos**: `max_attempts` (por defecto 3 intentos)\n2. **Delay**: Espera `delay` segundos entre reintentos\n3. **Excepciones controladas**: Solo reintentará en caso de excepciones especificadas\n4. **Última excepción**: Si falla todos los intentos, relanza la última excepción\n5. **Preservación de metadatos**: Usa `functools.wraps` para mantener el nombre y docstring de la función original\n6. **Incluye el primer intento**: El conteo de intentos incluye el primer intento exitoso\n\n**Notas:**\n- Si la función retorna `None` o cualquier valor exitosamente, se devuelve normalmente\n- Las excepciones no controladas no son reintentadas\n- El decorador es flexible y funciona con cualquier función\n- Si `max_attempts=1`, solo se hará un intento (no reintentará)",
+      "response_time": 3.21,
+      "completion_tokens": 829,
+      "gen_tps": 258.09,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación es impecable. Cumple con todos los requisitos: utiliza el patrón de decorador de fábrica para aceptar los parámetros, maneja correctamente la lógica de reintento (incluyendo el primer intento), espera el tiempo de retardo (`delay`), captura y re-lanza la última excepción si se agotan los intentos, y devuelve el resultado inmediatamente en caso de éxito. El uso de functools.wraps asegura la preservación de metadatos.",
+        "judge_raw_response": "```json\n{\n  \"score\": 10,\n  \"justification\": \"La implementación es impecable. Cumple con todos los requisitos: utiliza el patrón de decorador de fábrica para aceptar los parámetros, maneja correctamente la lógica de reintento (incluyendo el primer intento), espera el tiempo de retardo (`delay`), captura y re-lanza la última excepción si se agotan los intentos, y devuelve el resultado inmediatamente en caso de éxito. El uso de functools.wraps asegura la preservación de metadatos.\"\n}\n```"
+      },
+      "judge_time": 135.1
+    }
+  ]
+}
