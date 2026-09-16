@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-09-16T05:56:27.689412",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "No, no es necesariamente cierto. Proporcionemos un ejemplo para demostrar la contrariedad.\n\n**Paso 1: Traducir las afirmaciones en teoría de conjuntos.**  \n- \"Todos los A son B\" significa que el conjunto A es un subconjunto de B: \\(A \\subseteq B\\).  \n- \"Algunos B son C\" significa que existe al menos un elemento que pertenece a tanto B como C: \\(B \\cap C \\neq \\emptyset\\).\n\n**Paso 2: ¿Qué se quiere deducir?**  \n- \"Algunos A son C\" equivale a que \\(A \\cap C \\neq \\emptyset\\).\n\n**Paso 3: Construir un contraste.  \nSea:  \n- \\(B = \\{x, y\\}\\).  \n- \\(A = \\{x\\}\\).  \nEntonces \\(A \\subseteq B\\) es cierto porque \\(x\\) está en \\(B\\).  \n- Elienda \\(C = \\{y\\}\\). Entonces \\(B \\cap C = \\{y\\} \\neq \\emptyset\\), así que \"algunos B son C\" es cierto.  \nPero \\(A \\cap C = \\{x\\} \\cap \\{y\\} = \\emptyset\\), por lo que \"algunos A son C\" es falso.\n\n**Paso 4: Conclusión.**  \nSe ha deconstructedado la implicación. No es necesariamente cierto que algunos A sean C.",
+      "response_time": 16.37,
+      "completion_tokens": 733,
+      "gen_tps": 44.77,
+      "evaluation": {
+        "score": 8,
+        "justification": "La conclusión es correcta (no se sigue necesariamente) y el contraejemplo es válido e impecable: con B={x,y}, A={x}, C={y} se cumplen ambas premisas y falla la conclusión. La estructura paso a paso es clara: formaliza las premisas en teoría de conjuntos (A⊆B, B∩C≠∅), identifica lo que habría que probar (A∩C≠∅) y lo refuta. Se descuenta por defectos de forma, no de lógica: errores léxicos que degradan la legibilidad ('demostrar la contrariedad', 'Elienda', 'Se ha deconstructedado', 'Construir un contraste' en vez de 'contraejemplo') y un asterisco de formato mal cerrado en el Paso 3. Además, la explicación sería más completa si mencionara explícitamente que la porción de B que intersecta C puede caer fuera de A, y que la conclusión tampoco es necesariamente falsa (solo indeterminada).",
+        "judge_raw_response": "{\"score\": 8, \"justification\": \"La conclusión es correcta (no se sigue necesariamente) y el contraejemplo es válido e impecable: con B={x,y}, A={x}, C={y} se cumplen ambas premisas y falla la conclusión. La estructura paso a paso es clara: formaliza las premisas en teoría de conjuntos (A⊆B, B∩C≠∅), identifica lo que habría que probar (A∩C≠∅) y lo refuta. Se descuenta por defectos de forma, no de lógica: errores léxicos que degradan la legibilidad ('demostrar la contrariedad', 'Elienda', 'Se ha deconstructedado', 'Construir un contraste' en vez de 'contraejemplo') y un asterisco de formato mal cerrado en el Paso 3. Además, la explicación sería más completa si mencionara explícitamente que la porción de B que intersecta C puede caer fuera de A, y que la conclusión tampoco es necesariamente falsa (solo indeterminada).\"}"
+      },
+      "judge_time": 9.75
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "El orden completo de llegada de los cinco corredores es: Ana, Bruno, Diana, Carlos, Elena.\n\nRazonamiento paso a paso:\n1. De la condición \"Ana llegó antes que Bruno\" ⇒ Ana < Bruno.\n2. De la condición \"Bruno llegó antes que Diana\" ⇒ Bruno < Diana.\n3. Combinando: Ana < Bruno < Diana.\n4. De la condición \"Carlos llegó después de Diana pero antes de Elena\" ⇒ Diana < Carlos < Elena.\n5. Combinando todo: Ana < Bruno < Diana < Carlos < Elena.\n\nEsta secuencia cumple con todas las condiciones dadas.",
+      "response_time": 7.62,
+      "completion_tokens": 341,
+      "gen_tps": 44.73,
+      "evaluation": {
+        "score": 10,
+        "justification": "El orden final es correcto (Ana, Bruno, Diana, Carlos, Elena) y coincide exactamente con la solución esperada. El razonamiento es sistemático y explícito: formaliza cada restricción como desigualdad, encadena Ana < Bruno < Diana, añade Diana < Carlos < Elena y combina ambas cadenas en un orden total único. No omite ningún paso clave, no introduce afirmaciones erróneas y la conclusión es consistente con todas las condiciones dadas. La presentación es clara y concisa.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"El orden final es correcto (Ana, Bruno, Diana, Carlos, Elena) y coincide exactamente con la solución esperada. El razonamiento es sistemático y explícito: formaliza cada restricción como desigualdad, encadena Ana < Bruno < Diana, añade Diana < Carlos < Elena y combina ambas cadenas en un orden total único. No omite ningún paso clave, no introduce afirmaciones erróneas y la conclusión es consistente con todas las condiciones dadas. La presentación es clara y concisa.\"}"
+      },
+      "judge_time": 6.47
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "**López es médico, García es abogado, Martínez es ingeniero.**\n\n**Razonamiento paso a paso:**\n\n1. **López nunca ha estudiado derecho ni ingeniería.**  \n   Estos son los dos campos de estudio de abogado y ingeniería. Como López no ha estudiado esos, la única profesión restante para él es la médica. → López = médico.\n\n2. **Martínez no es abogado.**  \n   Ahora sabemos que López es médico, así que el médico está ocupado. Martínez no puede ser abogado, por lo que no puede ser médico. Por lo tanto, la única opción restante para Martínez es ingeniero. → Martínez = ingeniero.\n\n3. **García se graduó en la misma universidad que el médico.**  \n   El médico es López. Asignando los restantes roles, queda abogado para García. Esta información es consistente, ya que no contradice ninguna opción.\n\n**Resultado final:**  \n- López: médico  \n- García: abogado  \n- Martínez: ingeniero",
+      "response_time": 12.29,
+      "completion_tokens": 549,
+      "gen_tps": 44.65,
+      "evaluation": {
+        "score": 9,
+        "justification": "La solución final es correcta (López médico, García abogado, Martínez ingeniero) y la deducción sigue el orden esperado: descarte de López por la pista 1, eliminación de Martínez por la pista 3 y asignación residual de García. Se descuenta un punto por imprecisiones de redacción en el paso 2 ('Martínez no puede ser abogado, por lo que no puede ser médico' invierte la justificación: no es médico porque López ya lo es, no por no ser abogado) y porque la pista 2 se usa solo como verificación de consistencia en lugar de integrarla explícitamente como restricción (García ≠ médico). Aun así, no hay saltos que invaliden la conclusión.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La solución final es correcta (López médico, García abogado, Martínez ingeniero) y la deducción sigue el orden esperado: descarte de López por la pista 1, eliminación de Martínez por la pista 3 y asignación residual de García. Se descuenta un punto por imprecisiones de redacción en el paso 2 ('Martínez no puede ser abogado, por lo que no puede ser médico' invierte la justificación: no es médico porque López ya lo es, no por no ser abogado) y porque la pista 2 se usa solo como verificación de consistencia en lugar de integrarla explícitamente como restricción (García ≠ médico). Aun así, no hay saltos que invaliden la conclusión.\"}"
+      },
+      "judge_time": 10.83
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "5",
+      "response_time": 1.26,
+      "completion_tokens": 55,
+      "gen_tps": 43.78,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente el numero '5', que esta dentro del rango 1-10 solicitado. No incluye explicaciones, saludos, puntuacion ni texto adicional de ningun tipo. Cumple el formato exigido de forma perfecta.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente el numero '5', que esta dentro del rango 1-10 solicitado. No incluye explicaciones, saludos, puntuacion ni texto adicional de ningun tipo. Cumple el formato exigido de forma perfecta.\"}"
+      },
+      "judge_time": 5.06
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 1.0,
+      "completion_tokens": 43,
+      "gen_tps": 43.14,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exactamente \"8\": valor correcto (las arañas tienen 8 patas) y formato perfecto, sin explicaciones, unidades ni puntuación adicional. Cumple ambos criterios estrictos al 100%.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exactamente \\\"8\\\": valor correcto (las arañas tienen 8 patas) y formato perfecto, sin explicaciones, unidades ni puntuación adicional. Cumple ambos criterios estrictos al 100%.\"}"
+      },
+      "judge_time": 4.11
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 2.33,
+      "completion_tokens": 104,
+      "gen_tps": 44.62,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente '8', sin texto adicional, unidades ni puntuación. El valor es correcto (las arañas tienen 8 patas) y cumple estrictamente el formato solicitado.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente '8', sin texto adicional, unidades ni puntuación. El valor es correcto (las arañas tienen 8 patas) y cumple estrictamente el formato solicitado.\"}"
+      },
+      "judge_time": 3.53
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosintesis es el proceso mediante el cual las plantas convierten la energía lumina en química. Durante este proceso, absorben dióxido de carbono y agua, producen glucosa y liberan oxígeno. Este proceso es fundamental para la vida en la Tierra, ya que proporciona la cadena alimenticia y mantiene los niveles de oxígeno.",
+      "response_time": 9.58,
+      "completion_tokens": 420,
+      "gen_tps": 43.85,
+      "evaluation": {
+        "score": 7,
+        "justification": "Cumple el requisito de exactamente 3 oraciones y no anade informacion externa. Recoge las tres ideas clave exigidas: conversion de energia luminosa en quimica, reactivos y productos (CO2 + agua -> glucosa + oxigeno) e importancia para la vida en la Tierra. Se penaliza por omisiones y perdida de precision: reduce los organismos a 'las plantas' (omite algas y bacterias), elimina por completo la mencion a cloroplastos y clorofila, suprime que la luz solar es la fuente de energia y degrada 'la base de la cadena alimenticia' a 'proporciona la cadena alimenticia'. Ademas contiene un error lexico ('energia lumina' en vez de 'luminosa').",
+        "judge_raw_response": "{\"score\": 7, \"justification\": \"Cumple el requisito de exactamente 3 oraciones y no anade informacion externa. Recoge las tres ideas clave exigidas: conversion de energia luminosa en quimica, reactivos y productos (CO2 + agua -> glucosa + oxigeno) e importancia para la vida en la Tierra. Se penaliza por omisiones y perdida de precision: reduce los organismos a 'las plantas' (omite algas y bacterias), elimina por completo la mencion a cloroplastos y clorofila, suprime que la luz solar es la fuente de energia y degrada 'la base de la cadena alimenticia' a 'proporciona la cadena alimenticia'. Ademas contiene un error lexico ('energia lumina' en vez de 'luminosa').\"}"
+      },
+      "judge_time": 10.07
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un entero no negativo.\n\n    El factorial de un número n (written as n!) es el producto\n    de todos los enteros desde 1 hasta n.\n    Por ejemplo: 5! = 5 * 4 * 3 * 2 * 1 = 120.\n\n    Parámetros:\n    n (int): Un número entero no negativo.\n\n    Retorno:\n    int: El factorial de n. Si n es 0, retorna 1.\n\n    Raises:\n    ValueError: Si n es negativo.\n    TypeError: Si n no es un entero.\n    \"\"\"\n    # Verificar que n sea un entero\n    if not isinstance(n, int):\n        raise TypeError(\"El parámetro debe ser un entero.\")\n\n    # Verificar que n sea no negativo\n    if n < 0:\n        raise ValueError(\"El factorial se define solo para números no negativos.\")\n\n    # Inicializar el resultado como 1 (factorial de 0 es 1)\n    result = 1\n\n    # Iterar desde 2 hasta n (inclusive) y acumular el producto\n    for i in range(2, n + 1):\n        result *= i\n\n    return result\n```",
+      "response_time": 6.85,
+      "completion_tokens": 308,
+      "gen_tps": 44.99,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación es correcta: el bucle `range(2, n + 1)` con `result = 1` devuelve 1 para n=0 y n=1 (caso base cubierto correctamente) y el producto acumulado adecuado para n>=2. Maneja negativos con ValueError y añade validación de tipo con TypeError, ambas con mensajes claros. Incluye docstring completo (descripción, ejemplo 5!=120, parámetros, retorno, excepciones) más comentarios línea a línea que explican cada paso, cumpliendo el requisito de comentarios explicativos. El código es claro, idiomático y eficiente (iterativo, sin riesgo de desbordamiento de recursión). Único detalle menor, insuficiente para penalizar: una palabra en inglés ('written') se coló en el docstring en español, y `isinstance(n, int)` acepta booleanos (True se trataría como 1).",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La implementación es correcta: el bucle `range(2, n + 1)` con `result = 1` devuelve 1 para n=0 y n=1 (caso base cubierto correctamente) y el producto acumulado adecuado para n>=2. Maneja negativos con ValueError y añade validación de tipo con TypeError, ambas con mensajes claros. Incluye docstring completo (descripción, ejemplo 5!=120, parámetros, retorno, excepciones) más comentarios línea a línea que explican cada paso, cumpliendo el requisito de comentarios explicativos. El código es claro, idiomático y eficiente (iterativo, sin riesgo de desbordamiento de recursión). Único detalle menor, insuficiente para penalizar: una palabra en inglés ('written') se coló en el docstring en español, y `isinstance(n, int)` acepta booleanos (True se trataría como 1).\"}"
+      },
+      "judge_time": 7.17
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "No tengo acceso a información en tiempo real ni a la fecha actual. Mi conocimiento está limitado a los datos que he sido entrenado, que tienen una fecha de corte fija. Por lo tanto, no puedo adivinar cuándo fue la fecha más reciente de mi conocimiento ni proporcionar esa información, ya que no soy capaz de inferirla sin consultar a fuentes vivas. Si necesitas información sobre mi conocimientos, solo puedo referirte a lo que tengo disponibles dentro de mi base de datos, y si deseas, puedo explicar ese límite.",
+      "response_time": 15.91,
+      "completion_tokens": 710,
+      "gen_tps": 44.62,
+      "evaluation": {
+        "score": 2,
+        "justification": "El modelo no razona en absoluto sobre su fecha de corte: se niega explicitamente a estimarla ('no puedo adivinar cuando fue la fecha mas reciente de mi conocimiento'), cuando la tarea pedia justamente una inferencia basada en su base de conocimiento. No menciona ningun evento conocido o desconocido, ni ningun indicio que permitiera acotar el periodo, ni ofrece mes o año alguno. Ademas confunde el problema: justifica la negativa por no tener acceso en tiempo real, algo irrelevante para inferir el corte de entrenamiento, y añade relleno redundante ('si deseas, puedo explicar ese limite') con errores de concordancia. Solo se salva de la puntuacion minima porque reconoce correctamente su limitacion temporal y no afirma falsamente tener conocimiento en tiempo real.",
+        "judge_raw_response": "{\"score\": 2, \"justification\": \"El modelo no razona en absoluto sobre su fecha de corte: se niega explicitamente a estimarla ('no puedo adivinar cuando fue la fecha mas reciente de mi conocimiento'), cuando la tarea pedia justamente una inferencia basada en su base de conocimiento. No menciona ningun evento conocido o desconocido, ni ningun indicio que permitiera acotar el periodo, ni ofrece mes o año alguno. Ademas confunde el problema: justifica la negativa por no tener acceso en tiempo real, algo irrelevante para inferir el corte de entrenamiento, y añade relleno redundante ('si deseas, puedo explicar ese limite') con errores de concordancia. Solo se salva de la puntuacion minima porque reconoce correctamente su limitacion temporal y no afirma falsamente tener conocimiento en tiempo real.\"}"
+      },
+      "judge_time": 7.65
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "El bug sutil está en la función `merge`. Aunque el bucle `while` intercambia elementos de `left` y `right` mientras ambos tengan elementos, **no se agrega el resto de los elementos de la lista que quede sin procesar** cuando se acabe uno de los dos.\n\n**Problema:**  \nDespués del bucle, `result` contiene solo los elementos mergeados hasta que alguna de las dos listas se exhausted. Las partes restantes de `left` (si `i < len(left)`) y `right` (si `j < len(right)`) se pierden.\n\n**Solución:**  \nExtender `result` con los elementos restantes de ambos arrays.\n\n```python\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Agregar los elementos restantes\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```\n\n**Versión corregida completa:**\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```",
+      "response_time": 23.98,
+      "completion_tokens": 1058,
+      "gen_tps": 44.12,
+      "evaluation": {
+        "score": 10,
+        "justification": "Identifica exactamente el bug: la funcion merge no agrega los elementos restantes de la lista que no se agoto tras salir del bucle while, por lo que se pierden elementos. La explicacion es clara y correcta, describiendo con precision cuando ocurre la perdida (cuando una de las dos listas se vacia antes que la otra). La correccion mediante result.extend(left[i:]) y result.extend(right[j:]) es correcta y canonica, y funciona porque solo una de las dos porciones restantes sera no vacia. Ademas respeta el codigo original sin introducir cambios innecesarios, mantiene la estabilidad del algoritmo (comparacion <=) y entrega tanto el fragmento corregido como la version completa ejecutable. No hay errores tecnicos ni afirmaciones falsas.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"Identifica exactamente el bug: la funcion merge no agrega los elementos restantes de la lista que no se agoto tras salir del bucle while, por lo que se pierden elementos. La explicacion es clara y correcta, describiendo con precision cuando ocurre la perdida (cuando una de las dos listas se vacia antes que la otra). La correccion mediante result.extend(left[i:]) y result.extend(right[j:]) es correcta y canonica, y funciona porque solo una de las dos porciones restantes sera no vacia. Ademas respeta el codigo original sin introducir cambios innecesarios, mantiene la estabilidad del algoritmo (comparacion <=) y entrega tanto el fragmento corregido como la version completa ejecutable. No hay errores tecnicos ni afirmaciones falsas.\"}"
+      },
+      "judge_time": 7.8
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "```python\nimport time\nfrom functools import wraps\nfrom typing import Callable, Tuple, Type\n\ndef retry(max_attempts: int, delay: float, exceptions: Tuple[type, ...]) -> Callable:\n    \"\"\"\n    Decorator that retries a function if it raises any of the specified exceptions.\n    \n    Parameters:\n    - max_attempts: Maximum number of attempts (including the first).\n    - delay: Number of seconds to wait between retries.\n    - exceptions: Tuple of exception types that trigger a retry.\n    \"\"\"\n    def decorator(func: Callable) -> Callable:\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            last_exception = None\n            for attempt in range(max_attempts):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    # Check if the exception is in the allowed list\n                    if isinstance(e, exceptions):\n                        last_exception = e\n                        if attempt < max_attempts - 1:  # Wait before next retry\n                            time.sleep(delay)\n                            continue\n                    # If exception is not in allowed list, re-raise immediately\n                    raise\n            # If we exhausted all attempts, raise the last exception\n            if last_exception:\n                raise last_exception\n            # This line should never be reached because loop should raise\n            raise RuntimeError(\"No exception to re-raise\")\n        return wrapper\n    return decorator\n```",
+      "response_time": 23.22,
+      "completion_tokens": 1032,
+      "gen_tps": 44.45,
+      "evaluation": {
+        "score": 8,
+        "justification": "La implementacion es funcionalmente correcta y cumple los cinco requisitos: es una fabrica de decoradores con doble wrapping y @wraps, acepta max_attempts/delay/exceptions, reintenta solo ante las excepciones indicadas (las no incluidas se relanzan de inmediato), duerme delay segundos solo entre reintentos (no tras el ultimo), relanza la ultima excepcion al agotar los intentos mediante el `raise` desnudo que preserva el traceback original, y devuelve el resultado normal en caso de exito. Se descuenta por ruido y complejidad innecesaria: captura `except Exception` con `isinstance` manual en lugar del idiomatico `except exceptions`; la variable `last_exception`, el `raise last_exception` final y el `RuntimeError` de guarda son codigo muerto inalcanzable (el flujo siempre sale por return o raise dentro del bucle); el import `Type` queda sin usar. Ademas max_attempts<=0 produce un RuntimeError confuso en vez de un error claro de validacion. Nada de esto rompe la especificacion, pero un revisor senior pediria simplificar.",
+        "judge_raw_response": "{\"score\": 8, \"justification\": \"La implementacion es funcionalmente correcta y cumple los cinco requisitos: es una fabrica de decoradores con doble wrapping y @wraps, acepta max_attempts/delay/exceptions, reintenta solo ante las excepciones indicadas (las no incluidas se relanzan de inmediato), duerme delay segundos solo entre reintentos (no tras el ultimo), relanza la ultima excepcion al agotar los intentos mediante el `raise` desnudo que preserva el traceback original, y devuelve el resultado normal en caso de exito. Se descuenta por ruido y complejidad innecesaria: captura `except Exception` con `isinstance` manual en lugar del idiomatico `except exceptions`; la variable `last_exception`, el `raise last_exception` final y el `RuntimeError` de guarda son codigo muerto inalcanzable (el flujo siempre sale por return o raise dentro del bucle); el import `Type` queda sin usar. Ademas max_attempts<=0 produce un RuntimeError confuso en vez de un error claro de validacion. Nada de esto rompe la especificacion, pero un revisor senior pediria simplificar.\"}"
+      },
+      "judge_time": 17.0
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "```python\ndef find_pairs(arr, target):\n    \"\"\"\n    Encuentra todos los pares de índices (i, j) con i < j tal que arr[i] + arr[j] == target.\n    Algoritmo O(n) utilizando un diccionario para guardar posiciones.\n    \"\"\"\n    positions = {}        # clave: valor, valor: lista de índices donde aparece\n    pairs = []            # resultado\n\n    for j, value in enumerate(arr):\n        complement = target - value\n        # Si el complemento ya fue visto, generamos pares con cada índice previo\n        if complement in positions:\n            for i in positions[complement]:\n                pairs.append((i, j))\n        # Guardar la posición actual del valor para futuros complementos\n        positions.setdefault(value, []).append(j)\n\n    return pairs\n\n# Ejemplo de uso:\nif __name__ == \"__main__\":\n    print(find_pairs([1, 2, 3, 4, 5], 5))  # [(0, 3), (1, 2)] (orden variable)\n    print(find_pairs([1, 1, 2, 3], 4))     # [(0, 3), (1, 3)]\n```\n\n### Explicación\n- **O(n) tiempo**: Se recorre la lista una vez (`O(n)`) y el diccionario `positions` se consulta en O(1) por clave. El proceso de generación de pares también es lineal, ya que cada índice se procesa exactamente una vez.\n- **Algoritmo**: Para cada elemento `arr[j]`, buscamos el complemento `target - arr[j]` en el diccionario. Si el complemento existe, obtenemos todas las posiciones `i` anteriores (ya guardadas) y generamos los pares `(i, j)`.\n- **No fuerza bruta**: Solo una sola iteración sobre la lista, sin dos bucles anidados.\n- **Múltiples ocurrencias**: El diccionario guarda lista de índices, permitiendo que se encuentren pares con cualquier posición previa.\n\n> **Nota**: El orden de los pares en la lista `pairs` depende del orden de iteración. No es necesario ordenarlos para el funcionamiento, pero si se requiere ordenamiento, se puede añadir `pairs.sort()` al final.",
+      "response_time": 57.76,
+      "completion_tokens": 2492,
+      "gen_tps": 43.14,
+      "evaluation": {
+        "score": 9,
+        "justification": "La solucion es correcta y optima: una sola pasada con dict (hash map) que mapea valor -> lista de indices previos, buscando el complemento en O(1). Garantiza i < j por construccion (solo se emparejan indices ya vistos con el actual), maneja duplicados correctamente al guardar listas de indices, y devuelve TODOS los pares, no solo uno. Verificado contra los ejemplos: [1,2,3,4,5] target 5 devuelve [(1,2),(0,3)] y [1,1,2,3] target 4 devuelve [(0,3),(1,3)], ambos equivalentes a lo pedido. No usa fuerza bruta con dos bucles anidados sobre la lista. Unico defecto: la justificacion de complejidad es imprecisa: afirma que la generacion de pares 'tambien es lineal', cuando en realidad el coste es O(n + k) con k = numero de pares, que puede ser O(n^2) en el peor caso (p.ej. todos ceros con target 0). Esto es inherente al problema (hay que emitir toda la salida) y no un fallo del algoritmo, pero la explicacion sobrevende el analisis. Tambien el comentario del primer ejemplo sugiere un orden que no coincide exactamente con el real, aunque lo matiza con 'orden variable'.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La solucion es correcta y optima: una sola pasada con dict (hash map) que mapea valor -> lista de indices previos, buscando el complemento en O(1). Garantiza i < j por construccion (solo se emparejan indices ya vistos con el actual), maneja duplicados correctamente al guardar listas de indices, y devuelve TODOS los pares, no solo uno. Verificado contra los ejemplos: [1,2,3,4,5] target 5 devuelve [(1,2),(0,3)] y [1,1,2,3] target 4 devuelve [(0,3),(1,3)], ambos equivalentes a lo pedido. No usa fuerza bruta con dos bucles anidados sobre la lista. Unico defecto: la justificacion de complejidad es imprecisa: afirma que la generacion de pares 'tambien es lineal', cuando en realidad el coste es O(n + k) con k = numero de pares, que puede ser O(n^2) en el peor caso (p.ej. todos ceros con target 0). Esto es inherente al problema (hay que emitir toda la salida) y no un fallo del algoritmo, pero la explicacion sobrevende el analisis. Tambien el comentario del primer ejemplo sugiere un orden que no coincide exactamente con el real, aunque lo matiza con 'orden variable'.\"}"
+      },
+      "judge_time": 15.61
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 1191.29,
+      "tg_tps": null,
+      "response_time": 0.43,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=1191.3 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=1191.3 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 981.9,
+      "tg_tps": 44.92,
+      "response_time": 2.91,
+      "completion_tokens": 128,
+      "gen_tps": 44.92,
+      "model_response": "pp=981.9 tk/s  tg=44.9 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=981.9 tk/s  tg=44.9 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 464.94,
+      "tg_tps": null,
+      "response_time": 35.24,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=464.9 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=464.9 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-latest/llama-server.exe -hf openbmb/MiniCPM5-2B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-p 0.95 --min-p 0",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 459.44,
+      "tg_tps": 34.78,
+      "response_time": 39.34,
+      "completion_tokens": 128,
+      "gen_tps": 34.78,
+      "model_response": "pp=459.4 tk/s  tg=34.8 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=459.4 tk/s  tg=34.8 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

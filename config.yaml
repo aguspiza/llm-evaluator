@@ -360,6 +360,22 @@ models:
     extra_args: ["--jinja"]
     max_tokens: 8192
 
+  # GGUF oficial de openbmb. Sampling recomendado en la ficha: temp 1.0,
+  # top_p 0.95, min_p 0. La ficha sugiere repetition_penalty 1.05 solo si
+  # aparecen repeticiones. max_tokens alto porque es un modelo de thinking.
+  - name: "MiniCPM5-2B Q8_0 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "openbmb/MiniCPM5-2B-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-latest/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "--jinja", "--top-p", "0.95", "--min-p", "0"]
+    max_tokens: 24576
+
   - name: "Ornith-1.0-35B IQ2_XS (Remote pc1060)"
     type: remote
     host: "admin@pc1060.intra"
