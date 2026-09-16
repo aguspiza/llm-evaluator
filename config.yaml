@@ -376,6 +376,35 @@ models:
     extra_args: ["-ngl", "99", "--jinja", "--top-p", "0.95", "--min-p", "0"]
     max_tokens: 24576
 
+  # Identica a la Q8_0 salvo la cache KV (q8_0 en vez de f16).
+  - name: "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "openbmb/MiniCPM5-2B-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-latest/llama-server.exe"
+    ctk: "q8_0"
+    ctv: "q8_0"
+    ctx_size: 32768
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "--jinja", "--top-p", "0.95", "--min-p", "0"]
+    max_tokens: 24576
+
+  # Identica a la Q8_0 salvo el cuantizado, para medir solo lo que pierde
+  # al cuantizar.
+  - name: "MiniCPM5-2B Q4_K_M (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "openbmb/MiniCPM5-2B-GGUF:Q4_K_M"
+    port: 8082
+    exe: "~/Downloads/llama-latest/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "--jinja", "--top-p", "0.95", "--min-p", "0"]
+    max_tokens: 24576
+
   - name: "Ornith-1.0-35B IQ2_XS (Remote pc1060)"
     type: remote
     host: "admin@pc1060.intra"
