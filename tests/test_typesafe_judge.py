@@ -1,7 +1,9 @@
 """Tests for the `typesafe` (Jev) judge provider in llm_evaluator.evaluator."""
 from types import SimpleNamespace
 
-from llm_evaluator.evaluator import Evaluator, JEV_LEVELS, grade_from_score_answer
+from llm_evaluator.evaluator import (
+    Evaluator, JEV_LEVELS, JEV_SLOP_LEVELS, grade_from_score_answer, score_to_10,
+)
 
 
 def _answer(score, confidence=0.5, probabilities=None):
@@ -12,6 +14,18 @@ def _answer(score, confidence=0.5, probabilities=None):
 
 def test_levels_are_a_valid_jev_rubric():
     assert 2 <= len(JEV_LEVELS) <= 10
+    assert 2 <= len(JEV_SLOP_LEVELS) <= 10
+
+
+def test_score_to_10_rescales_any_rubric():
+    assert score_to_10(_answer(len(JEV_SLOP_LEVELS) - 1), JEV_SLOP_LEVELS) == 10
+    assert score_to_10(_answer(1.0), JEV_SLOP_LEVELS) == 2.5
+
+
+def test_grade_includes_slop_when_given():
+    ev = grade_from_score_answer(_answer(5.0), slop=_answer(2.0, confidence=0.7))
+    assert ev["jev_slop"] == 5.0 and ev["jev_slop_confidence"] == 0.7
+    assert "jev_slop" not in grade_from_score_answer(_answer(5.0))
 
 
 def test_grade_maps_top_level_to_10_and_bottom_to_0():
@@ -38,7 +52,7 @@ class FakeTypeSafe:
 
     def system_one(self, state, questions):
         self.calls.append((state, questions))
-        return SimpleNamespace(scores={"grade": self.answer})
+        return SimpleNamespace(scores={"grade": self.answer, "slop": _answer(0.0, confidence=0.9)})
 
 
 def test_evaluate_sends_state_and_rubric_and_returns_evaluation_dict():
@@ -49,7 +63,8 @@ def test_evaluate_sends_state_and_rubric_and_returns_evaluation_dict():
 
     state, questions = fake.calls[0]
     assert state == {"test_prompt": "What is 2+2?", "model_response": "4", "evaluation_criteria": "Must answer 4."}
-    assert list(questions) == ["grade"]
+    assert list(questions) == ["grade", "slop"]
     assert list(questions["grade"].criteria) == JEV_LEVELS
-    assert result["score"] == 10
+    assert list(questions["slop"].criteria) == JEV_SLOP_LEVELS
+    assert result["score"] == 10 and result["jev_slop"] == 0.0
     assert set(result) >= {"score", "justification", "judge_raw_response"}

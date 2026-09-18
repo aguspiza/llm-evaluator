@@ -25,10 +25,29 @@ JEV_LEVELS = [
     "Meets the criteria with only minor imperfections",
     "Fully meets every requirement of the criteria with no flaws",
 ]
+# Second, parallel question: how much of `model_response` is slop (filler, hedging,
+# repetition, sycophancy) relative to what `test_prompt` asked. Higher = more slop.
+JEV_SLOP_INSTRUCTIONS = (
+    "How much of `model_response` is padding rather than content needed to answer `test_prompt`? "
+    "Judge filler, hedging, restating the question, repeating points, meta-commentary and pleasantries. "
+    "Length by itself is not padding: long code or long reasoning that the task needs is not slop."
+)
+JEV_SLOP_LEVELS = [
+    "Direct: every sentence carries information the task needs",
+    "Mostly direct: one brief pleasantry, preamble, or a single restatement",
+    "Noticeable padding: restates the question, generic disclaimers, or repeats a point already made",
+    "Heavy padding: filler paragraphs, hedging, commentary about its own answer, lists of obvious caveats; useful content is a minority of the text",
+    "Almost all filler: boilerplate, sycophancy or repetition with little or no task-relevant content",
+]
 
 
-def grade_from_score_answer(answer) -> dict:
-    """Turn a Jev ScoreAnswer into the evaluation dict used across results."""
+def score_to_10(answer, levels) -> float:
+    """Probability-weighted level of a Jev ScoreAnswer rescaled to 0-10."""
+    return round(answer.score * 10 / (len(levels) - 1), 2)
+
+
+def grade_from_score_answer(answer, slop=None) -> dict:
+    """Turn Jev ScoreAnswers (grade, optional slop) into the evaluation dict used across results."""
     grade = answer.score * 10 / (len(JEV_LEVELS) - 1)
     probs = {str(k): round(v, 3) for k, v in answer.probabilities.items()}
     return {
@@ -39,6 +58,8 @@ def grade_from_score_answer(answer) -> dict:
         ),
         "jev_score": round(grade, 2),
         "jev_confidence": round(answer.confidence, 3),
+        **({"jev_slop": score_to_10(slop, JEV_SLOP_LEVELS),
+            "jev_slop_confidence": round(slop.confidence, 3)} if slop is not None else {}),
     }
 
 
@@ -151,9 +172,12 @@ Responde SOLO en formato JSON: {{"score": <0-10>, "justification": "..."}}"""
                 "model_response": model_response,
                 "evaluation_criteria": evaluation_criteria,
             },
-            questions={"grade": Score(instructions=JEV_INSTRUCTIONS, criteria=JEV_LEVELS)},
+            questions={
+                "grade": Score(instructions=JEV_INSTRUCTIONS, criteria=JEV_LEVELS),
+                "slop": Score(instructions=JEV_SLOP_INSTRUCTIONS, criteria=JEV_SLOP_LEVELS),
+            },
         )
-        return grade_from_score_answer(response.scores["grade"])
+        return grade_from_score_answer(response.scores["grade"], response.scores["slop"])
 
     def _parse_judge_response(self, response: str) -> dict:
         """Extract JSON from the judge response."""
