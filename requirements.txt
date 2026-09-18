@@ -4,3 +4,5 @@ typer
 rich
 python-dotenv
 anthropic
+typesafe-sdk
+pytest
