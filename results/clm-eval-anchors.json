@@ -1,0 +1,72 @@
+{
+  "rubric_baseline": {
+    "extremes": {
+      "n": 82,
+      "mae": 2.493070127215863,
+      "pearson": 0.559,
+      "spearman": 0.625
+    },
+    "random": {
+      "n": 82.0,
+      "mae": 2.2417217723520504,
+      "pearson": 0.50822,
+      "spearman": 0.56858
+    }
+  },
+  "jev": {
+    "extremes": {
+      "n": 82,
+      "mae": 0.8704106270904167,
+      "pearson": 0.905,
+      "spearman": 0.878
+    },
+    "random": {
+      "n": 82.0,
+      "mae": 1.1323391163290482,
+      "pearson": 0.8239799999999999,
+      "spearman": 0.8112600000000001
+    }
+  },
+  "noul": {
+    "extremes": {
+      "n": 82,
+      "mae": 1.2064391042444065,
+      "pearson": 0.783,
+      "spearman": 0.757
+    },
+    "random": {
+      "n": 82.0,
+      "mae": 1.4826946252609092,
+      "pearson": 0.73446,
+      "spearman": 0.7335200000000001
+    }
+  },
+  "noul_described": {
+    "extremes": {
+      "n": 82,
+      "mae": 1.0659918124631986,
+      "pearson": 0.87,
+      "spearman": 0.847
+    },
+    "random": {
+      "n": 82.0,
+      "mae": 1.4697600366131964,
+      "pearson": 0.72866,
+      "spearman": 0.72734
+    }
+  },
+  "levels_response": {
+    "extremes": {
+      "n": 82,
+      "mae": 0.972083824554494,
+      "pearson": 0.866,
+      "spearman": 0.814
+    },
+    "random": {
+      "n": 82.0,
+      "mae": 1.3436304199244213,
+      "pearson": 0.7642,
+      "spearman": 0.7669199999999999
+    }
+  }
+}

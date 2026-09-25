@@ -468,3 +468,8 @@ judges:
     provider: typesafe
     model: "jev-latest"
     api_key: "${TYPESAFE_API_KEY}"   # falls back to ~/.typesafe_apikey
+
+  clm:                      # Contrastive-LM CLM-8B (clm-serve at ~/ai/clm, Qwen3-8B encoder on pc1060)
+    provider: clm
+    model: "clm-latest"
+    base_url: "http://127.0.0.1:8700"

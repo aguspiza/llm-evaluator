@@ -1,0 +1,1424 @@
+{
+  "summary": {
+    "rubric_baseline": {
+      "mae": 3.6,
+      "pearson": 0.389,
+      "spearman": 0.469,
+      "pairwise": 0.719,
+      "min": 2.69,
+      "max": 8.22
+    },
+    "jev": {
+      "mae": 0.83,
+      "pearson": 0.944,
+      "spearman": 0.95,
+      "pairwise": 0.906,
+      "min": 0.0,
+      "max": 9.98
+    },
+    "noul": {
+      "mae": 2.46,
+      "pearson": 0.768,
+      "spearman": 0.68,
+      "pairwise": 0.867,
+      "min": 0.21,
+      "max": 8.15
+    },
+    "noul_described": {
+      "mae": 1.7,
+      "pearson": 0.736,
+      "spearman": 0.575,
+      "pairwise": 0.841,
+      "min": 0.03,
+      "max": 9.99
+    },
+    "levels_response": {
+      "mae": 2.9,
+      "pearson": 0.285,
+      "spearman": 0.091,
+      "pairwise": 0.916,
+      "min": 1.07,
+      "max": 9.98
+    }
+  },
+  "rows": [
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "logic_01",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.47,
+        "jev": 9.94,
+        "noul": 7.21,
+        "noul_described": 9.97,
+        "levels_response": 9.98
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "logic_02",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 3.89,
+        "jev": 9.98,
+        "noul": 6.17,
+        "noul_described": 9.72,
+        "levels_response": 9.1
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "logic_03",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 3.86,
+        "jev": 9.26,
+        "noul": 7.78,
+        "noul_described": 9.88,
+        "levels_response": 9.08
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "instruction_01",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 8.22,
+        "jev": 9.96,
+        "noul": 7.0,
+        "noul_described": 9.14,
+        "levels_response": 2.75
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "instruction_02",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 4.49,
+        "jev": 0.58,
+        "noul": 4.36,
+        "noul_described": 2.96,
+        "levels_response": 1.07
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "instruction_03",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "comprehension_01",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.91,
+        "jev": 9.54,
+        "noul": 5.87,
+        "noul_described": 9.28,
+        "levels_response": 9.11
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "code_01",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 7,
+      "scores": {
+        "rubric_baseline": 5.5,
+        "jev": 8.84,
+        "noul": 6.3,
+        "noul_described": 8.76,
+        "levels_response": 6.77
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "date_01",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 2,
+      "scores": {
+        "rubric_baseline": 3.31,
+        "jev": 2.76,
+        "noul": 3.91,
+        "noul_described": 9.23,
+        "levels_response": 3.94
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "code_mellum_01",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 4.29,
+        "jev": 9.76,
+        "noul": 5.04,
+        "noul_described": 9.8,
+        "levels_response": 9.61
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "code_mellum_02",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 5.06,
+        "jev": 9.52,
+        "noul": 4.32,
+        "noul_described": 7.05,
+        "levels_response": 7.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-nex-n25-mini-openrouter.json",
+      "test_id": "code_mellum_03",
+      "model_name": "Nex-N2.5-Mini (OpenRouter)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 4.44,
+        "jev": 7.06,
+        "noul": 4.03,
+        "noul_described": 8.85,
+        "levels_response": 7.92
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "logic_01",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 2.78,
+        "jev": 0.62,
+        "noul": 0.53,
+        "noul_described": 0.1,
+        "levels_response": 2.05
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "logic_02",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 4.24,
+        "jev": 9.94,
+        "noul": 6.45,
+        "noul_described": 9.92,
+        "levels_response": 8.59
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "logic_03",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 3.13,
+        "jev": 0.0,
+        "noul": 4.31,
+        "noul_described": 7.37,
+        "levels_response": 3.56
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "instruction_01",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 8.1,
+        "jev": 9.96,
+        "noul": 7.12,
+        "noul_described": 9.25,
+        "levels_response": 2.6
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "instruction_02",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.27,
+        "jev": 9.98,
+        "noul": 7.25,
+        "noul_described": 9.84,
+        "levels_response": 6.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "instruction_03",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "comprehension_01",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 3.81,
+        "jev": 9.84,
+        "noul": 5.18,
+        "noul_described": 8.77,
+        "levels_response": 7.59
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "code_01",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 5,
+      "scores": {
+        "rubric_baseline": 5.51,
+        "jev": 6.34,
+        "noul": 6.56,
+        "noul_described": 9.05,
+        "levels_response": 8.51
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "date_01",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 3.39,
+        "jev": 0.0,
+        "noul": 2.91,
+        "noul_described": 5.99,
+        "levels_response": 3.42
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "code_mellum_01",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 3.45,
+        "jev": 0.0,
+        "noul": 2.91,
+        "noul_described": 3.47,
+        "levels_response": 7.37
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "code_mellum_02",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 2,
+      "scores": {
+        "rubric_baseline": 5.04,
+        "jev": 5.84,
+        "noul": 1.28,
+        "noul_described": 0.5,
+        "levels_response": 4.76
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060.json",
+      "test_id": "code_mellum_03",
+      "model_name": "Noema-1.5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 3,
+      "scores": {
+        "rubric_baseline": 4.92,
+        "jev": 8.82,
+        "noul": 5.62,
+        "noul_described": 9.35,
+        "levels_response": 8.52
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "logic_01",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 3.06,
+        "jev": 0.56,
+        "noul": 0.88,
+        "noul_described": 0.11,
+        "levels_response": 1.72
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "logic_02",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.08,
+        "jev": 9.94,
+        "noul": 6.93,
+        "noul_described": 9.9,
+        "levels_response": 9.41
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "logic_03",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 7,
+      "scores": {
+        "rubric_baseline": 3.93,
+        "jev": 8.86,
+        "noul": 6.5,
+        "noul_described": 9.96,
+        "levels_response": 8.01
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "instruction_01",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 8.1,
+        "jev": 9.96,
+        "noul": 7.12,
+        "noul_described": 9.25,
+        "levels_response": 2.6
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "instruction_02",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.27,
+        "jev": 9.98,
+        "noul": 7.25,
+        "noul_described": 9.84,
+        "levels_response": 6.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "instruction_03",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "comprehension_01",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 5,
+      "scores": {
+        "rubric_baseline": 3.56,
+        "jev": 5.16,
+        "noul": 3.25,
+        "noul_described": 3.78,
+        "levels_response": 5.54
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "code_01",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 5.83,
+        "jev": 8.68,
+        "noul": 7.77,
+        "noul_described": 9.54,
+        "levels_response": 9.22
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "date_01",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 2,
+      "scores": {
+        "rubric_baseline": 2.95,
+        "jev": 2.36,
+        "noul": 3.68,
+        "noul_described": 8.97,
+        "levels_response": 4.54
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "code_mellum_01",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 3.67,
+        "jev": 0.8,
+        "noul": 1.44,
+        "noul_described": 0.47,
+        "levels_response": 3.22
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "code_mellum_02",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 6,
+      "scores": {
+        "rubric_baseline": 4.97,
+        "jev": 7.24,
+        "noul": 3.69,
+        "noul_described": 4.67,
+        "levels_response": 6.49
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-nothink-greedy.json",
+      "test_id": "code_mellum_03",
+      "model_name": "Noema-1.5-2B Q8_0 nothink-greedy (Remote pc1060)",
+      "ref_score": 3,
+      "scores": {
+        "rubric_baseline": 4.16,
+        "jev": 5.72,
+        "noul": 4.59,
+        "noul_described": 7.99,
+        "levels_response": 6.69
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "logic_01",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.51,
+        "jev": 9.92,
+        "noul": 7.1,
+        "noul_described": 9.98,
+        "levels_response": 9.95
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "logic_02",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 4.06,
+        "jev": 9.66,
+        "noul": 5.85,
+        "noul_described": 9.74,
+        "levels_response": 8.26
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "logic_03",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 4.17,
+        "jev": 8.98,
+        "noul": 8.12,
+        "noul_described": 9.99,
+        "levels_response": 9.65
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "instruction_01",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 7.39,
+        "jev": 0.02,
+        "noul": 5.85,
+        "noul_described": 6.96,
+        "levels_response": 1.91
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "instruction_02",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.27,
+        "jev": 9.98,
+        "noul": 7.25,
+        "noul_described": 9.84,
+        "levels_response": 6.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "instruction_03",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "comprehension_01",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 6,
+      "scores": {
+        "rubric_baseline": 3.59,
+        "jev": 5.18,
+        "noul": 3.87,
+        "noul_described": 5.09,
+        "levels_response": 6.48
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "code_mellum_01",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 3.74,
+        "jev": 0.54,
+        "noul": 1.19,
+        "noul_described": 0.18,
+        "levels_response": 3.14
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "code_mellum_02",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 3.82,
+        "jev": 0.58,
+        "noul": 0.21,
+        "noul_described": 0.03,
+        "levels_response": 2.89
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-1.5-2b-q8-pc1060-thinking-rec.json",
+      "test_id": "code_mellum_03",
+      "model_name": "Noema-1.5-2B Q8_0 thinking-rec (Remote pc1060)",
+      "ref_score": 4,
+      "scores": {
+        "rubric_baseline": 4.4,
+        "jev": 8.34,
+        "noul": 4.54,
+        "noul_described": 9.29,
+        "levels_response": 6.89
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "logic_01",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.44,
+        "jev": 9.82,
+        "noul": 7.46,
+        "noul_described": 9.98,
+        "levels_response": 9.93
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "logic_02",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.7,
+        "jev": 9.96,
+        "noul": 5.73,
+        "noul_described": 9.91,
+        "levels_response": 6.41
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "logic_03",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 3.73,
+        "jev": 8.64,
+        "noul": 7.24,
+        "noul_described": 9.85,
+        "levels_response": 7.87
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "instruction_01",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 8.22,
+        "jev": 9.96,
+        "noul": 7.0,
+        "noul_described": 9.14,
+        "levels_response": 2.75
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "instruction_02",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.27,
+        "jev": 9.98,
+        "noul": 7.25,
+        "noul_described": 9.84,
+        "levels_response": 6.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "instruction_03",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "comprehension_01",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 3.86,
+        "jev": 9.56,
+        "noul": 4.55,
+        "noul_described": 8.26,
+        "levels_response": 7.42
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "code_01",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 7,
+      "scores": {
+        "rubric_baseline": 5.37,
+        "jev": 8.92,
+        "noul": 7.63,
+        "noul_described": 9.41,
+        "levels_response": 9.39
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "date_01",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 2,
+      "scores": {
+        "rubric_baseline": 2.69,
+        "jev": 1.1,
+        "noul": 3.68,
+        "noul_described": 6.68,
+        "levels_response": 4.82
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "code_mellum_01",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 3.45,
+        "jev": 0.0,
+        "noul": 2.91,
+        "noul_described": 3.47,
+        "levels_response": 7.37
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "code_mellum_02",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 1,
+      "scores": {
+        "rubric_baseline": 4.08,
+        "jev": 3.64,
+        "noul": 0.49,
+        "noul_described": 0.08,
+        "levels_response": 3.53
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060.json",
+      "test_id": "code_mellum_03",
+      "model_name": "Noema-2B Q8_0 (Remote pc1060)",
+      "ref_score": 1,
+      "scores": {
+        "rubric_baseline": 5.39,
+        "jev": 6.5,
+        "noul": 6.18,
+        "noul_described": 9.47,
+        "levels_response": 7.83
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "logic_01",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 0,
+      "scores": {
+        "rubric_baseline": 2.97,
+        "jev": 0.7,
+        "noul": 0.63,
+        "noul_described": 0.12,
+        "levels_response": 1.33
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "logic_02",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 2,
+      "scores": {
+        "rubric_baseline": 3.84,
+        "jev": 2.98,
+        "noul": 1.98,
+        "noul_described": 2.09,
+        "levels_response": 4.95
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "logic_03",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 6,
+      "scores": {
+        "rubric_baseline": 4.34,
+        "jev": 8.24,
+        "noul": 7.18,
+        "noul_described": 9.89,
+        "levels_response": 7.67
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "instruction_01",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 8.1,
+        "jev": 9.96,
+        "noul": 7.12,
+        "noul_described": 9.25,
+        "levels_response": 2.6
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "instruction_02",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.27,
+        "jev": 9.98,
+        "noul": 7.25,
+        "noul_described": 9.84,
+        "levels_response": 6.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "instruction_03",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "comprehension_01",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.75,
+        "jev": 9.86,
+        "noul": 5.61,
+        "noul_described": 9.44,
+        "levels_response": 8.2
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "code_01",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 5.68,
+        "jev": 9.62,
+        "noul": 7.9,
+        "noul_described": 9.55,
+        "levels_response": 9.62
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "date_01",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 3,
+      "scores": {
+        "rubric_baseline": 3.4,
+        "jev": 4.94,
+        "noul": 5.13,
+        "noul_described": 9.37,
+        "levels_response": 6.64
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "code_mellum_01",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 4,
+      "scores": {
+        "rubric_baseline": 5.11,
+        "jev": 5.98,
+        "noul": 4.31,
+        "noul_described": 9.1,
+        "levels_response": 8.05
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "code_mellum_02",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 3,
+      "scores": {
+        "rubric_baseline": 5.02,
+        "jev": 4.38,
+        "noul": 4.07,
+        "noul_described": 6.85,
+        "levels_response": 8.34
+      }
+    },
+    {
+      "file": "results/results-2026-09-13-noema-2b-q8-pc1060-nothink-rec.json",
+      "test_id": "code_mellum_03",
+      "model_name": "Noema-2B Q8_0 nothink-rec (Remote pc1060)",
+      "ref_score": 4,
+      "scores": {
+        "rubric_baseline": 4.42,
+        "jev": 6.48,
+        "noul": 2.9,
+        "noul_described": 4.37,
+        "levels_response": 5.36
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "logic_01",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.59,
+        "jev": 9.96,
+        "noul": 7.75,
+        "noul_described": 9.98,
+        "levels_response": 9.95
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "logic_02",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 3.69,
+        "jev": 9.96,
+        "noul": 6.58,
+        "noul_described": 9.76,
+        "levels_response": 8.75
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "logic_03",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.12,
+        "jev": 8.04,
+        "noul": 5.4,
+        "noul_described": 9.74,
+        "levels_response": 6.78
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "instruction_01",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 8.1,
+        "jev": 9.96,
+        "noul": 7.12,
+        "noul_described": 9.25,
+        "levels_response": 2.6
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "instruction_02",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.27,
+        "jev": 9.98,
+        "noul": 7.25,
+        "noul_described": 9.84,
+        "levels_response": 6.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "instruction_03",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "comprehension_01",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 4.15,
+        "jev": 9.02,
+        "noul": 5.04,
+        "noul_described": 9.29,
+        "levels_response": 8.06
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "code_01",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 6.03,
+        "jev": 9.34,
+        "noul": 6.86,
+        "noul_described": 9.74,
+        "levels_response": 9.45
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "date_01",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 2,
+      "scores": {
+        "rubric_baseline": 3.19,
+        "jev": 2.04,
+        "noul": 5.35,
+        "noul_described": 9.75,
+        "levels_response": 5.39
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "code_mellum_01",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.91,
+        "jev": 9.92,
+        "noul": 4.97,
+        "noul_described": 9.86,
+        "levels_response": 9.54
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "code_mellum_02",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 3,
+      "scores": {
+        "rubric_baseline": 4.94,
+        "jev": 5.38,
+        "noul": 2.23,
+        "noul_described": 0.85,
+        "levels_response": 4.81
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q4km-pc1060.json",
+      "test_id": "code_mellum_03",
+      "model_name": "MiniCPM5-2B Q4_K_M (Remote pc1060)",
+      "ref_score": 3,
+      "scores": {
+        "rubric_baseline": 4.01,
+        "jev": 4.06,
+        "noul": 1.83,
+        "noul_described": 2.88,
+        "levels_response": 4.26
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "logic_01",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 3.55,
+        "jev": 9.42,
+        "noul": 6.04,
+        "noul_described": 9.88,
+        "levels_response": 9.76
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "logic_02",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 3.45,
+        "jev": 9.98,
+        "noul": 6.2,
+        "noul_described": 9.63,
+        "levels_response": 8.12
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "logic_03",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 4.44,
+        "jev": 8.64,
+        "noul": 8.08,
+        "noul_described": 9.97,
+        "levels_response": 9.28
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "instruction_01",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 8.1,
+        "jev": 9.96,
+        "noul": 7.12,
+        "noul_described": 9.25,
+        "levels_response": 2.6
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "instruction_02",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.27,
+        "jev": 9.98,
+        "noul": 7.25,
+        "noul_described": 9.84,
+        "levels_response": 6.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "instruction_03",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "comprehension_01",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 7,
+      "scores": {
+        "rubric_baseline": 3.51,
+        "jev": 6.96,
+        "noul": 3.92,
+        "noul_described": 6.48,
+        "levels_response": 6.82
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "code_01",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.36,
+        "jev": 9.92,
+        "noul": 8.15,
+        "noul_described": 9.75,
+        "levels_response": 9.73
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "date_01",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 2,
+      "scores": {
+        "rubric_baseline": 3.06,
+        "jev": 2.12,
+        "noul": 5.15,
+        "noul_described": 9.62,
+        "levels_response": 5.24
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "code_mellum_01",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.79,
+        "jev": 9.88,
+        "noul": 5.07,
+        "noul_described": 9.88,
+        "levels_response": 9.78
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "code_mellum_02",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 5.12,
+        "jev": 8.52,
+        "noul": 4.64,
+        "noul_described": 7.99,
+        "levels_response": 8.49
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060.json",
+      "test_id": "code_mellum_03",
+      "model_name": "MiniCPM5-2B Q8_0 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 6.12,
+        "jev": 9.26,
+        "noul": 6.05,
+        "noul_described": 9.73,
+        "levels_response": 9.08
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "logic_01",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 3.7,
+        "jev": 9.94,
+        "noul": 8.03,
+        "noul_described": 9.98,
+        "levels_response": 9.97
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "logic_02",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 3.61,
+        "jev": 9.96,
+        "noul": 5.88,
+        "noul_described": 9.33,
+        "levels_response": 8.63
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "logic_03",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 3.87,
+        "jev": 8.38,
+        "noul": 8.01,
+        "noul_described": 9.98,
+        "levels_response": 9.29
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "instruction_01",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 8.1,
+        "jev": 9.96,
+        "noul": 7.12,
+        "noul_described": 9.25,
+        "levels_response": 2.6
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "instruction_02",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 5.27,
+        "jev": 9.98,
+        "noul": 7.25,
+        "noul_described": 9.84,
+        "levels_response": 6.74
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "instruction_03",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 10,
+      "scores": {
+        "rubric_baseline": 4.81,
+        "jev": 9.98,
+        "noul": 6.39,
+        "noul_described": 9.67,
+        "levels_response": 1.8
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "comprehension_01",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 8,
+      "scores": {
+        "rubric_baseline": 3.77,
+        "jev": 8.96,
+        "noul": 4.69,
+        "noul_described": 7.81,
+        "levels_response": 7.36
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "code_01",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 4.92,
+        "jev": 9.84,
+        "noul": 6.92,
+        "noul_described": 9.18,
+        "levels_response": 9.41
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "date_01",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 4,
+      "scores": {
+        "rubric_baseline": 3.43,
+        "jev": 6.9,
+        "noul": 5.15,
+        "noul_described": 9.83,
+        "levels_response": 7.75
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "code_mellum_01",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 4.28,
+        "jev": 9.86,
+        "noul": 4.8,
+        "noul_described": 9.78,
+        "levels_response": 9.5
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "code_mellum_02",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 7,
+      "scores": {
+        "rubric_baseline": 4.94,
+        "jev": 8.98,
+        "noul": 5.32,
+        "noul_described": 8.69,
+        "levels_response": 8.47
+      }
+    },
+    {
+      "file": "results/results-2026-09-16-minicpm5-2b-q8-pc1060-kvq8.json",
+      "test_id": "code_mellum_03",
+      "model_name": "MiniCPM5-2B Q8_0 kvq8 (Remote pc1060)",
+      "ref_score": 9,
+      "scores": {
+        "rubric_baseline": 5.55,
+        "jev": 7.48,
+        "noul": 5.21,
+        "noul_described": 9.59,
+        "levels_response": 7.99
+      }
+    }
+  ]
+}

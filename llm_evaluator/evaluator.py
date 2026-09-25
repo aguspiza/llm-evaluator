@@ -1,7 +1,10 @@
 import json
 import os
 import re
+from types import SimpleNamespace
 from typing import Optional
+
+import httpx
 from llm_evaluator.client import OpenAIClient
 
 
@@ -46,13 +49,13 @@ def score_to_10(answer, levels) -> float:
     return round(answer.score * 10 / (len(levels) - 1), 2)
 
 
-def grade_from_score_answer(answer, slop=None) -> dict:
+def grade_from_score_answer(answer, slop=None, judge: str = "Jev") -> dict:
     """Turn Jev ScoreAnswers (grade, optional slop) into the evaluation dict used across results."""
     grade = answer.score * 10 / (len(JEV_LEVELS) - 1)
     probs = {str(k): round(v, 3) for k, v in answer.probabilities.items()}
     return {
         "score": int(round(grade)),
-        "justification": f"Jev score {grade:.2f}/10 (confidence {answer.confidence:.2f}); p={probs}",
+        "justification": f"{judge} score {grade:.2f}/10 (confidence {answer.confidence:.2f}); p={probs}",
         "judge_raw_response": json.dumps(
             {"score": answer.score, "confidence": answer.confidence, "probabilities": probs}
         ),
@@ -99,6 +102,10 @@ class Evaluator:
                     model=judge_config.get("model"),
                 )
             self._typesafe = judge_client
+        elif self.provider == "clm":
+            self._anthropic = None
+            self.client = None
+            self.base_url = judge_config.get("base_url", "http://127.0.0.1:8700")
         else:
             self._anthropic = None
             self.client = judge_client
@@ -107,6 +114,8 @@ class Evaluator:
         """Evaluate a single response and return score + justification + raw judge output."""
         if self.provider == "typesafe":
             return self._call_typesafe(test_prompt, model_response, evaluation_criteria)
+        if self.provider == "clm":
+            return self._call_clm(test_prompt, model_response, evaluation_criteria)
 
         user_prompt = f"""--- TEST PROMPT ---
 {test_prompt}
@@ -178,6 +187,24 @@ Responde SOLO en formato JSON: {{"score": <0-10>, "justification": "..."}}"""
             },
         )
         return grade_from_score_answer(response.scores["grade"], response.scores["slop"])
+
+    def _call_clm(self, test_prompt: str, model_response: str, evaluation_criteria: str) -> dict:
+        """Same questions as the Jev judge, sent to clm-serve's TypeSafe-shaped /v1/systemone."""
+        r = httpx.post(f"{self.base_url}/v1/systemone", timeout=300, json={
+            "model": self.model,
+            "state": {
+                "test_prompt": test_prompt,
+                "model_response": model_response,
+                "evaluation_criteria": evaluation_criteria,
+            },
+            "questions": {
+                "grade": {"type": "score", "instructions": JEV_INSTRUCTIONS, "criteria": JEV_LEVELS},
+                "slop": {"type": "score", "instructions": JEV_SLOP_INSTRUCTIONS, "criteria": JEV_SLOP_LEVELS},
+            },
+        })
+        r.raise_for_status()
+        answers = {k: SimpleNamespace(**a) for k, a in r.json()["answers"].items()}
+        return grade_from_score_answer(answers["grade"], answers["slop"], judge="CLM")
 
     def _parse_judge_response(self, response: str) -> dict:
         """Extract JSON from the judge response."""
