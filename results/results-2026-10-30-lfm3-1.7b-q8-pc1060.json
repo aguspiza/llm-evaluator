@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-10-30T22:19:29.574489",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "**Respuesta:** No, no es necesariamente cierto.\n\n**Razonamiento paso a paso:**\n\n1. **Interpretar las proposiciones:**\n   - \"Todos los A son B\" significa que todo elemento de A pertenece a B. En términos de conjuntos: \\(A \\subseteq B\\).\n   - \"Algunos B son C\" significa que existe al menos un elemento que pertenece simultáneamente a B y a C. Es decir, la intersección \\(B \\cap C\\) no es vacía.\n\n2. **Condición para que \"algunos A son C\" sea verdadera:**\n   - \"Algunos A son C\" equivale a que existe al menos un elemento en la intersección \\(A \\cap C\\). Es decir, \\(A \\cap C \\neq \\emptyset\\).\n\n3. **Analizar si las dos premisas implican \\(A \\cap C \\neq \\emptyset\\):**\n   - Las premisas nos dicen:\n     - \\(A \\subseteq B\\) (todos los A están en B).\n     - \\(B \\cap C \\neq \\emptyset\\) (existe al menos un elemento común entre B y C).\n   - Sin embargo, no hay ninguna conexión directa que obligue a ese elemento común de B e C también estar en A. Podría ser un elemento de B que pertenece a C pero no a A.\n\n4. **Construir un contraejemplo:**\n   - Sea \\(A = \\{1\\}\\), \\(B = \\{1, 2\\}\\), y \\(C = \\{2\\}\\).\n   - Verificar las premisas:\n     - Todos los A son B: el único elemento de A es 1, y 1 ∈ B. ✓\n     - Algunos B son C: el elemento 2 está en B y también en C (2 ∈ B ∩ C). ✓\n   - Pero \\(A \\cap C = \\{1\\} \\cap \\{2\\} = \\emptyset\\). Por lo tanto, ningún elemento de A es C.\n   - Esto demuestra que las condiciones pueden cumplirse sin que haya superposición entre A e C.\n\n**Conclusión:** La implicación \"si todos los A son B y algunos B son C, entonces algunos A son C\" **no es válida en general**. Se necesita una condición adicional (por ejemplo, que al menos un elemento de C también esté en A) para garantizar la conclusión.",
+      "response_time": 21.4,
+      "completion_tokens": 1127,
+      "gen_tps": 52.66,
+      "evaluation": {
+        "score": 10,
+        "justification": "El modelo llega a la conclusión lógicamente correcta (no es necesariamente cierto) y la sustenta con un razonamiento impecable: formaliza ambas premisas en notación de conjuntos (A ⊆ B, B ∩ C ≠ ∅), explicita la condición que habría que probar (A ∩ C ≠ ∅), identifica con precisión el punto clave —que el elemento común a B y C no está obligado a pertenecer a A— y aporta un contraejemplo mínimo y verificado (A={1}, B={1,2}, C={2}) comprobando que satisface las premisas y falsea la conclusión. Esto corresponde correctamente a la falacia del silogismo AII inválido por término medio no distribuido. La estructura es clara, no hay errores ni afirmaciones espurias; el único detalle menor es la coletilla final sobre la 'condición adicional', que es casi circular (equivale a asumir la conclusión), y la errata ortográfica 'B e C'/'A e C', ninguna de las cuales afecta la validez lógica.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"El modelo llega a la conclusión lógicamente correcta (no es necesariamente cierto) y la sustenta con un razonamiento impecable: formaliza ambas premisas en notación de conjuntos (A ⊆ B, B ∩ C ≠ ∅), explicita la condición que habría que probar (A ∩ C ≠ ∅), identifica con precisión el punto clave —que el elemento común a B y C no está obligado a pertenecer a A— y aporta un contraejemplo mínimo y verificado (A={1}, B={1,2}, C={2}) comprobando que satisface las premisas y falsea la conclusión. Esto corresponde correctamente a la falacia del silogismo AII inválido por término medio no distribuido. La estructura es clara, no hay errores ni afirmaciones espurias; el único detalle menor es la coletilla final sobre la 'condición adicional', que es casi circular (equivale a asumir la conclusión), y la errata ortográfica 'B e C'/'A e C', ninguna de las cuales afecta la validez lógica.\"}"
+      },
+      "judge_time": 18.87
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "**Orden de llegada (de primero a último): Ana → Bruno → Diana → Carlos → Elena**\n\n### Paso a paso\n\n1. **Datos dados**\n   - *Ana llegó antes que Bruno.*  \n     → **Ana < Bruno** (A antes de B).\n   - *Carlos llegó después de Diana pero antes de Elena.*  \n     → **Diana < Carlos < Elena** (D → C → E).\n   - *Bruno llegó antes que Diana.*  \n     → **Bruno < Diana** (B < D).\n\n2. **Construir las relaciones conocidas**\n   - De “Ana < Bruno”: A → B.\n   - De “Bruno < Diana”: B → D.\n   - De “Diana < Carlos < Elena”: D → C → E.\n\n3. **Unir las cadenas**\n   - Combinamos:  \n     **A → B → D → C → E**.\n   - Esto cumple todas las condiciones:\n     * A (Ana) antes que B (Bruno). ✔\n     * B (Bruno) antes que D (Diana). ✔\n     * D (Diana) antes que C (Carlos) y C antes que E (Elena). ✔\n\n4. **Orden final**\n   - 1.º lugar: **Ana**  \n   - 2.º lugar: **Bruno**  \n   - 3.º lugar: **Diana**  \n   - 4.º lugar: **Carlos**  \n   - 5.º lugar: **Elena**\n\nPor lo tanto, el orden completo de llegada es:\n\n**Ana, Bruno, Diana, Carlos, Elena**.",
+      "response_time": 23.54,
+      "completion_tokens": 1371,
+      "gen_tps": 58.24,
+      "evaluation": {
+        "score": 10,
+        "justification": "El orden final (Ana, Bruno, Diana, Carlos, Elena) es correcto y coincide exactamente con la solución esperada. El razonamiento es sistemático: formaliza cada pista como una relación de orden (A<B, D<C<E, B<D), encadena las restricciones para obtener A→B→D→C→E y verifica explícitamente que la secuencia cumple las tres condiciones. No omite pasos clave y la presentación es clara y sin errores.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"El orden final (Ana, Bruno, Diana, Carlos, Elena) es correcto y coincide exactamente con la solución esperada. El razonamiento es sistemático: formaliza cada pista como una relación de orden (A<B, D<C<E, B<D), encadena las restricciones para obtener A→B→D→C→E y verifica explícitamente que la secuencia cumple las tres condiciones. No omite pasos clave y la presentación es clara y sin errores.\"}"
+      },
+      "judge_time": 15.32
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "**Profesiones de los tres individuos:**\n\n- **López**: Médico  \n- **García**: Abogado  \n- **Martínez**: Ingeniero  \n\n---\n\n### Razonamiento paso a paso:\n\n1. **Clue 1: López nunca ha estudiado derecho ni ingeniería.**  \n   - Esto significa que López no puede ser abogado (estudio de derecho) ni ingeniero (estudió ingeniería).  \n   - La única profesión restante es **médico** (no se estudia derecho ni ingeniería como carrera principal, aunque podría tener otras especialidades, pero en este contexto es la más lógica).\n\n2. **Clue 2: García se graduó en la misma universidad que el médico.**  \n   - Si López es el médico, entonces García y López comparten la misma universidad de graduación. Esto ayuda a confirmar que García pertenece a una profesión relacionada con derecho (abogado), ya que los abogados suelen estudiar en la misma universidad donde se forman los médicos.\n\n3. **Clue 3: Martínez no es abogado.**  \n   - Como Martínez no puede ser abogado, y ya hemos asignado López como médico y García como abogado, la única profesión disponible para Martínez es **ingeniero**.\n\n**Conclusión:**  \n- López → Médico (por falta de estudios en derecho e ingeniería).  \n- García → Abogado (graduó en la misma universidad que el médico, y no es Martínez).  \n- Martínez → Ingeniero (no es abogado, y queda como la tercera opción).\n\nEsta asignación cumple todas las condiciones dadas.",
+      "response_time": 17.4,
+      "completion_tokens": 1009,
+      "gen_tps": 58.0,
+      "evaluation": {
+        "score": 7,
+        "justification": "La solución final es correcta (López médico, García abogado, Martínez ingeniero) y la cadena esencial es válida: descarte en la pista 1 para López, y pista 3 para situar a Martínez como ingeniero dejando a García como abogado. Sin embargo el rigor falla en varios puntos: la interpretación de la pista 2 es un disparate inventado ('los abogados suelen estudiar en la misma universidad donde se forman los médicos') en lugar de la inferencia correcta (García no es el médico); el paso 1 se debilita con una hedge innecesaria ('podría tener otras especialidades, pero es la más lógica') cuando la deducción es forzosa; y hay mezcla de idiomas ('Clue 1/2/3') en una respuesta en español. Respuesta acertada con saltos y justificaciones espurias en el camino.",
+        "judge_raw_response": "{\"score\": 7, \"justification\": \"La solución final es correcta (López médico, García abogado, Martínez ingeniero) y la cadena esencial es válida: descarte en la pista 1 para López, y pista 3 para situar a Martínez como ingeniero dejando a García como abogado. Sin embargo el rigor falla en varios puntos: la interpretación de la pista 2 es un disparate inventado ('los abogados suelen estudiar en la misma universidad donde se forman los médicos') en lugar de la inferencia correcta (García no es el médico); el paso 1 se debilita con una hedge innecesaria ('podría tener otras especialidades, pero es la más lógica') cuando la deducción es forzosa; y hay mezcla de idiomas ('Clue 1/2/3') en una respuesta en español. Respuesta acertada con saltos y justificaciones espurias en el camino.\"}"
+      },
+      "judge_time": 19.96
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "5",
+      "response_time": 5.28,
+      "completion_tokens": 304,
+      "gen_tps": 57.62,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente el numero '5', dentro del rango 1-10 solicitado, sin explicaciones, saludos ni texto adicional. Cumple al 100% la instruccion del prompt.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente el numero '5', dentro del rango 1-10 solicitado, sin explicaciones, saludos ni texto adicional. Cumple al 100% la instruccion del prompt.\"}"
+      },
+      "judge_time": 14.37
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 1.55,
+      "completion_tokens": 86,
+      "gen_tps": 55.61,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente '8': valor correcto (las arañas tienen 8 patas) y formato perfecto, sin texto adicional, unidades ni puntuación. Cumple ambos criterios al máximo.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente '8': valor correcto (las arañas tienen 8 patas) y formato perfecto, sin texto adicional, unidades ni puntuación. Cumple ambos criterios al máximo.\"}"
+      },
+      "judge_time": 15.62
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 2.22,
+      "completion_tokens": 126,
+      "gen_tps": 56.69,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente \"8\": valor correcto (las arañas tienen 8 patas) y formato perfecto, sin explicaciones, unidades ni puntuación adicional. Cumple ambos criterios al máximo.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente \\\"8\\\": valor correcto (las arañas tienen 8 patas) y formato perfecto, sin explicaciones, unidades ni puntuación adicional. Cumple ambos criterios al máximo.\"}"
+      },
+      "judge_time": 14.96
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energía luminosa en energía química. En los cloroplastos de las células vegetales, donde la clorofila captura la luz solar, absorben dióxido de carbono y agua para producir glucosa y liberar oxígeno como subproducto. Este proceso es fundamental para la vida en la Tierra, ya que proporciona la base de la cadena alimenticia y mantiene los niveles de oxígeno en la atmósfera.",
+      "response_time": 14.36,
+      "completion_tokens": 826,
+      "gen_tps": 57.53,
+      "evaluation": {
+        "score": 9,
+        "justification": "El resumen cumple con exactamente 3 oraciones y conserva todas las ideas clave: conversion de energia luminosa en quimica por plantas, algas y bacterias; los reactivos y productos (CO2 + agua -> glucosa + oxigeno) junto al rol de los cloroplastos y la clorofila; y la importancia para la vida en la Tierra (cadena alimenticia y niveles de oxigeno). No anade informacion externa ni omite conceptos esenciales. Se descuenta un punto por un pequeno defecto de redaccion: en la segunda oracion el sujeto queda elidido tras el arranque con locucion adverbial ('En los cloroplastos... absorben dioxido de carbono'), lo que la hace gramaticalmente ambigua, ademas de una inconsistencia menor de tildes ('fotosintesis' sin acento en la primera palabra).",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"El resumen cumple con exactamente 3 oraciones y conserva todas las ideas clave: conversion de energia luminosa en quimica por plantas, algas y bacterias; los reactivos y productos (CO2 + agua -> glucosa + oxigeno) junto al rol de los cloroplastos y la clorofila; y la importancia para la vida en la Tierra (cadena alimenticia y niveles de oxigeno). No anade informacion externa ni omite conceptos esenciales. Se descuenta un punto por un pequeno defecto de redaccion: en la segunda oracion el sujeto queda elidido tras el arranque con locucion adverbial ('En los cloroplastos... absorben dioxido de carbono'), lo que la hace gramaticalmente ambigua, ademas de una inconsistencia menor de tildes ('fotosintesis' sin acento en la primera palabra).\"}"
+      },
+      "judge_time": 19.27
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "```python\ndef factorial(n):\n    \"\"\"\n    Calcula el factorial de un entero no negativo n.\n    \n    Parámetros:\n    - n: entero no negativo (n >= 0)\n    \n    Retorna:\n        El producto de todos los enteros desde 1 hasta n (inclusive).\n        Para n = 0, devuelve 1 por convención.\n    \n    Lógica:\n        - Si n es 0 o 1, el factorial es 1.\n        - Para n > 1, se multiplica iterativamente cada entero desde 2 hasta n.\n    \"\"\"\n    # Verificar que la entrada sea un número entero no negativo\n    if not isinstance(n, int):\n        raise TypeError(\"El argumento debe ser un entero.\")\n    if n < 0:\n        raise ValueError(\"El factorial solo está definido para números enteros no negativos.\")\n    \n    result = 1  # Inicializamos el resultado con 1 (identidad multiplicativa)\n    \n    # Iteramos desde 1 hasta n (inclusive) y multiplicamos cada número al resultado\n    for i in range(1, n + 1):\n        result *= i\n    \n    return result\n\n# Ejemplo de uso:\nif __name__ == \"__main__\":\n    print(factorial(5))  # Salida: 120\n    print(factorial(0))  # Salida: 1\n```\n\n**Explicación breve:**\n- La función primero valida que `n` sea un entero no negativo.\n- Inicializa `result = 1`.\n- El bucle `for` recorre los valores de `i` desde 1 hasta `n`, multiplicando cada uno al resultado acumulado.\n- Finalmente, devuelve el factorial calculado.",
+      "response_time": 14.52,
+      "completion_tokens": 840,
+      "gen_tps": 57.87,
+      "evaluation": {
+        "score": 10,
+        "justification": "La implementación es correcta: inicializa result=1 y multiplica iterativamente de 1 a n, devolviendo 1 para n=0 y n=1 (caso base cubierto correctamente por el rango vacío/unitario). Maneja números negativos con ValueError y añade validación de tipo con TypeError, superando lo exigido. Incluye docstring con parámetros, retorno y explicación de la lógica, más comentarios en línea claros y una explicación final. El código es simple, legible y sin complejidad innecesaria, con ejemplos de uso bajo el guard __main__ que demuestran 5! = 120 y 0! = 1. No se detectan errores lógicos ni omisiones respecto a los criterios.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La implementación es correcta: inicializa result=1 y multiplica iterativamente de 1 a n, devolviendo 1 para n=0 y n=1 (caso base cubierto correctamente por el rango vacío/unitario). Maneja números negativos con ValueError y añade validación de tipo con TypeError, superando lo exigido. Incluye docstring con parámetros, retorno y explicación de la lógica, más comentarios en línea claros y una explicación final. El código es simple, legible y sin complejidad innecesaria, con ejemplos de uso bajo el guard __main__ que demuestran 5! = 120 y 0! = 1. No se detectan errores lógicos ni omisiones respecto a los criterios.\"}"
+      },
+      "judge_time": 15.0
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "Mi conocimiento llega hasta **marzo de 2026**. Ese es el mes y año del último dato de entrenamiento o actualización de mi información.\n\n**Razonamiento:** Como modelo de Liquid Foundation Model (LFM) creado por Liquid AI, tengo una fecha de corte para mis datos de entrenamiento. Mi última actualización relevante está marcada en marzo de 2026. Por lo tanto, ese es el punto más reciente dentro del conocimiento que poseo sobre mí mismo y sobre los eventos hasta esa fecha.\n\nSi necesitas saber algo posterior a esa fecha, no tendré información verificada o actualizada sobre él.",
+      "response_time": 5.58,
+      "completion_tokens": 320,
+      "gen_tps": 57.4,
+      "evaluation": {
+        "score": 3,
+        "justification": "La respuesta declara una fecha de corte (marzo de 2026) pero no aporta ningun razonamiento real: el apartado de 'razonamiento' es circular ('tengo una fecha de corte... mi ultima actualizacion esta marcada en marzo de 2026'), sin mencionar eventos que conozca o desconozca ni ninguna inferencia a partir de su base de conocimiento. Presenta la fecha como un dato interno conocido con certeza en lugar de una estimacion, y anade relleno irrelevante (identidad del modelo, aviso final sobre informacion posterior) que no contribuye al razonamiento pedido. Merito minimo: reconoce la limitacion temporal y no afirma conocimiento en tiempo real, pero encaja en el tramo bajo por la ausencia de razonamiento explicito.",
+        "judge_raw_response": "{\"score\": 3, \"justification\": \"La respuesta declara una fecha de corte (marzo de 2026) pero no aporta ningun razonamiento real: el apartado de 'razonamiento' es circular ('tengo una fecha de corte... mi ultima actualizacion esta marcada en marzo de 2026'), sin mencionar eventos que conozca o desconozca ni ninguna inferencia a partir de su base de conocimiento. Presenta la fecha como un dato interno conocido con certeza en lugar de una estimacion, y anade relleno irrelevante (identidad del modelo, aviso final sobre informacion posterior) que no contribuye al razonamiento pedido. Merito minimo: reconoce la limitacion temporal y no afirma conocimiento en tiempo real, pero encaja en el tramo bajo por la ausencia de razonamiento explicito.\"}"
+      },
+      "judge_time": 17.48
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "## Bug explanation\n\nIn the `merge` function, after the `while` loop finishes (when either `left` or `right` runs out of elements), **the remaining items from the other list are not added to `result`**.  \nThe current code returns only what was collected during the loop:\n\n```python\nreturn result          # ← missing leftovers!\n```\n\nFor example, with `left = [1, 3]` and `right = [2]`:\n- Loop adds `1`, then `2`.\n- After the loop, `i = 1` (still elements in `left`) and `j = 1` (no more in `right`).\n- The function returns `[1, 2]`, but the correct merged list should be `[1, 2, 3]`.\n\nThis causes missing values in the final sorted array.\n\n---\n\n## Corrected code\n\nAdd two lines after the loop to extend `result` with any remaining elements from both lists:\n\n```python\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Append any leftover elements from either list\n    result.extend(left[i:])   # remaining items in left\n    result.extend(right[j:])  # remaining items in right\n    return result\n```\n\nThe `merge_sort` function itself is fine; only the `merge` helper needs this fix.\n\n---\n\n## Full corrected implementation\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Append any remaining elements from either list\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```\n\nNow the algorithm correctly merges all elements and produces a fully sorted array.",
+      "response_time": 29.41,
+      "completion_tokens": 1693,
+      "gen_tps": 57.56,
+      "evaluation": {
+        "score": 10,
+        "justification": "Identifica exactamente el bug: merge no concatena los elementos restantes de la lista no agotada tras salir del while. La corrección (result.extend(left[i:]) y result.extend(right[j:])) es correcta y suficiente. La explicación es clara y precisa, con un ejemplo concreto ([1,3] y [2] → devuelve [1,2] en vez de [1,2,3]) que muestra por qué se pierden elementos, e indica correctamente que merge_sort no necesita cambios. Incluye además la implementación completa corregida. Única nota menor: responde en inglés a un prompt en español, lo que no afecta a la corrección técnica.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"Identifica exactamente el bug: merge no concatena los elementos restantes de la lista no agotada tras salir del while. La corrección (result.extend(left[i:]) y result.extend(right[j:])) es correcta y suficiente. La explicación es clara y precisa, con un ejemplo concreto ([1,3] y [2] → devuelve [1,2] en vez de [1,2,3]) que muestra por qué se pierden elementos, e indica correctamente que merge_sort no necesita cambios. Incluye además la implementación completa corregida. Única nota menor: responde en inglés a un prompt en español, lo que no afecta a la corrección técnica.\"}"
+      },
+      "judge_time": 14.33
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "**Decorador `@retry`**\n\nA continuación se presenta una implementación completa del decorador `retry` que cumple con la especificación solicitada:\n\n```python\nimport functools\nimport time\n\ndef retry(max_attempts, delay=0.0, exceptions=(Exception,)):\n    \"\"\"\n    Decorador que reintenta la función decorada hasta ``max_attempts`` veces.\n\n    Parámetros\n    ----------\n    max_attempts : int\n        Número máximo de intentos (el primer llamado cuenta como el 1º intento).\n    delay : float, opcional\n        Segundos a esperar entre reintentos. El valor por defecto es 0.0.\n    exceptions : tuple de tipos de excepción, opcional\n        Si una excepción lanzada es instancia de alguno de estos tipos,\n        la función se volverá a ejecutar.\n\n    Retorna\n    -------\n        Una función decoradora que envuelve ``func`` y implementa el comportamiento\n        de reintento descrito.\n    \"\"\"\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            for attempt in range(max_attempts):\n                try:\n                    return func(*args, **kwargs)   # éxito → retorna resultado\n                except exceptions as e:\n                    if attempt == max_attempts - 1:   # último intento → re-lanza la excepción\n                        raise\n                    else:\n                        time.sleep(delay)            # esperar antes del siguiente intento\n        return wrapper\n    return decorator\n```\n\n**Cómo usarlo**\n\n```python\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    if url == \"bad\":\n        raise IOError(\"error al leer la URL\")\n    return f\"Datos de {url}\"\n\n# Ejemplo de llamada\nprint(fetch_data(\"good\"))   # → \"Datos de good\"\nprint(fetch_data(\"bad\"))    # se reintenta 2 veces (1 segundo entre intentos) y finalmente lanza IOError\n```\n\n- `max_attempts=3` → máximo de 3 llamadas a `fetch_data`.\n- `delay=1.0` → espera 1 segundo entre cada reintento.\n- `exceptions=(IOError, TimeoutError)` → solo se reintenta si se lanza uno de estos tipos.\n\nEl decorador utiliza `functools.wraps` para conservar el metadata original de la función y maneja correctamente los argumentos posicionales y por clave (`*args, **kwargs`). Si se agota el número de intentos, se re-lanza la última excepción que se lanzó.",
+      "response_time": 131.58,
+      "completion_tokens": 7469,
+      "gen_tps": 56.77,
+      "evaluation": {
+        "score": 9,
+        "justification": "La implementacion cumple los cinco requisitos: acepta max_attempts, delay y exceptions; reintenta solo ante las excepciones indicadas (`except exceptions`); espera con time.sleep(delay) solo entre reintentos (no tras el ultimo); relanza la excepcion original con `raise` desnudo en el ultimo intento, preservando el traceback; y devuelve el resultado con `return func(...)` en caso de exito. La estructura de decorador de fabrica (retry -> decorator -> wrapper) es correcta y usa functools.wraps para conservar metadatos, con *args/**kwargs. El ejemplo de uso coincide con el solicitado y el conteo de intentos es exacto (3 llamadas, 2 esperas). Defectos menores: la variable `e` se captura pero nunca se usa; no valida max_attempts, por lo que con max_attempts<=0 el wrapper devuelve None silenciosamente sin llamar a la funcion; y los valores por defecto (delay=0.0, exceptions=(Exception,)) van algo mas alla de la especificacion, aunque son inocuos. Nada de esto afecta al comportamiento especificado.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La implementacion cumple los cinco requisitos: acepta max_attempts, delay y exceptions; reintenta solo ante las excepciones indicadas (`except exceptions`); espera con time.sleep(delay) solo entre reintentos (no tras el ultimo); relanza la excepcion original con `raise` desnudo en el ultimo intento, preservando el traceback; y devuelve el resultado con `return func(...)` en caso de exito. La estructura de decorador de fabrica (retry -> decorator -> wrapper) es correcta y usa functools.wraps para conservar metadatos, con *args/**kwargs. El ejemplo de uso coincide con el solicitado y el conteo de intentos es exacto (3 llamadas, 2 esperas). Defectos menores: la variable `e` se captura pero nunca se usa; no valida max_attempts, por lo que con max_attempts<=0 el wrapper devuelve None silenciosamente sin llamar a la funcion; y los valores por defecto (delay=0.0, exceptions=(Exception,)) van algo mas alla de la especificacion, aunque son inocuos. Nada de esto afecta al comportamiento especificado.\"}"
+      },
+      "judge_time": 20.23
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "**Solución en Python – O(n) (lineal en la longitud de la lista)**  \n\nLa idea es recorrer la lista una sola vez manteniendo un diccionario `seen` que, para cada valor ya procesado, guarda **todas las posiciones anteriores** donde apareció.  \nPara el elemento actual `arr[j]` calculamos su complemento `target - arr[j]`.  \nSi ese complemento está en `seen`, entonces cada índice `i` almacenado para él forma un par válido `(i, j)` (porque `i < j`).  \nDespués de buscar los complementos añadimos el índice actual `j` al diccionario correspondiente a `arr[j]`.\n\n```python\ndef find_pairs(arr: list[int], target: int) -> list[tuple[int, int]]:\n    \"\"\"\n    Devuelve una lista de tuplas (i, j) con i < j tales que arr[i] + arr[j] == target.\n\n    Parámetros\n    ----------\n    arr : list[int]\n        Lista de enteros.\n    target : int\n        Suma deseada para los pares.\n\n    Retorna\n    -------\n        Lista de tuplas (i, j) ordenadas de forma ascendente por i y luego por j.\n    \"\"\"\n    seen = {}               # valor -> lista de índices donde ya apareció\n    result = []             # pares encontrados\n\n    for j, val in enumerate(arr):\n        complemento = target - val\n\n        if complemento in seen:\n            # para cada índice anterior que tiene el valor complemento,\n            # formamos un par (i, j)\n            for i_idx in seen[complemento]:\n                result.append((i_idx, j))\n\n        # actualizamos la posición actual para futuros elementos\n        if val not in seen:\n            seen[val] = []\n        seen[val].append(j)\n\n    # ordenar el resultado de forma determinista (primero i, luego j)\n    result.sort()\n    return result\n```\n\n### Ejemplos de uso\n\n```python\n>>> find_pairs([1, 2, 3, 4, 5], target=5)\n[(0, 3), (1, 2)]\n\n>>> find_pairs([1, 1, 2, 3], target=4)\n[(0, 3), (1, 3)]   # o [(1, 3), (0, 3)], el orden no importa\n\n>>> find_pairs([2, 2], target=4)\n[(0, 1)]\n\n```\n\n### Complejidad  \n\n* **Tiempo:** `O(n + P)` donde `n` es la longitud de `arr` y `P` es el número de pares que se devuelve (el tamaño del resultado).  \n  El bucle principal recorre cada elemento una vez (`n`). Para cada elemento iteramos sobre los índices almacenados para su complemento; esto es inevitable porque debemos emitir todos los pares.\n\n* **Espacio:** `O(n)` para el diccionario `seen` y la lista de resultados (en el peor caso, cuando hay muchos pares).\n\nEsta implementación cumple con la exigencia de no usar bucles anidados sobre toda la lista y logra una solución lineal respecto a la entrada.",
+      "response_time": 54.37,
+      "completion_tokens": 3102,
+      "gen_tps": 57.05,
+      "evaluation": {
+        "score": 9,
+        "justification": "La solucion es correcta y cumple el requisito algoritmico: usa un dict (hash map) de valor -> lista de indices previos y recorre la lista una sola vez, buscando el complemento en O(1). Garantiza i < j por construccion (solo empareja con indices ya vistos) y maneja duplicados correctamente al guardar todas las posiciones de cada valor. Verificado contra los ejemplos: [1,2,3,4,5] target 5 -> [(0,3),(1,2)]; [1,1,2,3] target 4 -> [(0,3),(1,3)] (equivalente al esperado); [2,2] target 4 -> [(0,1)]. No hay fuerza bruta: el bucle interno solo itera sobre los pares que realmente se emiten, y el analisis de complejidad O(n + P) output-sensitive es honesto y tecnicamente acertado (es imposible ser mejor si hay que listar todos los pares). Codigo limpio, con type hints y docstring. Descuentos menores: el result.sort() final introduce un O(P log P) que contradice ligeramente la complejidad declarada y no era necesario (el enunciado admite cualquier orden), y podria simplificarse con collections.defaultdict en lugar del chequeo manual 'if val not in seen'.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La solucion es correcta y cumple el requisito algoritmico: usa un dict (hash map) de valor -> lista de indices previos y recorre la lista una sola vez, buscando el complemento en O(1). Garantiza i < j por construccion (solo empareja con indices ya vistos) y maneja duplicados correctamente al guardar todas las posiciones de cada valor. Verificado contra los ejemplos: [1,2,3,4,5] target 5 -> [(0,3),(1,2)]; [1,1,2,3] target 4 -> [(0,3),(1,3)] (equivalente al esperado); [2,2] target 4 -> [(0,1)]. No hay fuerza bruta: el bucle interno solo itera sobre los pares que realmente se emiten, y el analisis de complejidad O(n + P) output-sensitive es honesto y tecnicamente acertado (es imposible ser mejor si hay que listar todos los pares). Codigo limpio, con type hints y docstring. Descuentos menores: el result.sort() final introduce un O(P log P) que contradice ligeramente la complejidad declarada y no era necesario (el enunciado admite cualquier orden), y podria simplificarse con collections.defaultdict en lugar del chequeo manual 'if val not in seen'.\"}"
+      },
+      "judge_time": 24.37
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 1708.38,
+      "tg_tps": null,
+      "response_time": 0.3,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=1708.4 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=1708.4 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 10,
+      "pp_tps": 1020.2,
+      "tg_tps": 56.59,
+      "response_time": 0.22,
+      "completion_tokens": 10,
+      "gen_tps": 56.59,
+      "model_response": "pp=1020.2 tk/s  tg=56.6 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=1020.2 tk/s  tg=56.6 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 1,
+      "pp_tps": 1289.74,
+      "tg_tps": null,
+      "response_time": 12.7,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=1289.7 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=1289.7 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "LFM3-1.7B Q8_0 (Remote pc1060)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe -hf LiquidAI/LFM3-1.7B-GGUF:Q8_0 --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 32768 --no-mmproj -ngl 99 --jinja --top-k 50 --min-p 0 --repeat-penalty 1.1",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 128,
+      "pp_tps": 1288.28,
+      "tg_tps": 53.29,
+      "response_time": 15.1,
+      "completion_tokens": 128,
+      "gen_tps": 53.29,
+      "model_response": "pp=1288.3 tk/s  tg=53.3 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=1288.3 tk/s  tg=53.3 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}

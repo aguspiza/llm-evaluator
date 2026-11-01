@@ -190,6 +190,26 @@ models:
     temperature: 0.6
     extra_args: ["-ngl", "99", "--n-cpu-moe", "12", "--no-mmap", "--jinja"]
 
+  # JetBrains/Mellum2.1-12B-A2.5B-Thinking (misma arquitectura que Mellum2,
+  # mas RL; Apache-2.0). GGUF oficial de JetBrains. Sampling de la ficha y de
+  # su comando llama-server: temp 0.6, top_p 0.95, top_k 20 (min_p no lo fijan:
+  # queda el 0.05 de llama.cpp, como en su comando). KV f16 (mas rapido en
+  # Pascal); --n-cpu-moe 12 es el optimo medido para Mellum2 en junio.
+  # --load-mode none = el antiguo --no-mmap (eliminado en builds recientes).
+  - name: "Mellum2.1-12B-A2.5B-Thinking Q4_K_M (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF:Q4_K_M"
+    port: 8082
+    exe: "~/Downloads/llama-b11429-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    temperature: 0.6
+    extra_args: ["-ngl", "99", "--n-cpu-moe", "12", "--load-mode", "none", "--jinja",
+                 "--top-p", "0.95", "--top-k", "20"]
+    max_tokens: 24576
+
   - name: "LFM2.5-8B-A1B (Remote GTX1060)"
     type: remote
     host: "admin@pc1060.intra"
@@ -405,6 +425,82 @@ models:
     extra_args: ["-ngl", "99", "--jinja", "--top-p", "0.95", "--min-p", "0"]
     max_tokens: 24576
 
+  # microsoft/FrogNano-4B-2609 (Qwen3.5-4B, agente de codigo, Apache-2.0).
+  # Necesita llama.cpp >= b11279 (arquitectura nueva). Sampling de la ficha:
+  # temp 0.6, repetition penalty 1.0. La plantilla abre <think>.
+  - name: "FrogNano-4B Q8_0 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "bartowski/FrogNano-4B-2609-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-b11371-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    temperature: 0.6
+    extra_args: ["-ngl", "99", "--jinja", "--repeat-penalty", "1.0"]
+    max_tokens: 24576
+
+  # Identica a la Q8_0 salvo el cuantizado y la cache KV (q8_0 en vez de f16),
+  # para medir la velocidad maxima.
+  - name: "FrogNano-4B Q4_K_M kvq8 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "bartowski/FrogNano-4B-2609-GGUF:Q4_K_M"
+    port: 8082
+    exe: "~/Downloads/llama-b11371-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "q8_0"
+    ctv: "q8_0"
+    ctx_size: 32768
+    temperature: 0.6
+    extra_args: ["-ngl", "99", "--jinja", "--repeat-penalty", "1.0"]
+    max_tokens: 24576
+
+  # prism-ml/Bonsai-27B (Qwen3.6-27B binario, Q1_0 a 1.125 bits/peso, 3.8 GB,
+  # Apache-2.0). Flags de referencia de PrismML-Eng/Bonsai-demo
+  # (start_llama_server.sh): -fa on, temp 0.7 / top_p 0.95 / top_k 20 / min_p 0
+  # (sin --min-p 0 llama.cpp aplica 0.05, y el GGUF trae temp 1.0), thinking
+  # activo y KV en f16 (q4_0 es experimental: decode mas lento y peor calidad
+  # sin bias calibrado). ctx 17408 = lo que cabe con KV f16 (5.5 de 6 GB) y
+  # basta para los bench de 16k. Q1_0 tambien carga en llama.cpp oficial
+  # (b11429 con KV q4_0: 12.7 tk/s; el fork con KV f16: 13.7).
+  - name: "Bonsai-27B Q1_0 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "prism-ml/Bonsai-27B-gguf"
+    hf_file: "Bonsai-27B-Q1_0.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-prism-b10770-6684606-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 17408
+    temperature: 0.7
+    extra_args: ["-ngl", "99", "-fa", "on", "--jinja",
+                 "--top-p", "0.95", "--top-k", "20", "--min-p", "0"]
+    max_tokens: 12288
+
+  # prism-ml/Ternary-Bonsai-2-9B (Qwen3.5-9B ternario, PQ2_0 2.42 GB,
+  # Apache-2.0). Necesita el fork de prism-ml (el oficial solo corre Q2_0);
+  # release fijada por Bonsai-demo: prism-b10777. Sampling de la ficha y del
+  # lanzador (bonsai2_small_profile, thinking): temp 1.0, top_p 0.95, top_k 20,
+  # min_p 0, presence 1.0, repeat 1.0 sobre 64 tokens; -fa on; >= 8192 tokens
+  # de salida. KV f16 (por defecto en la referencia).
+  - name: "Ternary-Bonsai-2-9B PQ2_0 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "prism-ml/Ternary-Bonsai-2-9B-gguf"
+    hf_file: "Ternary-Bonsai-2-9B-PQ2_0.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-prism-b10777-e3de715-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "-fa", "on", "--jinja",
+                 "--top-p", "0.95", "--top-k", "20", "--min-p", "0",
+                 "--presence-penalty", "1.0", "--repeat-penalty", "1.0", "--repeat-last-n", "64"]
+    max_tokens: 24576
+
   - name: "Ornith-1.0-35B IQ2_XS (Remote pc1060)"
     type: remote
     host: "admin@pc1060.intra"
@@ -435,6 +531,47 @@ models:
                  "-b", "2048", "-ub", "2048", "-t", "12",
                  "--top-k", "20", "--top-p", "0.95", "--min-p", "0",
                  "--presence-penalty", "1.5", "--repeat-penalty", "1"]
+
+  # LiquidAI/LFM3-1.7B (2026-10-27, LFM Open License v1.0, thinking activo por
+  # defecto). Necesita llama.cpp >= b11960. Sampling de la ficha para chat,
+  # herramientas y codigo: temp 0.1, top_k 50, repetition penalty 1.1 (no fija
+  # min_p: se pone 0 como en transformers, si no llama.cpp aplica 0.05).
+  - name: "LFM3-1.7B Q8_0 (Remote pc1060)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_repo: "LiquidAI/LFM3-1.7B-GGUF:Q8_0"
+    port: 8082
+    exe: "~/Downloads/llama-b12017-bin-win-cuda-12.4-x64/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 32768
+    temperature: 0.1
+    extra_args: ["-ngl", "99", "--jinja", "--top-k", "50", "--min-p", "0",
+                 "--repeat-penalty", "1.1"]
+    max_tokens: 24576
+
+  # sensenova/SenseNova-Loop-9B-Preview (SenseTime, Apache-2.0): Qwen3.5-class
+  # hybrid trunk whose layers 4-27 run twice (56 passes, 32 stored). Stock
+  # llama.cpp can't load it: fork GuideboardLabs/llama.cpp-sensenova-loop
+  # (fad174e), Vulkan only (the fused mHC ops have no CUDA kernels), built on the
+  # laptop with MinGW. GGUF guideboardlabs Q3_K_M (4.64 GB); 32k ctx does not fit
+  # in the 1060, 16k leaves 5.7/6.1 GB. Sampling from generation_config.json:
+  # temp 1.0, top_p 0.95 (+ transformers' default top_k 50), min_p 0.
+  # Thinking on (the template's default).
+  - name: "SenseNova-Loop-9B Q3_K_M (Remote pc1060 Vulkan)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_flag: "-m"
+    hf_repo: "~/models/sensenova/SenseNova-Loop-9B-Preview-Q3_K_M.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-sensenova-vulkan/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 16384
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "-fa", "on", "--jinja",
+                 "--top-p", "0.95", "--top-k", "50", "--min-p", "0"]
+    max_tokens: 14336
 
 judge:
   name: "Juez"
