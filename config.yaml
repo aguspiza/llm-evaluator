@@ -573,6 +573,70 @@ models:
                  "--top-p", "0.95", "--top-k", "50", "--min-p", "0"]
     max_tokens: 14336
 
+  - name: "Dory1.0-4B Q4_K_M 2 loops (Remote pc1060 Vulkan)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_flag: "-m"
+    hf_repo: "~/models/dory/Dory1.0-4B-Q4_K_M.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-dory-vulkan/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 16384
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "-fa", "on", "--jinja", "--reasoning", "on",
+                 "--override-kv", "dory.num_loops=int:2",
+                 "--top-p", "0.95", "--top-k", "0", "--min-p", "0", "--repeat-penalty", "1"]
+    max_tokens: 14336
+
+  - name: "Dory1.0-4B Q4_K_M 1 loops (Remote pc1060 Vulkan)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_flag: "-m"
+    hf_repo: "~/models/dory/Dory1.0-4B-Q4_K_M.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-dory-vulkan/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 16384
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "-fa", "on", "--jinja", "--reasoning", "on",
+                 "--override-kv", "dory.num_loops=int:1",
+                 "--top-p", "0.95", "--top-k", "0", "--min-p", "0", "--repeat-penalty", "1"]
+    max_tokens: 14336
+
+  - name: "Dory1.0-4B Q4_K_M 4 loops (Remote pc1060 Vulkan)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_flag: "-m"
+    hf_repo: "~/models/dory/Dory1.0-4B-Q4_K_M.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-dory-vulkan/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 16384
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "-fa", "on", "--jinja", "--reasoning", "on",
+                 "--override-kv", "dory.num_loops=int:4",
+                 "--top-p", "0.95", "--top-k", "0", "--min-p", "0", "--repeat-penalty", "1"]
+    max_tokens: 14336
+
+  - name: "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)"
+    type: remote
+    host: "admin@pc1060.intra"
+    hf_flag: "-m"
+    hf_repo: "~/models/dory/Dory1.0-4B-Q5_K_M.gguf"
+    port: 8082
+    exe: "~/Downloads/llama-dory-vulkan/llama-server.exe"
+    ctk: "f16"
+    ctv: "f16"
+    ctx_size: 16384
+    temperature: 1.0
+    extra_args: ["-ngl", "99", "-fa", "on", "--jinja", "--reasoning", "on",
+                 "--override-kv", "dory.num_loops=int:2",
+                 "--top-p", "0.95", "--top-k", "0", "--min-p", "0", "--repeat-penalty", "1"]
+    max_tokens: 14336
+
 judge:
   name: "Juez"
   provider: claude-code

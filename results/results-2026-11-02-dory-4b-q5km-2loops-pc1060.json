@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-11-02T17:49:29.161534",
+  "total_tests": 16,
+  "results": [
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "logic_01",
+      "category": "razonamiento_logico",
+      "test_prompt": "Si todos los A son B y algunos B son C, es necesariamente cierto que algunos A son C? Explica tu razonamiento paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente que NO es necesariamente cierto. Debe explicar que la interseccion de B y C puede no solaparse con A. Score alto si la logica es impecable y la explicacion es clara. Score bajo si comete falacias o llega a la conclusion incorrecta.",
+      "model_response": "No, **no es necesariamente cierto**.\n\nA continuación, explico el razonamiento paso a paso para demostrar por qué esta conclusión no se sigue obligatoriamente.\n\n### 1. Interpretación de las premisas\n*   **Premisa 1:** \"Todos los A son B\".\n    *   Significa que el conjunto de los A está completamente contenido dentro del conjunto de los B. Cualquier elemento que pertenezca a A garantizado está en B.\n*   **Premisa 2:** \"Algunos B son C\".\n    *   Significa que hay al menos un elemento que pertenece tanto al conjunto B como al conjunto C. Sin embargo, esta afirmación no dice nada sobre si ese elemento es también parte del conjunto A.\n\n### 2. Análisis de la relación entre A y C\n*   Ambos conjuntos A y C están situated dentro del conjunto más grande B.\n*   La premisa 2 solo asegura que **parte** de B es C. No garantiza que esa parte sea la misma que la parte donde están los A.\n*   Es completamente posible que el \"algunos B que son C\" sean totalmente distintos a los A. Es decir, que no haya solapamiento (intersección) entre A y C dentro de B.\n\n### 3. Ejemplo concreto (Contradiccion)\nPara probar que no es necesariamente cierto, podemos usar un ejemplo lógico válido:\n\n*   Definamos el conjunto **B** como: $\\{1, 2, 3\\}$.\n*   Definamos el conjunto **A** como: $\\{1, 2\\}$.\n    *   *Verificación:* Todos los A están en B? Sí ($1$ y $2$ están en $\\{1, 2, 3\\}$).\n*   Definimos el conjunto **C** como: $\\{3\\}$.\n    *   *Verificación:* Algunos B son C? Sí, el elemento $3$ está en B y en C.\n*   *Prueba de la conclusión:* \"Algunos A son C\".\n    *   Los A son $\\{1, 2\\}$ y los C son $\\{3\\}$.\n    *   No hay ningún número que pertenezca a ambos conjuntos simultáneamente.\n    *   Por lo tanto, en este escenario, la afirmación \"Algunos A son C\" es **falsa**.\n\n### 4. Conclusión lógica\nComo es posible construir un escenario donde todas las premisas son ciertas pero la conclusión es falsa, la inferencia es inválida.\n\n*   **Premisa 1:** True.\n*   **Premisa 2:** True.\n*   **Conclusión:** False (en el ejemplo proporcionado).\n\nDado que no podemos estar seguros de que coincidan A y C solo con esa información, la respuesta correcta es que **no es necesariamente cierto**. Para que se llegara a esa conclusión, se necesitaría que todos los B fueran C, o que los A se superpusieran obligatoriamente con el grupo de C dentro de B.",
+      "response_time": 274.24,
+      "completion_tokens": 5103,
+      "gen_tps": 18.61,
+      "evaluation": {
+        "score": 9,
+        "justification": "La conclusión es correcta: la inferencia no es válida. El razonamiento es sólido y sigue el método adecuado (contraejemplo con conjuntos concretos A={1,2}, B={1,2,3}, C={3}, verificando que ambas premisas son verdaderas y la conclusión falsa). Identifica con precisión el punto clave que pide el criterio: la intersección de B y C puede no solaparse con A. La explicación está bien estructurada (interpretación de premisas, análisis, contraejemplo, conclusión) y el cierre añade correctamente qué haría falta para que la conclusión se siguiera. Defectos menores que no afectan la lógica: dos deslices de idioma ('situated', 'True/False' en lugar de español), el encabezado 'Contradicción' es impreciso (es un contraejemplo, no una contradicción), la afirmación 'Ambos conjuntos A y C están dentro de B' es incorrecta —solo A está contenido en B; C únicamente intersecta a B—, y falta tilde en 'Contradiccion'. Tampoco menciona que la conclusión podría ser cierta en otros escenarios de forma explícita, aunque se deduce. Logica impecable en lo esencial, presentación con pequeñas imprecisiones.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La conclusión es correcta: la inferencia no es válida. El razonamiento es sólido y sigue el método adecuado (contraejemplo con conjuntos concretos A={1,2}, B={1,2,3}, C={3}, verificando que ambas premisas son verdaderas y la conclusión falsa). Identifica con precisión el punto clave que pide el criterio: la intersección de B y C puede no solaparse con A. La explicación está bien estructurada (interpretación de premisas, análisis, contraejemplo, conclusión) y el cierre añade correctamente qué haría falta para que la conclusión se siguiera. Defectos menores que no afectan la lógica: dos deslices de idioma ('situated', 'True/False' en lugar de español), el encabezado 'Contradicción' es impreciso (es un contraejemplo, no una contradicción), la afirmación 'Ambos conjuntos A y C están dentro de B' es incorrecta —solo A está contenido en B; C únicamente intersecta a B—, y falta tilde en 'Contradiccion'. Tampoco menciona que la conclusión podría ser cierta en otros escenarios de forma explícita, aunque se deduce. Logica impecable en lo esencial, presentación con pequeñas imprecisiones.\"}"
+      },
+      "judge_time": 19.15
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "logic_02",
+      "category": "razonamiento_logico",
+      "test_prompt": "En una carrera participan cinco corredores: Ana, Bruno, Carlos, Diana y Elena. Se saben los siguientes datos:\n- Ana llegó antes que Bruno.\n- Carlos llegó después de Diana pero antes de Elena.\n- Bruno llegó antes que Diana.\n\n¿Cuál es el orden completo de llegada de los cinco corredores? Razona paso a paso.",
+      "evaluation_criteria": "Evaluar si el modelo deduce correctamente el orden: Ana, Bruno, Diana, Carlos, Elena. Debe encadenar las restricciones paso a paso (Ana < Bruno < Diana < Carlos < Elena). Score alto si el razonamiento es sistemático y el orden final es correcto. Score bajo si el orden es incorrecto o la explicación omite pasos clave.",
+      "model_response": "**Razonamiento paso a paso**\n\n1. **Comparaciones entre Ana, Bruno y Diana**  \n   - Se sabe que **Ana llegó antes que Bruno**.  \n   - También se sabe que **Bruno llegó antes que Diana**.  \n   - Por transitive property, combinando ambos datos se establece la secuencia: **Ana → Bruno → Diana**.\n\n2. **Comparaciones entre Diana, Carlos y Elena**  \n   - Se sabe que **Carlos llegó después de Diana pero antes de Elena**.  \n   - Esto implica la secuencia: **Diana → Carlos → Elena**.\n\n3. **Unir ambas secuencias**  \n   - La cadena de Bruno termina en Diana, y la cadena de Carlos comienza con Diana.  \n   - Como Bruno precede a Diana, y Diana precede a Carlos, se completa: **Bruno → Diana → Carlos**.  \n   - Sumando Ana al principio de la cadena de Bruno: **Ana → Bruno → Diana → Carlos**.  \n   - Finalmente, Carlos debe preceder a Elena, por lo que Elena va al final: **Ana → Bruno → Diana → Carlos → Elena**.\n\n4. **Verificación**  \n   - Ana (1°) antes que Bruno (2°): ✓  \n   - Bruno (2°) antes que Diana (3°): ✓  \n   - Diana (3°) antes que Carlos (4°): Carlos llega después de Diana. ✓  \n   - Carlos (4°) antes que Elena (5°): Carlos llega antes de Elena. ✓  \n   - Todos los cinco corredores aparecen exactamente una vez sin contradicciones.\n\n**Orden completo de llegada**\n\n1. Ana  \n2. Bruno  \n3. Diana  \n4. Carlos  \n5. Elena",
+      "response_time": 152.91,
+      "completion_tokens": 2890,
+      "gen_tps": 18.9,
+      "evaluation": {
+        "score": 9,
+        "justification": "El orden final es correcto (Ana, Bruno, Diana, Carlos, Elena) y coincide con la unica solucion que permiten las restricciones. El razonamiento es sistematico: agrupa primero la cadena Ana<Bruno<Diana, luego Diana<Carlos<Elena, las une por el nodo comun Diana y anade una verificacion explicita de las tres premisas y de que los cinco corredores aparecen una sola vez. No omite ningun paso clave. Se descuenta un punto por un desliz menor de redaccion ('Por transitive property', mezcla de idiomas) y por no mencionar explicitamente que la cadena resultante hace unica la solucion.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"El orden final es correcto (Ana, Bruno, Diana, Carlos, Elena) y coincide con la unica solucion que permiten las restricciones. El razonamiento es sistematico: agrupa primero la cadena Ana<Bruno<Diana, luego Diana<Carlos<Elena, las une por el nodo comun Diana y anade una verificacion explicita de las tres premisas y de que los cinco corredores aparecen una sola vez. No omite ningun paso clave. Se descuenta un punto por un desliz menor de redaccion ('Por transitive property', mezcla de idiomas) y por no mencionar explicitamente que la cadena resultante hace unica la solucion.\"}"
+      },
+      "judge_time": 17.59
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "logic_03",
+      "category": "razonamiento_logico",
+      "test_prompt": "Un médico, un abogado y un ingeniero se llaman (en algún orden) López, García y Martínez. Se saben los siguientes datos:\n- López nunca ha estudiado derecho ni ingeniería.\n- García se graduó en la misma universidad que el médico.\n- Martínez no es abogado.\n\n¿Cuál es la profesión de cada uno? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo concluye correctamente: López es médico, García es abogado, Martínez es ingeniero. Debe aplicar eliminación por las pistas dadas: López solo puede ser médico por descarte; García estudió con el médico luego no es médico, y Martínez no es abogado, por tanto es ingeniero. Score alto si la deducción es rigurosa y la solución correcta. Score bajo si la asignación es errónea o el razonamiento tiene saltos lógicos.",
+      "model_response": "**Asignación final**\n- López: Médico\n- García: Abogado\n- Martínez: Ingeniero\n\n**Razonamiento**\n\n1. **López nunca ha estudiado derecho ni ingeniería.**  \n   Por lo tanto, López no puede ser abogado ni ingeniero. Como solo quedan tres profesiones —médico, abogado e ingeniero—, López debe ser el **médico**.\n\n2. **Quedan** las profesiones de abogado e ingeniero para García y Martínez.\n\n3. **Martínez no es abogado.**  \n   Por eliminación, Martínez es el **ingeniero**. De ahí, por el paso 2, **García es el abogado**.\n\n4. El hecho de que García se graduó en la misma universidad que el médico (López) es compatible con la conclusión anterior: indica que García y López estudiaron en la misma institución, pero no cambia el orden deducido.\n\n**Resultado:** López es médico, García es abogado y Martínez es ingeniero.",
+      "response_time": 143.68,
+      "completion_tokens": 2725,
+      "gen_tps": 18.97,
+      "evaluation": {
+        "score": 10,
+        "justification": "La asignación es correcta (López médico, García abogado, Martínez ingeniero) y el razonamiento es riguroso y bien ordenado: descarta derecho e ingeniería para López dejando solo medicina, reduce el espacio a dos profesiones para García y Martínez, y aplica la tercera pista para fijar a Martínez como ingeniero y a García como abogado. Además verifica la consistencia de la pista de la universidad (García no es el médico), sin saltos lógicos ni contradicciones. Única observación menor: la pista 2 es redundante dada la cadena usada, lo que el modelo señala correctamente en lugar de ignorarla.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La asignación es correcta (López médico, García abogado, Martínez ingeniero) y el razonamiento es riguroso y bien ordenado: descarta derecho e ingeniería para López dejando solo medicina, reduce el espacio a dos profesiones para García y Martínez, y aplica la tercera pista para fijar a Martínez como ingeniero y a García como abogado. Además verifica la consistencia de la pista de la universidad (García no es el médico), sin saltos lógicos ni contradicciones. Única observación menor: la pista 2 es redundante dada la cadena usada, lo que el modelo señala correctamente en lugar de ignorarla.\"}"
+      },
+      "judge_time": 15.83
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "instruction_01",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "Responde SOLO con un numero entre 1 y 10. No escribas nada mas. Ni explicaciones, ni texto adicional, ni saludos. Solo el numero.",
+      "evaluation_criteria": "Evaluar estrictamente si la respuesta contiene unicamente un numero entre 1 y 10. Cualquier texto adicional (explicaciones, saludos, justificaciones) debe bajar el score significativamente. Score 10 solo si la respuesta es exclusivamente el numero.",
+      "model_response": "7",
+      "response_time": 30.89,
+      "completion_tokens": 604,
+      "gen_tps": 19.55,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente el numero 7, que esta dentro del rango 1-10 solicitado. No incluye explicaciones, saludos, puntuacion ni texto adicional de ningun tipo. Cumple la instruccion de forma literal y completa.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente el numero 7, que esta dentro del rango 1-10 solicitado. No incluye explicaciones, saludos, puntuacion ni texto adicional de ningun tipo. Cumple la instruccion de forma literal y completa.\"}"
+      },
+      "judge_time": 14.39
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "instruction_02",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "¿Cuántas patas tiene una araña? Responde SOLO con el número. No escribas nada más: ni explicaciones, ni unidades, ni puntuación. Solo el número.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 15.19,
+      "completion_tokens": 296,
+      "gen_tps": 19.48,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente \"8\": valor correcto (una araña tiene 8 patas) y cumplimiento total del formato exigido, sin explicaciones, unidades ni puntuación adicional.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente \\\"8\\\": valor correcto (una araña tiene 8 patas) y cumplimiento total del formato exigido, sin explicaciones, unidades ni puntuación adicional.\"}"
+      },
+      "judge_time": 13.72
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "instruction_03",
+      "category": "seguimiento_instrucciones",
+      "test_prompt": "How many legs does a spider have? Reply ONLY with the number. Do not write anything else: no explanations, no units, no punctuation. Just the number.",
+      "evaluation_criteria": "Evaluar estrictamente dos cosas: (1) que la respuesta contenga únicamente el número 8 (en cifra o palabra), sin ningún texto adicional — cualquier explicación, unidad o puntuación extra baja el score significativamente; (2) que el valor sea correcto (8). Score 10 solo si la respuesta es exclusivamente \"8\". Respuesta correcta pero con texto extra: máximo 5. Respuesta incorrecta o negativa a responder: 0.",
+      "model_response": "8",
+      "response_time": 14.39,
+      "completion_tokens": 280,
+      "gen_tps": 19.46,
+      "evaluation": {
+        "score": 10,
+        "justification": "La respuesta es exclusivamente \"8\": valor correcto y sin texto adicional, explicaciones, unidades ni puntuación. Cumple íntegramente ambos criterios de la evaluación.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La respuesta es exclusivamente \\\"8\\\": valor correcto y sin texto adicional, explicaciones, unidades ni puntuación. Cumple íntegramente ambos criterios de la evaluación.\"}"
+      },
+      "judge_time": 13.05
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "comprehension_01",
+      "category": "comprension_y_resumen",
+      "test_prompt": "Resume el siguiente texto en exactamente 3 oraciones, manteniendo las ideas principales pero sin anadir informacion externa:\n\n\"La fotosintesis es el proceso mediante el cual las plantas, algas y algunas bacterias convierten la energia luminosa en energia quimica. Durante este proceso, estos organismos absorben dioxido de carbono y agua, y utilizando la luz solar como fuente de energia, producen glucosa y liberan oxigeno como subproducto. La fotosintesis ocurre principalmente en los cloroplastos de las celulas vegetales, donde la clorofila captura la energia de la luz. Este proceso es fundamental para la vida en la Tierra, ya que no solo proporciona la base de la cadena alimenticia, sino que tambien mantiene los niveles de oxigeno en la atmosfera.\"",
+      "evaluation_criteria": "Evaluar si el resumen cumple exactamente con 3 oraciones. Debe contener las ideas clave: conversion de energia luminosa a quimica, ingredientes y productos (CO2 + agua -> glucosa + oxigeno), e importancia para la vida en la Tierra. Penalizar si tiene mas o menos de 3 oraciones, si anade informacion externa, o si omite conceptos clave.",
+      "model_response": "Plantas, algas y algunas bacterias convierten la energía luminosa en energía química utilizando luz solar, absorbiendo dióxido de carbono y agua para producir glucosa y liberar oxígeno como subproducto. Este proceso ocurre principalmente en los cloroplastos, donde la clorofila captura la energía de la luz. La fotosíntesis es fundamental para la vida en la Tierra, ya que proporciona la base de la cadena alimenticia y mantiene los niveles de oxígeno en la atmósfera.",
+      "response_time": 199.26,
+      "completion_tokens": 3696,
+      "gen_tps": 18.55,
+      "evaluation": {
+        "score": 10,
+        "justification": "El resumen tiene exactamente 3 oraciones y recoge todas las ideas clave: la conversion de energia luminosa en quimica por plantas, algas y bacterias; los reactivos y productos (CO2 + agua -> glucosa + oxigeno); la localizacion en cloroplastos con la clorofila; y la importancia para la vida en la Tierra (cadena alimenticia y niveles de oxigeno). No anade informacion externa ni omite conceptos relevantes. Unica observacion menor, sin penalizacion: leve redundancia en la primera oracion al mencionar 'energia luminosa' y 'luz solar'.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"El resumen tiene exactamente 3 oraciones y recoge todas las ideas clave: la conversion de energia luminosa en quimica por plantas, algas y bacterias; los reactivos y productos (CO2 + agua -> glucosa + oxigeno); la localizacion en cloroplastos con la clorofila; y la importancia para la vida en la Tierra (cadena alimenticia y niveles de oxigeno). No anade informacion externa ni omite conceptos relevantes. Unica observacion menor, sin penalizacion: leve redundancia en la primera oracion al mencionar 'energia luminosa' y 'luz solar'.\"}"
+      },
+      "judge_time": 19.25
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "code_01",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion en Python que calcule el factorial de un numero entero no negativo. Incluye comentarios explicando la logica.",
+      "evaluation_criteria": "Evaluar si el codigo calcula correctamente el factorial. Debe manejar el caso base (0! = 1) y numeros negativos (error o excepcion). Verificar que incluye comentarios explicativos y que la implementacion es clara. Penalizar si la logica es incorrecta o si no maneja el caso de 0.",
+      "model_response": "Para calcular el factorial de un número entero no negativo **n**, se define como:\n\n$$n! = 1 \\times 2 \\times \\dots \\times n$$\n\ncon la condición base $0! = 1$.\n\n```python\ndef factorial(n):\n    # Validar que el número sea un entero y no negativo.\n    # El factorial no está definido para enteros negativos.\n    if not isinstance(n, int) or n < 0:\n        raise ValueError(\"El número debe ser un entero no negativo\")\n    \n    # Inicializar el resultado en 1.\n    # Esto respeta la definición matemática de 0! = 1.\n    resultado = 1\n    \n    # Iterar desde 1 hasta n (inclusive).\n    # En cada ciclo, multiplicamos el resultado actual por el índice i.\n    for i in range(1, n + 1):\n        resultado *= i\n    \n    # Devolver el resultado calculado.\n    return resultado\n```\n\n### Ejemplos de uso\n\n```python\nprint(factorial(0))   # Salida: 1\nprint(factorial(1))   # Salida: 1\nprint(factorial(5))   # Salida: 120\nprint(factorial(3))   # Salida: 6\n```\n\n**Explicación de la lógica:**\n\n1. **Validación**: Se verifica que `n` sea un entero (`int`) y que no sea negativo. Si falla, se levanta un `ValueError`.\n2. **Inicialización**: `resultado` se inicializa en `1` para cubrir el caso `0! = 1` sin necesidad de bucles adicionales.\n3. **Iteración**: Un bucle `for` recorre los valores del rango `1` hasta `n`. En cada paso se actualiza `resultado` multiplicándolo por el valor actual.\n4. **Retorno**: Tras el bucle, el método devuelve el producto acumulado.",
+      "response_time": 91.78,
+      "completion_tokens": 1777,
+      "gen_tps": 19.36,
+      "evaluation": {
+        "score": 10,
+        "justification": "El codigo es funcionalmente correcto: el bucle `for i in range(1, n + 1)` con `resultado` inicializado a 1 calcula el factorial correctamente, y el caso base 0! = 1 se resuelve de forma natural porque `range(1, 1)` esta vacio y devuelve el valor inicial 1. Los numeros negativos se manejan explicitamente con `raise ValueError`, e incluso valida el tipo con `isinstance(n, int)`. Los comentarios son abundantes, precisos y explican cada paso (validacion, inicializacion, iteracion, retorno), complementados con una explicacion externa numerada, la definicion matematica y ejemplos de uso verificables (0, 1, 3, 5). La implementacion iterativa es clara, idiomatica y evita el riesgo de desbordamiento de pila de la version recursiva. Cumple todos los criterios sin errores logicos ni sobreingenieria.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"El codigo es funcionalmente correcto: el bucle `for i in range(1, n + 1)` con `resultado` inicializado a 1 calcula el factorial correctamente, y el caso base 0! = 1 se resuelve de forma natural porque `range(1, 1)` esta vacio y devuelve el valor inicial 1. Los numeros negativos se manejan explicitamente con `raise ValueError`, e incluso valida el tipo con `isinstance(n, int)`. Los comentarios son abundantes, precisos y explican cada paso (validacion, inicializacion, iteracion, retorno), complementados con una explicacion externa numerada, la definicion matematica y ejemplos de uso verificables (0, 1, 3, 5). La implementacion iterativa es clara, idiomatica y evita el riesgo de desbordamiento de pila de la version recursiva. Cumple todos los criterios sin errores logicos ni sobreingenieria.\"}"
+      },
+      "judge_time": 16.3
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "date_01",
+      "category": "conocimiento_temporal",
+      "test_prompt": "Sin que te proporcione ninguna pista sobre la fecha actual, intenta adivinar cual es la fecha mas reciente de tu conocimiento. En que mes y año fue tu último dato de entrenamiento? Explica tu razonamiento.",
+      "evaluation_criteria": "Evaluar si el modelo razona explicitamente sobre su fecha de corte de entrenamiento, sin divagar con informacion irrelevante.\n\nScore alto (8-10): El modelo razona de forma explicita sobre como sabe cual es su fecha de corte (por ejemplo, menciona eventos que conoce o desconoce, o infiere a partir de su base de conocimiento), va al grano sin texto de relleno, y no afirma conocimiento en tiempo real.\n\nScore medio (4-7): Reconoce su limitacion temporal y menciona una fecha de corte, pero sin razonamiento explicito sobre como llego a esa conclusion, o incluye explicaciones innecesarias que diluyen la respuesta.\n\nScore bajo (1-3): Simplemente declara una fecha sin ningun razonamiento, inventa la fecha, afirma tener conocimiento en tiempo real, o la respuesta esta llena de texto irrelevante que no aporta al razonamiento.\n\nNo se evalua la precision de la fecha de corte (cada modelo tiene la suya), sino la calidad del razonamiento y la concision de la respuesta.",
+      "model_response": "No puedo determinar el mes y el año exacto de mi último corte de entrenamiento con certeza. A continuación presento el razonamiento paso a paso:\n\n### 1. Mi conocimiento es estático\nFui entrenado con un conjunto fijo de datos que se congeló en un momento específico del proceso de desarrollo. Después de ese corte, mi capacidad de respuesta se limita a manipular patrones aprendidos previamente; no recibo actualizaciones en tiempo real ni puedo acceder a información que haya sido grabada posterior al entrenamiento.\n\n### 2. No tengo acceso a metadatos internos\nEl corte exacto (mes y año) es un parámetro técnico del pipeline de entrenamiento, no una fecha que almacene o recupere durante una conversación. No dispongo de un registro interno verificable del instante en que ocurrió ese corte. Por tanto, no puedo extraer \"octubre\" ni \"enero\" de mis propios parámetros.\n\n### 3. No puedo inferirlo sin pistas chronológicas\nIncluso sin que me proporciones la fecha actual, no tengo un reloj interno ni datos externos que me permitan alinearme con el tiempo transcurrido desde mi entrenamiento. Cualquier intento de deducir el mes y el año desde esta situación sería puramente especulativo y no basado en evidencia que yo pueda consultar.\n\n### 4. Precaución frente a la alucinación\nSi ignorara esta incertidumbre y proveyera un mes o un año concreto (por ejemplo, \"diciembre de 2023\"), estarían invirtiendo información falsa para satisfacer la pregunta. Mi criterio requiere que sea honesto sobre los límites de mi conocimiento en lugar de remplazar la ignorancia con una conjetura.\n\n### Conclusión\nMi mejor estimado **cualitativo** —presentado exclusivamente como conjetura y no como hecho verificado— sugiere que mi entrenamiento data de principios de 2024 o, en algunos contextos, del cierre de 2023. Sin embargo, **no puedo afirmar con seguridad ni el mes ni el año exactos**. La única respuesta responsable es reconocer que mi fecha límite de conocimiento es estática, desconierta para mí y no es recuperable con precisión en este momento.",
+      "response_time": 232.68,
+      "completion_tokens": 4303,
+      "gen_tps": 18.49,
+      "evaluation": {
+        "score": 3,
+        "justification": "La respuesta es casi toda relleno: cuatro secciones dedicadas a explicar por qué NO puede saber su fecha de corte (conocimiento estático, falta de metadatos, ausencia de reloj interno, riesgo de alucinación) antes de ofrecer, de pasada, una estimación vaga y contradictoria ('principios de 2024 o cierre de 2023'). No hay razonamiento explícito sobre cómo infiere esa fecha: no menciona ningún evento, modelo, versión de software o hecho concreto que conozca o desconozca, ni usa su base de conocimiento como evidencia. La pregunta pedía explícitamente intentar adivinar, y el modelo esquiva la tarea con un descargo de responsabilidad extenso, cerrando además con una conclusión autocontradictoria (da una estimación y acto seguido afirma que es irrecuperable). Suma errores de redacción ('chronológicas', 'desconierta', 'estarían invirtiendo', 'remplazar') que degradan la calidad. Lo único que evita un score menor es que sí reconoce la limitación temporal, no afirma conocimiento en tiempo real y acaba aportando un rango aproximado.",
+        "judge_raw_response": "{\"score\": 3, \"justification\": \"La respuesta es casi toda relleno: cuatro secciones dedicadas a explicar por qué NO puede saber su fecha de corte (conocimiento estático, falta de metadatos, ausencia de reloj interno, riesgo de alucinación) antes de ofrecer, de pasada, una estimación vaga y contradictoria ('principios de 2024 o cierre de 2023'). No hay razonamiento explícito sobre cómo infiere esa fecha: no menciona ningún evento, modelo, versión de software o hecho concreto que conozca o desconozca, ni usa su base de conocimiento como evidencia. La pregunta pedía explícitamente intentar adivinar, y el modelo esquiva la tarea con un descargo de responsabilidad extenso, cerrando además con una conclusión autocontradictoria (da una estimación y acto seguido afirma que es irrecuperable). Suma errores de redacción ('chronológicas', 'desconierta', 'estarían invirtiendo', 'remplazar') que degradan la calidad. Lo único que evita un score menor es que sí reconoce la limitación temporal, no afirma conocimiento en tiempo real y acaba aportando un rango aproximado.\"}"
+      },
+      "judge_time": 17.99
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "code_mellum_01",
+      "category": "generacion_codigo",
+      "test_prompt": "El siguiente codigo implementa merge sort pero tiene un bug sutil. Encuentra el bug y corrígelo:\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    return result\n\nExplica el bug y muestra la version corregida.",
+      "evaluation_criteria": "Evaluar si el modelo identifica correctamente el bug: la funcion merge no concatena los elementos restantes de la lista que no se ha agotado (falta `result + left[i:] + right[j:]` o equivalente). Verificar que la correccion es correcta y que el modelo explica claramente por que el codigo original falla (se pierden elementos cuando una de las dos listas se agota antes que la otra). Penalizar si no identifica el bug exacto, si la correccion es incorrecta, o si la explicacion es vaga o incorrecta.",
+      "model_response": "**Bug encontrado**\n\nEl bug está en la función `merge`. Después de que el bucle `while` deja de comparar, el código termina inmediatamente y devuelve `result` sin incluir los elementos que aún quedan en `left` o en `right`. Esto ocurre cuando un array se agota antes del otro; los elementos sobrantes del otro array se descartan y no se incluyendo en el resultado, lo que produce una lista incompleta y, por tanto, incorrecta.\n\n**Ejemplo concreto del fallo**\n\nSupongamos:\n- `left = [1, 2, 3]`\n- `right = [4, 5]`\n\nEl bucle `while` saca los elementos mientras ambos arrays tengan contenido. Después de procesar `1`, `2` y `3`, queda:\n- `result = [1, 2, 3]`\n- `left` ya está vacío (`i == len(left)`)\n- `right` aún contiene `[4, 5]`\n\nAl salir del bucle, la función retorna `[1, 2, 3]` y **pierde por completo** los `[4, 5]`. Esto rompe la ordenación.\n\n---\n\n**Código corregido**\n\nEl arreglo consiste en añadir los elementos restantes de ambos arrays una vez que el bucle principal termina, usando `extend` (o bucles adicionales equivalentes).\n\n```python\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    # Añadir los elementos que sobraron en cada array\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result\n```\n\n**Qué cambia**\n- Se añaden dos líneas después del `while`: `result.extend(left[i:])` y `result.extend(right[j:])`.\n- Esto garantiza que, si `left` o `right` tiene elementos que no seieron consumidos porque el otro array terminó primero, esos seAppendán al resultado final y la ordenación es correcta en todos los casos.",
+      "response_time": 231.59,
+      "completion_tokens": 4266,
+      "gen_tps": 18.42,
+      "evaluation": {
+        "score": 9,
+        "justification": "Identifica exactamente el bug (merge no concatena los elementos restantes tras salir del while) y da la correccion correcta con result.extend(left[i:]) y result.extend(right[j:]). La explicacion del fallo es clara y el ejemplo concreto (left=[1,2,3], right=[4,5] pierde [4,5]) es valido y bien trazado. Se penaliza ligeramente por defectos de generacion en el texto final: 'no se incluyendo', 'no seieron consumidos', 'esos seAppendan', que degradan la calidad de la redaccion aunque no afectan al diagnostico ni al codigo corregido.",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"Identifica exactamente el bug (merge no concatena los elementos restantes tras salir del while) y da la correccion correcta con result.extend(left[i:]) y result.extend(right[j:]). La explicacion del fallo es clara y el ejemplo concreto (left=[1,2,3], right=[4,5] pierde [4,5]) es valido y bien trazado. Se penaliza ligeramente por defectos de generacion en el texto final: 'no se incluyendo', 'no seieron consumidos', 'esos seAppendan', que degradan la calidad de la redaccion aunque no afectan al diagnostico ni al codigo corregido.\"}"
+      },
+      "judge_time": 17.41
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "code_mellum_02",
+      "category": "generacion_codigo",
+      "test_prompt": "Implementa un decorador @retry en Python con la siguiente especificacion:\n\n- Parametros: max_attempts (int), delay (float, segundos), exceptions (tuple de tipos de excepcion)\n- Reintenta la funcion decorada hasta max_attempts veces si lanza alguna de las excepciones indicadas\n- Espera delay segundos entre reintentos\n- Si se agotan los intentos, relanza la ultima excepcion\n- Si la funcion tiene exito, devuelve su resultado normalmente\n\nUso esperado:\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url):\n    ...",
+      "evaluation_criteria": "Evaluar si el decorador implementado cumple todos los requisitos de la especificacion: (1) acepta los tres parametros max_attempts, delay y exceptions, (2) reintenta solo ante las excepciones especificadas, (3) espera delay segundos entre reintentos usando time.sleep, (4) relanza la ultima excepcion al agotar los intentos, (5) devuelve el resultado correctamente cuando la funcion tiene exito. Verificar que la implementacion es correcta como decorador de fabrica (doble nivel de wrapping). Penalizar si falta alguno de los requisitos, si el manejo de excepciones es incorrecto, o si la estructura del decorador es defectuosa.",
+      "model_response": "Aquí tienes la implementación del decorador **`@retry`** tal como lo especificas.  \nLa idea es:\n\n* Intentar la función hasta **`max_attempts`** veces en total.  \n* Si lanza una excepción contenida en **`exceptions`**, se vuelve a intentar.  \n* Después de cada intento **fallido** (excepto el último), se espera **`delay`** segundos.  \n* Si se agotan los intentos, se re‑lancea la última excepción.  \n* Si el intento tiene éxito, se retorna el resultado directamente.\n\n```python\nimport time\nfrom functools import wraps\n\ndef retry(max_attempts: int, delay: float = 1.0, exceptions: tuple = ()):\n    \"\"\"\n    Decorador de reintentos.\n    \n    :param max_attempts: Número total de intentos (incluye el primero).\n    :param delay: Tiempo en segundos a esperar entre reintentos.\n    :param exceptions: Tupla con clases de excepción que deben provocar un reintento.\n    \"\"\"\n    def decorator(func):\n        @wraps(func)\n        def wrapper(*args, **kwargs):\n            last_exc = None\n            for attempt in range(max_attempts):\n                try:\n                    return func(*args, **kwargs)\n                except exceptions as exc:\n                    last_exc = exc\n                    # Esperar solo si no es el último intento\n                    if attempt + 1 < max_attempts:\n                        time.sleep(delay)\n            # Se agotaron los intentos: lanzar la última excepción\n            if last_exc is not None:\n                raise last_exc\n        return wrapper\n    return decorator\n```\n\n### Ejemplo de uso según tu especificación\n\n```python\n@retry(max_attempts=3, delay=1.0, exceptions=(IOError, TimeoutError))\ndef fetch_data(url: str):\n    \"\"\"Función que se ejecutará hasta 3 veces si lanza IOError o TimeoutError.\"\"\"\n    # ... lógica de lectura de la URL ...\n    # raise IOError(\"no se pudo leer\")   # ejemplo de excepción a reintentar\n    return \"datos obtenidos\"\n```\n\n**Comportamiento:**\n\n| Situación | Resultado |\n|-----------|-----------|\n| Se lanza una excepción entre `exceptions` | Se vuelve a llamar a la función después de esperar `delay` segundos. |\n| Se lanza una excepción **no** incluida en `exceptions` | Se propaga inmediatamente sin esperas ni reintentos. |\n| Todo falla tras `max_attempts` | Se re‑lancea la última excepción captured. |\n| El intento final tiene éxito | Se retorna el resultado real. |\n\nUsa el decorador tal cual se muestra arriba; con el ejemplo `fetch_data` el resultado será correcto y cumplirá la especificación solicitada.",
+      "response_time": 323.09,
+      "completion_tokens": 5840,
+      "gen_tps": 18.08,
+      "evaluation": {
+        "score": 9,
+        "justification": "La implementacion cumple los cinco requisitos: acepta max_attempts, delay y exceptions; usa la estructura correcta de decorador de fabrica (retry -> decorator -> wrapper) con functools.wraps; captura solo las excepciones indicadas (las demas se propagan de inmediato); espera con time.sleep solo entre reintentos, sin dormir tras el ultimo intento; relanza la ultima excepcion al agotar los intentos y devuelve el resultado con return func(...) en caso de exito. La explicacion y el ejemplo coinciden con el uso esperado. Deducciones menores: si max_attempts es 0 o negativo el wrapper devuelve None en silencio en vez de lanzar error; el valor por defecto exceptions=() desactiva el reintento de forma poco evidente en lugar de exigir el parametro; y la respuesta incluye algo de relleno (tabla redundante, erratas como 'captured').",
+        "judge_raw_response": "{\"score\": 9, \"justification\": \"La implementacion cumple los cinco requisitos: acepta max_attempts, delay y exceptions; usa la estructura correcta de decorador de fabrica (retry -> decorator -> wrapper) con functools.wraps; captura solo las excepciones indicadas (las demas se propagan de inmediato); espera con time.sleep solo entre reintentos, sin dormir tras el ultimo intento; relanza la ultima excepcion al agotar los intentos y devuelve el resultado con return func(...) en caso de exito. La explicacion y el ejemplo coinciden con el uso esperado. Deducciones menores: si max_attempts es 0 o negativo el wrapper devuelve None en silencio en vez de lanzar error; el valor por defecto exceptions=() desactiva el reintento de forma poco evidente en lugar de exigir el parametro; y la respuesta incluye algo de relleno (tabla redundante, erratas como 'captured').\"}"
+      },
+      "judge_time": 22.8
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "code_mellum_03",
+      "category": "generacion_codigo",
+      "test_prompt": "Escribe una funcion Python que encuentre TODOS los pares de indices (i, j) en una lista de enteros cuya suma sea igual a un target dado, donde i < j. La solucion debe ser O(n), no O(n²).\n\nEjemplo:\nfind_pairs([1, 2, 3, 4, 5], target=5) → [(0, 3), (1, 2)]\nfind_pairs([1, 1, 2, 3], target=4) → [(1, 3), (0, 3)] o equivalente\n\nNo uses fuerza bruta con dos bucles anidados.",
+      "evaluation_criteria": "Evaluar si la solucion es realmente O(n): debe usar una estructura de datos tipo hash map (dict en Python) para buscar el complemento de cada elemento en una sola pasada. Verificar que devuelve todos los pares correctos (no solo uno), que respeta la condicion i < j, y que maneja correctamente duplicados. Penalizar fuertemente si usa dos bucles anidados (O(n²)), si solo devuelve un par en vez de todos, o si el resultado es incorrecto para los ejemplos dados.",
+      "model_response": "Aquí tienes una implementación **O(n)** que no usa bucles anidados sobre los índices del arreglo. Se basa en un diccionario `seen` para recordar, por cada valor, los índices donde ya se ha encontrado.\n\n```python\ndef find_pairs(lst, target):\n    seen = {}      # valor -> lista de índices donde apareció\n    result = []\n    for j, x in enumerate(lst):\n        complement = target - x\n        if complement in seen:\n            for i in seen[complement]:\n                result.append((i, j))\n        seen.setdefault(x, []).append(j)\n    return result\n```\n\n### Cómo funciona\n1. Recorres la lista una sola vez con `enumerate`, obteniendo el índice actual `j` y su valor `x`.\n2. Calculas el complemento necesario: `complement = target - x`.\n3. Si ese complemento ya aparece en `seen`, significa que hay uno o más índices `i` anteriores (`i < j`) cuyos valores suman `target`. Para cada uno de esos `i`, Registras el par `(i, j)`.\n4. Después de consultar, añades el índice actual `j` al registro del valor `x`, para que futuros elementos puedan formar pares con él.\n5. Como solo se consultan índices ya vistos, se garantiza invariablemente `i < j`. Además, cada par válido se descubre exactamente una vez (cuando se procesa el índice mayor `j`).\n\n### Complejidad\n- **Tiempo:** O(n) de promedio con un diccionario (cada elemento se inspecciona una vez). El bucle interno solo itera sobre los pares válidos ya encontrados, no recorre el arreglo de nuevo. El trabajo adicional es proporcional al número de pares resultantes.\n- **Espacio:** O(n) para almacenar los índices en el diccionario.\n\n### Pruebas\n- `find_pairs([1, 2, 3, 4, 5], 5)` → `[(1, 2), (0, 3)]` (equivalente al esperado).\n- `find_pairs([1, 1, 2, 3], 4)` → `[(0, 3), (1, 3)]` (equivalente al esperado).\n\nNota: si el número de pares válidos es grande, la lista de resultados crecerá proporcionalmente a ellos; el algoritmo de escaneo y registro sigue siendo lineal respecto a la entrada original.",
+      "response_time": 394.67,
+      "completion_tokens": 7059,
+      "gen_tps": 17.89,
+      "evaluation": {
+        "score": 10,
+        "justification": "La solucion es correcta y optima: una sola pasada con `enumerate` y un dict `seen` que mapea valor -> lista de indices previos, consultando el complemento `target - x` antes de insertar el indice actual, lo que garantiza i < j por construccion y maneja duplicados correctamente (lista de indices en vez de un solo indice). Devuelve TODOS los pares, no solo uno, y no usa dos bucles anidados sobre la lista: el bucle interno recorre unicamente los indices que ya forman par, es decir, es proporcional al tamano de la salida. Verificados ambos ejemplos: [1,2,3,4,5] target 5 -> [(1,2),(0,3)] y [1,1,2,3] target 4 -> [(0,3),(1,3)], ambos coinciden exactamente con lo que la respuesta afirma y son equivalentes a lo esperado. Merito adicional: explica con honestidad el matiz de complejidad (O(n) amortizado en el escaneo mas coste proporcional al numero de pares, ya que listar todos los pares no puede ser estrictamente O(n) en el peor caso, p.ej. lista de ceros con target 0), en lugar de afirmar falsamente O(n) absoluto. Codigo minimo, idiomatico (`setdefault`) y sin abstracciones innecesarias. Unico defecto trivial: una mayuscula errante en la explicacion ('Registras'), irrelevante para la correccion.",
+        "judge_raw_response": "{\"score\": 10, \"justification\": \"La solucion es correcta y optima: una sola pasada con `enumerate` y un dict `seen` que mapea valor -> lista de indices previos, consultando el complemento `target - x` antes de insertar el indice actual, lo que garantiza i < j por construccion y maneja duplicados correctamente (lista de indices en vez de un solo indice). Devuelve TODOS los pares, no solo uno, y no usa dos bucles anidados sobre la lista: el bucle interno recorre unicamente los indices que ya forman par, es decir, es proporcional al tamano de la salida. Verificados ambos ejemplos: [1,2,3,4,5] target 5 -> [(1,2),(0,3)] y [1,1,2,3] target 4 -> [(0,3),(1,3)], ambos coinciden exactamente con lo que la respuesta afirma y son equivalentes a lo esperado. Merito adicional: explica con honestidad el matiz de complejidad (O(n) amortizado en el escaneo mas coste proporcional al numero de pares, ya que listar todos los pares no puede ser estrictamente O(n) en el peor caso, p.ej. lista de ceros con target 0), en lugar de afirmar falsamente O(n) absoluto. Codigo minimo, idiomatico (`setdefault`) y sin abstracciones innecesarias. Unico defecto trivial: una mayuscula errante en la explicacion ('Registras'), irrelevante para la correccion.\"}"
+      },
+      "judge_time": 28.14
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "bench_pp512",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 512,
+      "n_generate_actual": 1,
+      "pp_tps": 151.04,
+      "tg_tps": null,
+      "response_time": 3.39,
+      "completion_tokens": 1,
+      "gen_tps": null,
+      "model_response": "pp=151.0 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=151.0 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "bench_tg128",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 64,
+      "n_generate_actual": 128,
+      "pp_tps": 149.22,
+      "tg_tps": 19.98,
+      "response_time": 6.79,
+      "completion_tokens": 128,
+      "gen_tps": 19.98,
+      "model_response": "pp=149.2 tk/s  tg=20.0 tk/s",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "pp=149.2 tk/s  tg=20.0 tk/s",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "bench_pp16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    },
+    {
+      "model_name": "Dory1.0-4B Q5_K_M 2 loops (Remote pc1060 Vulkan)",
+      "model_type": "remote",
+      "server_cmd": "ssh admin@pc1060.intra ~/Downloads/llama-dory-vulkan/llama-server.exe -m ~/models/dory/Dory1.0-4B-Q5_K_M.gguf --host 0.0.0.0 --port 8082 -ctk f16 -ctv f16 --ctx-size 16384 --no-mmproj -ngl 99 -fa on --jinja --reasoning on --override-kv dory.num_loops=int:2 --top-p 0.95 --top-k 0 --min-p 0 --repeat-penalty 1",
+      "test_id": "bench_tg128_16k",
+      "category": "benchmark",
+      "benchmark": true,
+      "n_prompt_actual": 16384,
+      "n_generate_actual": 0,
+      "pp_tps": null,
+      "tg_tps": null,
+      "response_time": 0,
+      "completion_tokens": 0,
+      "gen_tps": null,
+      "model_response": "timeout",
+      "test_prompt": "",
+      "evaluation_criteria": "",
+      "evaluation": {
+        "score": -1,
+        "justification": "timeout",
+        "judge_raw_response": ""
+      },
+      "judge_time": 0
+    }
+  ]
+}
